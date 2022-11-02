@@ -20,6 +20,8 @@
 *.Rda
 *.txt
 
+.Rhistory
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -372,3 +374,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 .Rproj.user
+content/02-Datenaufbereitung I/slides/.Rhistory
