@@ -1,0 +1,858 @@
+---
+title: "Einführung & Überblick"
+title-slide-attributes:
+  # data-background-image: ../../background_title-dimmed_red_light.png
+  data-background-color: "#04316a"
+subtitle: "Digital behavioral data – Session 02"
+author: 
+  - name: Christoph Adrian 
+    url: https://twitter.com/chrdrn
+    affiliation: Lehrstuhl für Kommunikationswissenschaft
+    affiliation-url: https://www.kowi.rw.fau.de/person/christoph-adrian/
+date: 02 11 2022
+date-format: "DD.MM.YYYY"
+format:
+  revealjs:
+    theme: ../../slidetheme.scss
+    template-partials:
+      - title-slide.html
+    slide-number: true
+    chalkboard:
+      buttons: false
+    preview-links: auto
+    logo: ../../logo.png
+    footer: "[Digital Behavioral Data](https://chrdrn.github.io/digital-behavioral-data/)"
+comments:
+  hypothesis: 
+    theme: clean
+filters:
+  - roughnotation
+execute:
+  echo: true
+bibliography: references.bib
+csl: ../../apa.csl
+---
+
+## Seminarplan {.smaller}
+
+| Sitzung                                              | Datum                                                         | Thema                                                               | Referent\*Innen                                                     |
+|------------------|------------------|------------------|-------------------|
+| [1]{.rn rn-type="strike-through" rn-color="#E6002E"} | [26.10.2022]{.rn rn-type="strike-through" rn-color="#E6002E"} | [Kick-Off Session]{.rn rn-type="strike-through" rn-color="#E6002E"} | [Christoph Adrian]{.rn rn-type="strike-through" rn-color="#E6002E"} |
+| [**2**]{.rn rn-type="highlight"}                     | [**02.11.2022**]{.rn rn-type="highlight"}                     | [**DBD: Einführung und Überblick**]{.rn rn-type="highlight"}        | [**Christoph Adrian**]{.rn rn-type="highlight"}                     |
+| 3                                                    | 09.11.2022                                                    | DBD: Datenerhebung                                                  | Christoph Adrian                                                    |
+| 4                                                    | 16.11.2022                                                    | API-Access (I): *Twitter*                                           | Falk                                                                |
+| 5                                                    | 23.11.2022                                                    | API-Access (II): *YouTube*                                          | Denisov                                                             |
+| 6                                                    | 30.11.2022                                                    | API-Access (II): *Reddit*                                           | Landauer                                                            |
+| 7                                                    | 07.12.2022                                                    | Webscraping: *TikTok*                                               | Brand & Kocher                                                      |
+| 8                                                    | 14.12.2022                                                    | ESM: *m-path*                                                       | Dörr                                                                |
+|                                                      |                                                               | *WEIHNACHTSPAUSE*                                                   |                                                                     |
+| 9                                                    | 12.01.2023                                                    | Data Donations                                                      |                                                                     |
+| 10                                                   | 19.01.2023                                                    | Mock-Up-Virtual Environments                                        |                                                                     |
+| 11                                                   | 26.01.2023                                                    | Open Science                                                        |                                                                     |
+| 12                                                   | 02.02.2023                                                    | ***Guest Lecture: Linking DBD & Survey data***                      | [Johannes Breuer](https://www.johannesbreuer.com/)                  |
+| 13                                                   | 09.02.2023                                                    | Semesterabschluss & Evaluation                                      | Christoph Adrian                                                    |
+
+::: notes
+▶️
+:::
+
+# Agenda
+
+1.  **Organisation und Koordination**
+
+2.  **A short (re-)introduction to DBD**
+
+3.  **Herausforderungen von DBD**
+
+4.  **Wichtige Rahmenbedingungen von DBD**
+
+5.  **Group Activity**
+
+::: notes
+-   Basistext als Einführung, zusätzliche Inhalte im Seminar
+
+-   Idee der Sitzung: Sensibilisierung für Problemstellungen --\> Nützlich für Ihre eigenen Sitzungen!
+
+-   Feedback zu Fragen in Group Activity
+:::
+
+# Organisation & Koordination {background-color="#E6002E"}
+
+Fragen, MS Teams & alternativer Seminarplan
+
+## Kursmaterialien, Literatur etc.
+
+#### Kurze Einführung in Teams
+
+![](images/ms_teams.png){fig-align="center"}
+
+::: notes
+-   Siehe: Webpage zum Kurs
+
+-   Siehe: Syllabus
+:::
+
+## Vorschlag: Alternativer Seminarplan {.smaller}
+
+| Sitzung         | Datum                                                     | Thema                                                                | Referent\*Innen                                     |
+|------------------|------------------|------------------|-------------------|
+| 1               | 26.10.2022                                                | Kick-Off Session                                                     | Christoph Adrian                                    |
+| [2]{.smallcaps} | [02.11.2022]{.smallcaps}                                  | [DBD: Einführung und Überblick]{.smallcaps}                          | [Christoph Adrian]{.smallcaps}                      |
+| 3               | 09.11.2022                                                | DBD: Datenerhebung                                                   | Christoph Adrian                                    |
+| 4               | 16.11.2022                                                | API-Access (I): *Twitter*                                            | Falk                                                |
+| 5               | 23.11.2022                                                | API-Access (II): *YouTube*                                           | Denisov                                             |
+| 6               | 30.11.2022                                                | API-Access (II): *Reddit*                                            | Landauer                                            |
+| 7               | 07.12.2022                                                | Webscraping: *TikTok*                                                | Brand & Kocher                                      |
+| **8**           | [**14.12.2022**]{.rn rn-type="circle" rn-color="#E6002E"} | [**Exkurs: DBD Analyse mit R**]{.rn rn-type="box" rn-color="orange"} | **Christoph Adrian**                                |
+|                 |                                                           | *WEIHNACHTSPAUSE*                                                    |                                                     |
+| **9**           | [**12.01.2023**]{.rn rn-type="circle" rn-color="#E6002E"} | [**ESM: m-path**]{.rn rn-type="highlight"}                           | **Dörr**                                            |
+| **10**          | [**19.01.2023**]{.rn rn-type="circle" rn-color="#E6002E"} | **TBD**                                                              | [**Hofmann & Wierzbicki**]{.rn rn-type="highlight"} |
+| 11              | 26.01.2023                                                | Puffer                                                               |                                                     |
+| 12              | 02.02.2023                                                | ***Guest Lecture: Linking DBD & Survey data***                       | [Johannes Breuer](https://www.johannesbreuer.com/)  |
+| 13              | 09.02.2023                                                | Semesterabschluss & Evaluation                                       | Christoph Adrian                                    |
+
+::: notes
+▶️
+:::
+
+# A short (re-)introduction {background-color="#E6002E"}
+
+Was sind *digital behavior data*?
+
+Und *was* können wir mit Ihnen *untersuchen*?
+
+## DBD -- Was ist das eigentlich?
+
+#### Rückblick auf Definition nach @weller2021
+
+-   ... fasst eine **Vielzahl von möglichen Datenquellen** zusammen, die verschiedene Arten von **Aktivitäten aufzeichnen** (*häufig sogar "nur" als Nebenprodukt*)
+
+-   ... können dabei helfen, **Meinungen, Verhalten und Merkmale der menschlichen Nutzung digitaler Technologien** zu erkennen
+
+<br>
+
+::: fragment
+#### **Im Kontext dieses Seminars:**
+
+-   Schwerpunkt: **Nutzung und Inhalte** von **soziale Medien**
+-   **Computational Social Science** \[CSS\] **Verfahren**, z.B. zur Erhebung, Verarbeitung, Auswertung und Präsentation
+:::
+
+## Ohne CSS keine DBD
+
+#### Kurzer Exkurs zur Bedeutung von Computational Social Science
+
+::: {.callout-important appearance="minimal"}
+**Definition (Computational Social Science).**
+
+We define CSS as the development and application of computational methods to complex, typically large-scale, human (sometimes simulated) behavioral data." [@lazer2020]
+:::
+
+**hilft dabei ...**
+
+-   genuine digitale Phänomene zu untersuchen
+
+-   digitale Verhaltensdaten zu sammeln und vorzuverarbeiten
+
+-   neue Methoden zur Analyse von großen Datensätzen anzuwenden
+
+::: notes
+CSS = neues Teilgebiet der Sozialwissenschaften oder neuer "Werkzeugkasten" zur Ergänzung der traditionellen sozialwissenschaftlichen Ansätze
+:::
+
+## Und was können wir damit untersuchen?
+
+#### Beispiele für & Kategorisierung von untersuchbaren Verhalten & Interaktionen
+
+::: columns
+::: {.column width="65%"}
+![Quelle: @keusch2021](images/dbd_matrix.png){fig-align="center" width="1024"}
+:::
+
+::: {.column width="35%"}
+<br>
+
+##### **Einschränkungen**
+
+-   Kategorisierung ist **Momentaufnahme** und nicht überschneidungsfrei
+
+-   **Selektive Nutzung** von bestimmten digitalen Geräten bzw. Funktionen
+:::
+:::
+
+::: notes
+-   Kategorien: Digital/Analog individual/social behavior
+
+-   Einige inhärent digitale Verhalten (z.B. Web Searches) bei zunehmender Digitalisierung von analogen Verhalten (z.B. Collaborative Work)
+
+-   Fehlen digitaler Spurendaten in all diesen Quadranten für bestimmte Personen und bestimmte Verhaltensweisen durch selektive Nutzung digitaler Geräte.
+:::
+
+## Verfügbarkeit als Pluspunkt
+
+#### DBD als wertvolle Quelle bei aktuellen, sensiblen & unvorhersehbaren Themen
+
+<br>
+
+**Einsatz besonders Vorteilhaft bei Themen bzw. Untersuchungen ...**
+
+-   ... für die es **schwierig** ist, Studienteilnehmer\*innen zu **rekrutieren**
+-   ... bei denen **Beobachtungen** **vorteilhafter** sind als Befragungen
+
+***Beispiel: Streaming und/oder Mining von Inhalten aus bestehenden digitalen Kommunikationsströmen***
+
+-   **Zeitnaher** als die Erstellung einer Umfrage
+-   Zusätzlicher Nutzen als **Archiv** bei **unvorhersehbaren** **Ereignissen**
+
+::: notes
+🔔 --\> Beispiele?
+
+-   Meinung zu Corona auf Basis von Tweets
+
+-   Well-being auf Basis von Instagram-Bildern & Texten
+:::
+
+## Mehr Daten durch technologischen Fortschritt
+
+#### Beispiel: Wachsenden Anzahl eingebauter Smartphone-Sensoren
+
+![Graphik aus @struminskaya2020](images/dbd_smartphone_development.jpeg){alt="Aus @struminskaya2020" fig-align="center"}
+
+<!--# TODO: Bedeutung/Funktion der einzelnen Sensoren -->
+
+## Eine kleine Lobeshymne auf DBD
+
+#### Zwischenfazit
+
+-   Digitale Geräte oder **Sensoren** können sich besser an bestimmte Fakten **besser "erinnern"** als das menschliche Gedächtnis.
+
+-   Sensoren sind oft bereits **in alltägliche Technologie eingebaut** und produzieren digitale Verhaltensdaten als ein "Nebenprodukt".
+
+-   Unaufdringliche Erfassung als potentieller Vorteil bzw. **Entlastung für Teilnehmer\*Innen**
+
+-   **Kombination mit Umfragedaten** möglich (und [bereichernd]{.rn rn-type="underline" rn-color="#E6002E"}!)
+
+::: fragment
+::: {.rn rn-type="box" rn-color="#E6002E"}
+**Aber:**
+
+Zur erfolgreichen Nutzung müssen [Forschungsziele & verfügbare Daten in Einklang]{.rn rn-type="highlight"} gebracht, mögliche [Biases und methodische Probleme]{.rn rn-type="highlight"} berücksichttigt sowie die [Datenqualität]{.rn rn-type="highlight"} evaluiert werden.
+:::
+:::
+
+::: notes
+▶️
+:::
+
+# Herausforderungen von DBD {background-color="#E6002E"}
+
+Der Umgang mit Biases, methodischen Tücken und ethischen Einschränkungen
+
+## Wenn der Vorteil zum Nachteil wird
+
+#### Ambivalenz der Unaufdringlichkeit [@keusch2021]
+
+-   Unterscheidung zwischen **aufdringlichen** *(z.B. spezielle Research-App & Befragungen)* **& unaufdringlichen** *(z.B. Cookies, Browserplugins & APIs)* **erhobenen Daten**
+
+-   **Bewertung** und Erwartung an Datensammlung ist **abhängig vom Kontex**t (*z.B. Amazon vs. Researchgate*)
+
+::: fragment
+::: {.rn rn-type="box" rn-color="#E6002E"}
+[**Dilema:**]{.rn rn-type="circle" rn-color="#E6002E"}
+
+Einerseits bereitwillige (oft unwissende) [Abgabe]{.rn rn-type="highlight"} der Daten [an Konzerne]{.rn rn-type="highlight"}, andererseits häufig [Bedenken]{.rn rn-type="highlight"} bezüglich Datenschutz & Privatsphäre bei [wissenschaftlichen Studien]{.rn rn-type="highlight"}
+:::
+:::
+
+::: notes
+▶️ \| 🔔 --\> Gründe für Ablehnung: Nutzenorientierung?
+:::
+
+## The End of Theory
+
+::: {.fragment fragment-index="1"}
+#### Zur Wichtigkeit von konzipierte Messungen & Designs
+:::
+
+> ["Who knows why people do what they do? The point is they do it, and we can track and measure it with unprecedented fidelity. With enough data, the numbers speak for themselves." [@anderson2008]]{.rn rn-type="strike-through" rn-color="#E6002E" rn-multiline="true"}
+
+::: {.fragment .semi-fade-out fragment-index="1"}
+### Was denken Sie?
+:::
+
+::: {.fragment fragment-index="1"}
+> "Size alone does [not]{.rn rn-type="underline" rn-color="#E6002E"} necessarily make the data better" [@boyd2007]
+
+> "There are a lot of small data problems that occur in big data \[which\] don't disappear because you've got lots of the stuff. [They get worse.]{.rn rn-type="underline" rn-color="#E6002E"}" [@harford2014]
+:::
+
+::: notes
+▶️ \| 🔔
+:::
+
+## We need to talk about [biases]{.smallcaps}
+
+#### Spezifische und allgemeine Herausforderungen für die Forschung mit DBD
+
+**Hintergrund**: (*Big) Data ist zunehmend Grundlage für politische Maßnahmen, die Gestaltung von Produkten und Dienstleistungen und für die automatisierte Entscheidungsfindung*
+
+-   **Herausforderungen in Bezug auf DBD-Forschung:** fehlender Konsens über ein Vokabular oder eine Taxonomie, häufig nur impliziter Bezug in der Forschung
+
+-   **Generelle Herausforderung:** [bias]{.rn rn-type="box" rn-color="#e6002e"} ist ein weit gefasster & in unterschiedlichen Disziplinen genutzter Begriff\
+
+::: notes
+▶️
+
+"bias" hier im statistischen Sinne
+
+Punkt2:
+
+-   *conformation bias* und andere kognitive Voreingenommenheiten (Croskerry, 2002)
+
+-   systemische, diskriminierende Ergebnisse (Friedman und Nissenbaum, 1996)
+
+-   systemische Schäden (Barocas et al., 2017)
+:::
+
+<!--# Was bedeuten hier "systematische Schäde"-->
+
+## Know your bias!
+
+#### Framework zur Minimierung von Fehlern und Problemen [@olteanu2019]
+
+![](images/bias_framework_without_legend.png){fig-align="center"}
+
+::: notes
+Beschreibung:
+
+-   Die Analyse sozialer Daten beginnt mit bestimmten Zielen (Abschnitt 2.1), wie dem Verständnis oder der Beeinflussung von Phänomenen, die für soziale Plattformen spezifisch sind (Typ I) und/oder von Phänomenen, die über soziale Plattformen hinausgehen (Typ II).
+
+-   Diese Ziele erfordern, dass die Forschung bestimmte Validitätskriterien erfüllt, die weiter oben beschrieben wurden (Abschnitt 2.2).
+
+-   Diese Kriterien können ihrerseits durch eine Reihe von allgemeinen Verzerrungen und Problemen beeinträchtigt werden (Abschnitt 3).
+
+-   Diese Herausforderungen können von den Merkmalen der einzelnen Datenplattformen (Abschnitt 4) abhängen - die oft nicht unter der Kontrolle des Forschers stehen - und von den Entscheidungen des Forschungsdesigns entlang einer Datenverarbeitungspipeline (Abschnitte 5 bis 8) - die oft unter der Kontrolle des Forschers stehen.
+
+-   Pfeile zeigen an, wie sich Komponenten in unserem Rahmenwerk direkt auf andere auswirken
+:::
+
+## Worauf wirkt die Verzerrung?
+
+#### Beispiele für Forschung von Typ I & II [@olteanu2019]
+
+![](images/bias_framework_without_legend_v1.png){fig-align="center"}
+
+::: notes
+**Typ I: understand/influence phenomena [specific]{.underline} to social platforms**
+
+-   Dynamik der Verbreitung von "Memes"
+-   Steigerung der Attraktivität bzw. besonders Features
+-   Verbesserung der Suchfunktion oder des Empfehlungssystems
+
+**Typ II: understand/influence phenomena [beyond]{.underline} social platforms**
+
+-   Beschreibung des Einflusses sozialer Medien auf eine politische Wahl.
+
+-   Nutzung sozialer Daten zur Verfolgung der Entwicklung ansteckender Krankheiten durch Analyse der von Social-Media-Nutzern online gemeldeten Symptomen
+:::
+
+## Zu welchen Problemen führen verschiedene Biases?
+
+#### Einflüsse von Biases auf Datenqualität
+
+![](images/bias_framework_without_legend_v2.png){fig-align="center"}
+
+::: notes
+-   Um diese Probleme in das umfassendere Konzept der Datenqualität einzuordnen, geben wir zunächst einen kurzen Überblick über bekannte Probleme der Datenqualität.
+
+-   **Datenqualität** ist ein vielschichtiges Konzept, typische Elemente sind *Genauigkeit, Vollständigkeit, Konsistenz, Aktualität* und *Zugänglichkeit.*
+:::
+
+## Datenqualität & *data bias* {.smaller}
+
+::: {.callout-important appearance="minimal"}
+**Definition (Data bias).**
+
+A systematic distortion in the sampled data that compromises its representativeness**.**
+:::
+
+##### **Potentielle Probleme**
+
+-   ***Sparsity:*** Häufig *Heavy-Tail*-Verteilung, was Analyse am "Kopf" (in Bezug auf häufige Elemente oder Phänomene) erleichtert, am "Schwanz" (wie seltene Elemente oder Phänomene) jedoch erschwert [@baeza-yates2013]
+
+-   ***Noise:*** Unvollständige, beschädigte, unzuverlässige oder unglaubwürdige Inhalte [@boyd2012; @naveed2011]
+
+    -   Unterscheidung von "Noise" und "Signal" ist oft unklar und hängt von der Forschungsfrage ab [@salganik2018]
+
+-   ***Organische vs gemessene Daten:*** Fragen zur Repräsentativität (vs. Stichprobenbeschreibung), Kausalität (vs. Korrelation) und Vorhersagegüte
+
+## Im Fokus: Population Bias {.smaller}
+
+::: {.callout-important appearance="minimal"}
+**Definition (Population biases).**
+
+Systematic distortions in demographics or other user characteristics between a population of users represented in a dataset or on a platform and some target population.
+:::
+
+##### Potentielle Probleme
+
+-   **Unterschiedliche Demographien** (z.B. Geschlechts-, Alters- & Bildungsgruppen) neigen zu **unterschiedlichen sozialen Plattformen**[^1] und nutzen deren **Mechanismen**[^2] unterschiedlich
+
+-   **Proxies** für Eigenschaften oder demografische Kriterien der Nutzenden sind **unterschiedlich** **verlässlich**[^3]
+
+[^1]: *Signifikant mehr Twitter-Nutzer (Mislove et al. ,2011), bei Pinterest tendenziell Nutzerinnen überrepräsentiert (Ottoni et al., 2013)*
+
+[^2]: *Unterschiedliche Twitter-Nutzung in Deutschland (Fokus auf Hashtags) und Korea (Fokus auf Konversationen) (Hong et al., 2011)*
+
+[^3]: *Angabe über Alumni-Status einer bestimmten Gruppe von Universitäten als Quelle für Verzerrung bei Meinung junger Hochschulabsolvent\*Innen zu einem neuen Gesetz (Ruths und Pfeffer, 2014)*
+
+::: notes
+Häufig ist der Zusammenhang von Untersuchungspopulation (z.B. in Deutschland lebende Erwachsene) zu Zielpopulation (Erwachsene auf Twitter, die angeben, in DE zu leben) unbekannt.
+
+Beispiel "Auswirkungen"
+
+-   kann die (Stichproben)-Repräsentativität beeinträchtigen\
+    ➥ ⚠️externe Validität
+-   besonders problematisch für Forschungsarbeiten des Typs II
+-   kann sich auch auf die Leistung von Algorithmen auswirken, die Rückschlüsse auf die Nutzer ziehen\
+    ➥ ⚠️interne Validität (Typ-I & Typ II)
+    -   Schätzung der Geo-Location im Stadt-Land-Spektrum (z.B Johnson et al., 2017)
+:::
+
+## Im Fokus: Behavioral Biases {.smaller}
+
+::: {.callout-important appearance="minimal"}
+**Definition (Behavioral biases).**
+
+Systematic distortions in user behavior across platforms or contexts, or across users represented in different datasets.
+:::
+
+##### Potentielle Probleme
+
+-   Beeinflussung der **Art und Weise**, wie Nutzer\*Innen miteinander **interagieren**[^4]
+
+-   Auftreten von **Selbstselektion**[^5] und **Reaktionsverzerrungen**[^6][^7]
+
+[^4]: *Interaktionsmuster viel spärlicher als explizit erstellte soziale Verbindungen (20 % der Verbindungen haben 80 % der Interaktionen) (Wilson et al., 2009)*
+
+[^5]: *Passivität trotz Interesse an bestimmten Themen (Gong et al., 2016), aber: Aktivität nicht sichtbar oder Selbstzensur (Wang et al., 2011; Das und Kramer, 2013; Matias et al., 2015)?*
+
+[^6]: *Nutzer\*Innen reden eher über extreme oder positive Erfahrungen als über gewöhnliche oder negative Erfahrungen (Kícíman, 2012; Guerra et al., 2014). (response bias)*
+
+[^7]: *75 % der Foursquare-Check-ins stimmen nicht mit der tatsächlichen Mobilität der Nutzer übereinstimmen (Zhang et al., 2013)*
+
+::: notes
+Unterschiede in Bezug auf Nutzerpersönlichkeiten (Hughes et al., 2012), die Verbreitung von Nachrichten (Lerman und Ghosh, 2010) oder den Austausch von Inhalten (Ottoni et al., 2014)
+
+##### Auswirkungen:
+
+-   Ergebnisse einer Studie von der gewählten Plattform oder dem Kontext abhängig\
+    ➤ ⚠️externe Validität
+
+-   nur Teilweise von population bias abhängig
+
+-   bei (expliziten oder impliziten) Annahmen über die Verhaltensmuster der Nutzenden\
+    ➤ ⚠️potentielle Effekte auf Untersuchung von Typ-I & Typ II (z.B. Untersuchung der Bedürfnisse oder Interessen der Nutzenden)
+
+Beispiel "Probleme":
+
+-   Gesonderte Diskussion von Verhalten, die sich auf die Erstellung von Inhalten durch die Nutzer auswirken ("content production bias") und solche, die sich auf die Verknüpfungsmuster zwischen Nutzern auswirken ("linking bias").
+
+-   Drei weitere häufige Klassen von Verhaltensverzerrungen betreffen die Interaktionen zwischen Nutzern, die Interaktionen zwischen Nutzern und Inhalten und die Verzerrungen, die dazu führen, dass Nutzer in eine Studienpopulation aufgenommen oder von ihr ausgeschlossen werden.
+:::
+
+## Im Fokus: Content Production Biases {.smaller}
+
+::: {.callout-important appearance="minimal"}
+**Definition (Content Production Biases)**
+
+Behavioral biases that are expressed as lexical, syntactic, semantic, and structural differences in the content generated by users.
+:::
+
+##### Potentielle Probleme:
+
+-   Der **Gebrauch der Sprache(n)** variiert zwischen und innerhalb von Ländern und Bevölkerungsgruppen.[^8]
+
+-   **Kontextbedingte Faktore**n (z.B. zwischenmenschliche Beziehungen) beeinflussen die Art und Weise, wie Benutzer sprechen.[^9]
+
+-   Die Inhalte von **bekannten oder "erfahrenen" Nutzer*innen***unterscheiden sich von denen der normalen Nutzer\*innen.[^10]
+
+-   **Unterschiedliche Bevölkerungsgruppen** haben unterschiedliche **Neigungen**, über bestimmte **Themen** zu sprechen.[^11]
+
+[^8]: *Saisonale Schwankungen in der sprachlichen Zusammensetzung zwischen verschiedenen Gebiete (Länder, Regionen, Nachbarschaften etc.) (Mocanu et al., 2013)*
+
+[^9]: *Mütter und Väter verwenden auf Facebook jeweils unterschiedliche Ansprache für Töchter & Söhne, und umgekehrt. (Burke et al., 2013)*
+
+[^10]: *"Experten"-Nutzer auf Twitter neigen dazu, hauptsächlich Inhalte zu ihrem Fachgebiet zu erstellen (Bhattacharya et al., 2014)*
+
+[^11]: *Diaz et al. (2016) bei der Auswahl politischer Tweets während der US-Wahlen 2012 fest, dass die Nutzerpopulation eher auf Washington, DC, ausgerichtet war, während Olteanu et al. (2016) feststellten, dass Afroamerikaner eher den Twitter-Hashtag #BlackLivesMatter (über eine große Bewegung zur Rassengleichheit in den USA) verwendeten.*
+
+::: notes
+Unterschiede bei nutzergenerierten Inhalten, insbesondere bei Texten, zwischen und innerhalb von demografischen Gruppen
+
+Beispiel 1: Sprachgebrauchsvariationen je nach Geschlecht, Alter, regionaler Herkunft und politischer Orientierung auf Twitter (Rao et al. (2010)), sowie zwischen ethnischen Gruppen (Blodgett et al., 2016).
+
+Beispiel 2: Außerdem zeigen Schwartz et al. (2015), dass die zeitliche Ausrichtung von Botschaften (Betonung der Vergangenheit, Gegenwart oder Zukunft) von Faktoren wie Offenheit für neue Erfahrungen, Anzahl der Freunde, Lebenszufriedenheit oder Depression beeinflusst werden kann.
+
+Beispiel 3: Zafar et al. (2015) zeigen, wie die Konzentration der Stichprobe von Inhalten auf "Experten"-Nutzer die resultierende Stichprobe in Richtung vertrauenswürdigerer und hochwertigerer Inhalte verzerrt.
+:::
+
+## Im Fokus: Linking Bias {.smaller}
+
+::: {.callout-important appearance="minimal"}
+**Definition (Linking Bias)**
+
+Behavioral biases that are expressed as differences in the attributes of networks obtained from user connections, interactions or activity.
+:::
+
+##### Potentielle Probleme:
+
+-   **Netzattribute**[^12][^13][^14] beeinflussen das Verhalten und die Wahrnehmung der Nutzer und umgekehrt
+
+-   **Verhaltensbasierte** und **verbindungsbasierte**[^15] soziale **Verbindungen** sind **unterschiedlich**.
+
+-   Die Bildung sozialer Online-Netzwerke hängt auch von **Faktoren**[^16][^17] außerhalb der sozialen Plattformen ab
+
+[^12]: *Anzahl der Follower der Nutzer\*Innen (Kıcıman, 2010)*
+
+[^13]: *Altersspezifische Distanzen in sozialen Netzwerken (Dong et al., 2016)*
+
+[^14]: *Homophilie - die Tendenz ähnlicher Menschen, miteinander zu interagieren und sich zu verbinden (McPherson et al., 2001)*
+
+[^15]: *Auf expliziten Verbindungen basierende Netzwerk deutlich dichter war als das auf Nutzerinteraktionen basierende (Wilson et al., 2009)*
+
+[^16]: *Geografie (Poblete et al., 2011; Scellato et al., 2011)*
+
+[^17]: *Art und die Dynamik der Offline-Beziehungen die Neigung der Nutzer, soziale Bindungen einzugehen und online zu interagieren (Subrahmanyam et al., 2008; Gilbert und Karahalios, 2009).*
+
+::: notes
+-   Sozialen Netzwerke, die aus beobachteten Mustern in Datensätzen (re)konstruiert werden, können sich grundlegend von den zugrunde liegenden (Offline-)Netzwerken unterscheiden (Schoenebeck, 2013a)\
+    ➤ ⚠️externe Validität ➤ ⚠️ Typ-II & teilweise Typ-I (Fälle, in denen die Interaktions- oder Verknüpfungsmuster der Nutzer mit der Zeit oder dem Kontext variieren)
+
+-   wirken sich beispielsweise auf die Untersuchung der Struktur und Entwicklung sozialer Netzwerke, des sozialen Einflusses und von Phänomenen der Informationsverbreitung aus (Wilson et al., 2009; Cha et al., 2010; Bakshy et al., 2012)
+
+-   Auf sozialen Plattformen können sie auch zu systematisch verzerrten Wahrnehmungen über Nutzer oder Inhalte führen (Lerman et al., 2016).
+:::
+
+## Im Fokus: Temporal Biases {.smaller}
+
+::: {.callout-important appearance="minimal"}
+**Definition (Temporal Biases)**
+
+Systematic distortions across user populations or behaviors over time.
+:::
+
+##### Potentielle Probleme:
+
+-   Bevölkerungsgruppen, Verhaltensweisen[^18] und Systeme v**erändern sich mit der Zeit**[^19].
+
+-   **Saisonale** und **periodische** **Phänomene**[^20][^21].
+
+-   **Plötzlich** **auftretende Phänomene** *(z.B. Anstieg oder Rückgang von besteimmten Aktivitäten*[^22] oder externe Ereignisse wie z.B. Katastrophen) wirken sich auf Populationen, Verhaltensweisen und Plattformen aus.
+
+-   Die **zeitliche Granularität** kann zu **feinkörnig** sein, um langfristige Phänomene zu beobachten, und zu **grobkörnig** sein, um kurzlebige Phänomene zu beobachten.
+
+-   **Datensätze verfallen** und verlieren mit der Zeit an Nutzen[^23].
+
+[^18]: *Schwankungen in Bezug darauf, wann und wie lange sich die Nutzer\*Innen auf bestimmte Themen konzentrieren, was durch aktuelle Trends, saisonale oder periodische Aktivitäten oder sogar durch Lärm ausgelöst werden kann (Radinsky et al., 2012).*
+
+[^19]: *Drei Arten von zeitlichen Schwankungen: Populationsdrift, Verhaltensdrift und Systemdrift.(Salganik, 2017)*
+
+[^20]: *Unterschiedliche zeitliche Kontexte (Tag vs. Nacht, Wochentag vs. Wochenende) verändert die Form der abgeleiteten Nachbarschaftsgrenzen eografisch verorteter Tweets (Kıcıman et al., 2014).*
+
+[^21]: *Zusammenhänge zwischen der Stimmung von Tweets und Schlafzyklen und Saisonalität (Golder und Macy, 2011)*
+
+[^22]: *Einführung einer neuen Plattformfunktion resutliert in plötzlichen Anstieg der Aktivität (Malik und Pfeffer, 2016)*
+
+[^23]: *Nutzer ihre Inhalte und Konten löschen (Liu et al., 2014; Gillespie, 2015)*
+
+::: notes
+Auswirkunge:
+
+-   ➤ ⚠️ eterne Validität
+
+-   Beeinträchtigen Verallgemeinerbarkeit von Beobachtungen im Laufe der Zeit ➤ ⚠️ Typ-I & Typ-II-Forschung problematisch
+
+Probleme:
+
+-   Die Art und Weise, wie man Datensätze entlang der zeitlichen Achsen aggregiert und abschneidet, wirkt sich darauf aus, welche Art von Mustern beobachtet werden und welche Forschungsfragen beantwortet werden können.
+:::
+
+## Im Fokus: Redundancy {.smaller}
+
+::: {.callout-important appearance="minimal"}
+**Definition (Redundancy)**
+
+Single data items that appear in the data in multiple copies, which can be identical (duplicates), or almost identical (near duplicates).
+:::
+
+##### Potentielle Probleme:
+
+-   **Lexikalische** (z. B. Duplikate, erneute Tweets, erneut geteilte Inhalte) und **semantische** (z. B. Beinahe-Duplikate oder dieselbe Bedeutung, aber anders geschrieben) **Redundanz** macht oft einen **erheblichen Teil der Inhalte aus** und kann sowohl **innerhalb als auch zwischen** Datensätzen auftreten.
+-   Weitere Quellen für inhaltliche Redundanz sind häufig **nicht-menschliche Konten,** wie z.B.
+    -   ein und dieselbe **Person**, die **von mehreren Konten oder Plattformen** aus postet (z. B. Spam),
+
+    -   **mehrere Nutzer**, die vom **selben Kont**o aus posten (z. B. Konten von Organisationen),
+
+    -   **mehrere Personen, die denselben Inhalt posten** oder erneut posten (z. B. das Posten von Zitaten, Memes oder anderen Arten von Inhalten).
+
+::: notes
+Auswirkunge:
+
+-   Redundanz kann, wenn sie nicht berücksichtigt wird, sowohl die interne als auch die ökologische/externe Validität der Forschung beeinträchtigen, und zwar sowohl in der Forschung vom Typ I als auch vom Typ II (Abschnitt 2.1). Sie kann sich negativ auf den Nutzen von Instrumenten auswirken (Radlinski et al., 2011) und die Quantifizierung von Phänomenen in den Daten verzerren.
+
+Probleme:
+
+-   Die Art und Weise, wie man Datensätze entlang der zeitlichen Achsen aggregiert und abschneidet, wirkt sich darauf aus, welche Art von Mustern beobachtet werden und welche Forschungsfragen beantwortet werden können.
+-   Dies kann manchmal die Ergebnisse verzerren, aber Redundanz kann auch ein Signal an sich sein, z. B. kann das erneute Posten ein Signal für Wichtigkeit sein.
+:::
+
+## Sneak Preview in die nächste Sitzung
+
+#### Datenerhebung im Fokus
+
+![](images/bias_framework_without_legend_v3.png){fig-align="center"}
+
+::: notes
+-   Um diese Probleme in das umfassendere Konzept der Datenqualität einzuordnen, geben wir zunächst einen kurzen Überblick über bekannte Probleme der Datenqualität.
+
+-   **Datenqualität** ist ein vielschichtiges Konzept, typische Elemente sind *Genauigkeit, Vollständigkeit, Konsistenz, Aktualität* und *Zugänglichkeit.*
+:::
+
+<!--# Obere Box markieren/hervorheben! -->
+
+# Wichtige Rahmenbedingungen von DBD {background-color="#E6002E"}
+
+Ethik & Recht im Fokus
+
+## Erweiterung des Blickwinkels {.smaller}
+
+#### Ethische Erwägungen bei DBD-Forschung
+
+**Aus öffentlicher Zugänglich- bzw. Verfügbarkeit von Daten leitet sich nicht automatisch ethische Verwertbarkeit ab** [@zimmer2010; @boyd2012]
+
+-   Verletzung der Privatsphäre der Nutzer [@goroff2015]
+
+-   Ermöglichung von rassischem, sozioökonomischem oder geschlechtsspezifischem Profiling [@barocas2016]
+
+##### **Negative Beispiele**
+
+-   **Facebook contagion experiment (**2012-2014): Feeds von Nutzer\*Innen so manipulierten, dass sie je nach den geäußerten Emotionen mehr oder weniger von bestimmten Inhalten enthielten [@kramer2014]
+
+-   **Encore-Forschungsprojekt**: Messung der Internetzensur auf der ganzen Welt, bei der Webbrowser angewiesen wurden, zu versuchen, sensible Webinhalte ohne das Wissen oder die Zustimmung der Nutzer herunterzuladen [@burnett2014]
+
+::: notes
+Hintergrund:
+
+-   Ethische Fragen bisher epistemische Bedenken (Verwendung von nicht schlüssigen oder fehlgeleiteten Beweisen), jetzt normativ Bedenken (Folgen der Forschung)
+-   Forschung grundsätzlich in vielen Ländern gesetztlich geregelt
+
+Negativbeispiele:
+
+-   Facebook contagion experiment: Das Experiment wurde als ein Eingriff kritisiert, der den emotionalen Zustand von ahnungslosen Nutzern beeinflusste, die keine Zustimmung zur Teilnahme an der Studie gegeben hatten (Hutton und Henderson, 2015a).
+
+-   Encore-Forschngsprojekt: Menschen in einigen Ländern durch diese Zugriffsversuche möglicherweise gefährdet wurden
+
+Folgende Abschnitte:
+
+-   zentrales Spannungsverhältnis in der Forschungsethik digitaler Daten dargestellt.
+
+-   Anschließend wird die Diskussion spezifischer ethischer Probleme in der Sozialdatenforschung im Hinblick auf drei grundlegende Kriterien gegliedert, die im Belmont-Bericht (Ryan et al., 1978), einem grundlegenden Werk zur Forschungsethik, vorgebracht wurden: Autonomie (Abschnitt 9.2), Wohltätigkeit (Abschnitt 9.3) und Gerechtigkeit (Abschnitt 9.4).
+:::
+
+## Ein schmaler Grat
+
+#### Forschungethik bei digitalen Daten
+
+**Hintergrund**: *Die Herausforderung besteht in der Kombination von zwei extremen Sichtweisen, der Betrachtung der Forschung mit sozialen Daten als "klinische" Forschung oder als Computerforschung*
+
+-   Die Sozialdatenforschung **unterscheidet sich von klinischen Versuchen**.
+
+-   **Ethische Entscheidungen** in der Sozialdatenforschung müssen **gut überlegt sein**, da oft sind mehrere Werte betroffen, die miteinander in Konflikt stehen können
+
+::: notes
+Hintergrund:
+
+1.  Die Sozialdatenforschung ähnelt klinischen Versuchen und anderen Experimenten am Menschen in ihrer Fähigkeit, Menschen zu schaden, und sollte daher auch als solche reguliert werden
+
+2.  die Sozialdatenforschung ähnelt der sonstigen Computerforschung, die sich traditionell auf Methoden, Algorithmen und den Aufbau von Systemen konzentriert, mit minimalen direkten Auswirkungen auf Menschen.
+
+Punkt 2: Schäden, die die üblichen Arten der Sozialdatenforschung ( z. B. die Verletzung der Privatsphäre oder der Anblick verstörender Bilder)verursachen können, oft nicht mit Schäden von klinischen Versuchen gleichzusetzen
+
+Punkt 3: Datenanalyse beispielsweise erforderlich sein, um wichtige Dienste bereitzustellen, und es sollten Lösungen erwogen werden, die ein Gleichgewicht zwischen Datenschutz und Genauigkeit herstellen (Goroff, 2015).
+:::
+
+## Achtung der individuellen Autonomie {.smaller}
+
+#### Diskussion der Informierte Zustimmung als Indikator autonomer Entscheidung
+
+**Die Einwilligung nach Aufklärung setzt voraus, dass**
+
+1.  die Forscher\*Innen den potenziellen Teilnehmenden alle **relevanten Informationen offenlegen**;
+2.  die potenziellen Teilnehmenden **in der Lage** sind, diese **Informationen zu bewerten;**
+3.  die potenziellen Teilnehmenden **freiwillig entscheiden** können, ob sie **teilnehmen** wollen oder nicht;
+4.  die Teilnehmenden den Forschernden ihre **ausdrückliche Erlaubnis erteilen**, häufig in schriftlicher Form; und
+5.  die Teilnehmende die Möglichkeit haben, ihre **Einwilligung jederzeit zurückzuziehen**.
+
+<br>
+
+##### **Potentielle Probleme**
+
+-   Die **Zustimmung** von **Millionen** von Nutzern einzuholen ist **unpraktisch**.
+
+-   Das **öffentliche Teilen** von Inhalten im Internet **bedeutet nicht** unbedingt eine **Zustimmung** zur Forschung[^24].
+
+-   Die **Nutzungsbedingungen** sozialer Plattformen stellen möglicherweise **keine informierte Zustimmung** zur Forschung dar.
+
+[^24]: Datenschutzpräferenzen hängen häufig von Lebensumständen ab (Crawford und Finn, 2014)
+
+::: notes
+Beispiel 1:
+
+-   Häufig keine Zustimmung bei Studien mit Daten von Millionen von Social-Media-Nutzern (Zimmer, 2010; Hutton und Henderson, 2015a)
+
+-   Obwohl die Einholung der Zustimmung oft als unpraktisch angesehen wird (Boyd und Crawford, 2012), gibt es Bemühungen, Methoden zur Einholung der Zustimmung zu entwickeln, die den Aufwand für die Teilnehmer möglichst gering halten (Hutton und Henderson, 2015a).
+:::
+
+## Wohltätigkeit und Unschädlichkeit als Ziel {.smaller}
+
+#### Bewertung von Risken & Nutzen
+
+**Hintergrund**: *Nicht nur Fokus auf den Nutzen der Forschung, sondern auch auf die möglichen Arten von Schäden, die betroffenen Gruppen und die Art und Weise, wie nachteilige Auswirkungen getestet werden können .*[@sweeney2013]
+
+<br>
+
+###### Potentielle Probleme
+
+-   **Daten** über **Einzelpersonen** können ihnen **schaden, wenn** sie **offengelegt** werden[^25][^26].
+
+-   **Forschungsergebnisse** **können** verwendet werden, um **Schaden** anzurichten[^27].
+
+-   **"Dual-Use"- und Sekundäranalysen** sind in der Sozialdatenforschung **immer** **häufiger** anzutreffen[^28].
+
+[^25]: Stalking, Diskriminierung, Erpressung oder Identitätsdiebstahl (Gross und Acquisti, 2005).
+
+[^26]: Zu lange Archivierung personenbezogener Daten oder die öffentliche Freigabe schlecht anonymisierter Datensätze kann zu Verletzungen der Privatsphäre führen, da diese Daten mit anderen Quellen kombiniert werden können, um Erkenntnisse über Personen ohne deren Wissen zu gewinnen (Crawford und Finn, 2014; Goroff, 2015; Horvitz und Mulligan, 2015)
+
+[^27]: Abgesehen von der Tatsache, dass aus sozialen Daten gezogene Rückschlüsse in vielerlei Hinsicht falsch sein können, wie in dieser Studie hervorgehoben wird, können zu präzise Rückschlüsse dazu führen, dass Menschen in immer kleinere Gruppen eingeteilt werden können (Barocas, 2014).
+
+[^28]: Daten, Instrumente und Schlussfolgerungen, die für einen bestimmten Zweck gewonnen wurden, für einen anderen Zweck verwendet werden (Hovy und Spruit, 2016; Benton et al., 2017)
+
+::: notes
+Die Forschung zu sozialen Daten wird mit bestimmten Arten von Schäden in Verbindung gebracht, von denen die Verletzung der Privatsphäre vielleicht die offensichtlichste ist (Zimmer, 2010; Crawford und Finn, 2014).
+
+Beispiel 1: Einige prominente Beispiele sind die Datenpanne bei Ashley Madison im Jahr 2015, bei der einer Website, die sich als Dating-Netzwerk für betrügerische Ehepartner anpreist, Kontoinformationen (einschließlich der vollständigen Namen der Nutzer) gestohlen und online gestellt wurden (Thomsen, 2015), sowie die jüngsten Datenpannen bei Facebook, bei denen Hunderte Millionen von Datensätzen mit Kommentaren, Likes, Reaktionen, Kontonamen, App-Passwörtern und mehr öffentlich gemacht wurden.
+:::
+
+## Faire Verteilung von Risiken & Nutzen {.smaller}
+
+#### Recht & Gerechtigkeit
+
+**Annahme**: *Es ist von Anfang an bekannt, wer durch die Forschung belastet wird und wer von den Ergebnissen profitieren wird.*
+
+<br>
+
+###### Potentielle Probleme
+
+-   Die **digitale Kluft** kann das Forschungsdesign beeinflussen[^29] (Stichwort: WEIRD Samples)
+
+-   **Algorithmen** und Forschungsergebnisse können zu **Diskriminierung** führen.
+
+-   **Forschungsergebnisse** sind möglicherweise **nicht** allgemein **zugänglich**[^30].
+
+-   Nicht alle **Interessengruppen** werden über die Verwendung von Forschungsergebnissen konsultiert[^31].
+
+[^29]: Data divide: mangelnde Verfügbarkeit von hochwertigen Daten über Entwicklungsländer und unterprivilegierte Gemeinschaften (Cinnamon und Schuurman, 2013).
+
+[^30]: **Idealerweise sollten die Menschen Zugang zu den Forschungsergebnissen und Artefakten haben, die aus der Untersuchung ihrer persönlichen Daten entstanden sind (Gross und Acquisti, 2005; Crawford und Finn, 2014).**
+
+[^31]: In die Überlegungen darüber, wie, für wen und wann Forschungsergebnisse umgesetzt werden, sollten diejenigen einbezogen werden, die möglicherweise betroffen sind oder deren Daten verwendet werden (Costanza-Chock, 2018; Design Justice, 2018; Green, 2018)
+
+::: notes
+🔔-\> Plausibilität der Annahme?
+:::
+
+## Zwei Trends, Drei Fragen, Vier Empfehlungen {.smaller}
+
+#### Zusammenfassung und Ausblick
+
+**Trend 1: Eine zunehmende Skepsis gegenüber einfachen Antworten**
+
+1.  Wie einstehen die Daten, was enthalten sie tatsächlich und wie die Arbeitsdatensätze zusammengestellt?
+
+2.  Wird deutlich, was was ausgewertet wird?
+
+3.  Wird die Verwendung von vorgefertigten Datensätzen und Modellen des maschinellen Lernens hinterfragt?
+
+<br>
+
+**Trend 2: Vom Aufwerfen von Bedenken über soziale Daten zum Umgang mit ihnen. 4 Empfehlungen:**
+
+1.  **Detaillierte Dokumentation** und kritische **Prüfung** der Datensatz- und Modellerstellung
+
+2.  DBD-Studien auf v**erschiedene Plattformen, Themen, Zeitpunkte und Teilpopulationen auszuweiten**, um festzustellen, wie sich die Ergebnisse beispielsweise in verschiedenen kulturellen, demografischen und verhaltensbezogenen Kontexten unterscheiden
+
+3.  **Transparenzmechanismen** zu schaffen, die es ermöglichen, soziale Software zu überprüfen und Verzerrungen in sozialen Daten an der Quelle zu evaluieren
+
+4.  **Forschung** zu diesen Leitlinien, Standards, Methoden und Protokollen **auszuweiten** und ihre Übernahme zu fördern.
+
+    ::: notes
+    Schließlich gibt es angesichts der Komplexität der inhärent kontextabhängigen, anwendungs- und bereichsabhängigen Verzerrungen und Probleme in sozialen Daten und Analysepipelines, die in diesem Papier behandelt werden, keine Einheitslösungen - bei der Bewertung und Bekämpfung von Verzerrungen ist Nuancierung entscheidend.
+    :::
+
+# Group Activity
+
+Offene Fragen und Diskussion
+
+## Vielen Dank für Ihre Fragen!
+
+> Wie wird mit ungenauen, verzerrten und/oder unvollständigen digitalen Verhaltensdaten umgegangen? Was passiert mit ihnen?
+
+-   Bereinigen --\> Validieren --\> Bereinigen --\> Validieren ...
+
+<br>
+
+> Was versteht man unter der Herausforderung des Privacy-Utility-Trade-Off und wie kann dieses "Problem" bewältigt werden?
+
+-   Leider kein Zugang zur Quelle, Antwort "verschoben"
+
+::: notes
+We consider a privacy-utility trade-off **encountered by users who wish to disclose some information to an analyst, that is correlated with their private data, in the hope of receiving some utility**.
+:::
+
+## Was denken Sie?
+
+::: {.fragment .shrink .semi-fade-out fragment-index="1"}
+> Nutzer sind sich oftmals nicht bewusst, dass ihre Posts/Tweets zu Forschungszwecken verwendet werden.
+>
+> Sollten im Sinne der Transparenz von Vornherein mehr Informationen zur Verwendung von Daten gegeben werden? Würde dieses tatsächliche Wissen etwas am Verhalten/Akzeptanz der Datenerhebung der Nutzer ändern?
+:::
+
+::: {.fragment fragment-index="1"}
+> Da die Daten der Nutzer meist ohne Ihr aktives Wissen darüber erhoben werden ist ihr Verhalten sehr nah an der Realität. Würde eine bessere Information und Transparenz über das mitschreiben der Daten Ihr Verhalten beeinflussen und verfälschen? Kann dies bereits durch Benachrichtigungen wie "Coockies" der Fall sein?
+:::
+
+## Let's discuss!
+
+> Es gibt Individuen, die sich nicht im digitalen Raum bewegen und somit in den Daten nicht erfasst werden können. Dadurch können bestimmte Gruppen nicht untersucht werden, was zu verzerrten Daten führt. Welche Möglichkeiten hat man dieses Problem zu umgehen.
+
+-   Wie würden Sie (methodisch) vorgehen?
+
+::: fragment
+-   Ist es das eine Frage der Methodik oder des Forschungsdesigns?
+:::
+
+## Let's discuss!
+
+> Wenn Unternehmen bei der Verwendung unserer Verhaltensdaten Profit erwirtschaften, sollten wir dann nicht auch etwas daran verdienen?
+
+-   Was denken Sie?
+
+-   Wie könnten/sollte ein potentielles Bezahlungssystem aussehen?
+
+# Bis zur nächsten Sitzung! {background-color="#04316a"}
+
+## Literatur
+
+::: {#refs}
+:::
