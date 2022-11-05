@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.0.36">
 
   <meta name="author" content="Julius Klingelhoefer">
-  <title>Datenaufbereitung I</title>
+  <title>Projektseminar</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -23,6 +23,89 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -326,27 +409,1015 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#04316a" class="center">
-  <h1 class="title">Datenaufbereitung I</h1>
-  <p class="subtitle">Digital behavioral data – Session 02</p>
+<section id="title-slide" data-background-color="#041E42" data-background-image="../../../images/background_dark_red.svg" data-background-opacity=".5" data-background-size="cover" class="center">
+  <h1 class="title">Projektseminar</h1>
+  <p class="subtitle">Datenaufbereitung I</p>
   <p class="author">Julius Klingelhoefer</p>
 </section>
-
-<section id="section" class="slide level2 smaller">
-<h2></h2>
+<section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Inhalt</h2>
+<ul>
+<li><a href="#/housekeeping" id="/toc-housekeeping">Housekeeping</a></li>
+<li><a href="#/datenaufbereitung" id="/toc-datenaufbereitung">Datenaufbereitung</a></li>
+<li><a href="#/datenstrukturen" id="/toc-datenstrukturen">Datenstruktur(en)</a></li>
+<li><a href="#/aufgabe-1" id="/toc-aufgabe-1">Aufgabe 1</a></li>
+<li><a href="#/lösung-1" id="/toc-lösung-1">Lösung 1</a></li>
+<li><a href="#/datenbereinigung" id="/toc-datenbereinigung">Datenbereinigung</a></li>
+<li><a href="#/literature" id="/toc-literature">Literature</a></li>
+</ul>
+</nav>
 </section>
-<section id="section-1" class="title-slide slide level1 center">
-<h1></h1>
 
-</section>
+<section>
+<section id="housekeeping" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Housekeeping</h1>
+<p><strong>🧹</strong></p>
+<div class="cell">
 
-<section id="section-2" class="title-slide slide level1 center" data-background-color="#E6002E">
-<h1></h1>
-
-<img src="../../logo.svg" class="slide-logo r-stretch"><div class="footer footer-default">
-<p><a href="https://github.com/klingelhoefer/Projektseminar-Winter-2022-23">Projektseminar 22/23</a></p>
 </div>
 </section>
+<section id="neuerungen" class="slide level2">
+<h2>Neuerungen</h2>
+<p>Mehr Abwechslung und Interaktivität: R-Übungselemte schon in den Vortrag:</p>
+<ul>
+<li><p>Kleinere Arbeitsphasen während des Vortrags</p></li>
+<li><p>Überarbeitungen aus der Sitzung sind Grundlage für die anschließenden Arbeitsaufträge</p></li>
+</ul>
+</section>
+<section id="rstudio-server" class="slide level2">
+<h2>RStudio Server</h2>
+<ul>
+<li><p>Weiterhin Nutzung des RStudio Servers möglich (außer Mittwochs) Erreichbar unter: http://131.188.248.179:8787](http://131.188.248.179:8787</p></li>
+<li><p><strong>nur via VPN</strong> erreichbar</p></li>
+<li><p>Bitte nutzen Sie Ihren (alten) persönlichen Login</p></li>
+</ul>
+</section></section>
+<section>
+<section id="datenaufbereitung" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Datenaufbereitung</h1>
+<p>Von Rohdaten bis zur Analyse</p>
+<p>import ➡️ tidy ➡️ transform ➡️ repeat</p>
+</section>
+<section id="prozess-der-datenaufbereitung" class="slide level2">
+<h2>Prozess der Datenaufbereitung</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Die <strong>Aufbereitung</strong> nimmt in der Regel den Großteil der Zeit in Anspruch</p>
+<p>Häufig mehrfache <strong>Wiederholung</strong> dreier Schritte:</p>
+<ul>
+<li><p>(explorative) <strong>Erkundung</strong></p></li>
+<li><p><strong>Standardisierung</strong></p></li>
+<li><p>(erneute) <strong>Bereinung</strong> der Daten</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="typische-pipeline">Typische Pipeline:</h3>
+<p><img data-src="https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png" style="width:100.0%"></p>
+<p><span class="citation" data-cites="wickham2016">Wickham &amp; Grolemund (<a href="#/ref-wickham2016" role="doc-biblioref" onclick="return false;">2016</a>)</span></p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="datenstrukturen" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Datenstruktur(en)</h1>
+<p>Zusammenfügen von Datensätzen</p>
+<p>import ➕ bind ➕ join ➕ merge</p>
+</section>
+<section id="stärke-von-r-umgang-mit-daten" class="slide level2">
+<h2>Stärke von R: Umgang mit Daten</h2>
+<ul>
+<li><p>Ein Bereich, in dem R wirklich glänzt, ist die Fähigkeit mit mehreren und verschiedenen Datenquellen (gleichzeitig) zu arbeiten</p></li>
+<li><p>R verfügt über eine Reihe an Paketen für den Import, die Transformation sowie die Bearbeitung verschiedenster Datenquellen</p></li>
+</ul>
+</section>
+<section id="datenimport-in-r" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Datenimport in R</h2>
+<p>Einer der ersten Arbeitschritte ist der Import externer Daten in R. Dafür gibt es neben der Base R-Funktionen eine Vielzahl an verschiedenen Paketen:</p>
+<ul>
+<li><p><code>haven</code> - SPSS, Stata, and SAS files</p></li>
+<li><p><code>DBI</code> - databases</p></li>
+<li><p><code>jsonlite</code> - json</p></li>
+<li><p><code>xml2</code> - XML</p></li>
+<li><p><code>httr</code> - Web APIs</p></li>
+<li><p><code>rvest</code> - HTML (Web Scraping)</p></li>
+<li><p><code>readr::read_lines()</code> - text data</p></li>
+<li><p>…</p></li>
+</ul>
+</section>
+<section id="datenimport-in-r-1" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title">Datenimport in R</h2>
+<ul>
+<li>…</li>
+</ul>
+<p><strong>Grundsätzlich gilt</strong></p>
+<ul>
+<li><p>Je “einfacher” die Formatierung der Daten, desto weniger komplex ist der Import.</p></li>
+<li><p>Import von Textdatein (<code>.csv</code>) i.d.R. einfacher und ohne größere Komplikationen.</p></li>
+<li><p>Andere Dateienformate (<code>.sav</code>) können Vorzüge haben (z.B. Variable- und Value Labels), die den potentiellen Mehraufwand beim Import rechtfertigen.</p></li>
+</ul>
+</section>
+<section id="arten-der-zusammenführung" class="slide level2">
+<h2>Arten der Zusammenführung</h2>
+<ul>
+<li><p>Drei grundsätzliche Möglichkeiten, Datensätze zu verbinden:</p>
+<div>
+<ul>
+<li><p>Addition zusätzlicher <strong>Variablen</strong> für bestehende Fälle</p></li>
+<li><p>Addition zusätzlicher <strong>Fälle</strong> für bestehende Variablen</p></li>
+<li><p>Addition zuätzlicher <strong>Variablen &amp; Fälle</strong></p></li>
+</ul>
+</div></li>
+</ul>
+<p>Für alle Möglichkeiten gibt es sowohl simple (z.B. durch die <code>bind_</code>-Funktionen), aber auch komplexere Lösungen (z.B. die <code>_join</code>-Funktionen)<sup>1</sup>.</p>
+<aside><ol class="aside-footnotes"><li id="fn1" role="doc-endnote"><p>Quelle der folgenden Unterabschnitte: <span class="citation" data-cites="positsoftware2021">Posit Software (<a href="#/ref-positsoftware2021" role="doc-biblioref" onclick="return false;">2021</a>)</span>, dplyr cheat sheet, CC BY SA</p></li></ol></aside></section>
+<section id="bind_cols" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>bind_cols()</code></h2>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x</p>
+<p><span class="square_darkgrey" data-id="box_1">A</span> <span class="square_darkgrey" data-id="box_2">B</span> <span class="square_darkgrey" data-id="box_3">C</span></p>
+<p><span class="square_lightgrey" data-id="box_4">a</span> <span class="square_lightgrey" data-id="box_5">t</span> <span class="square_lightgrey" data-id="box_6">1</span></p>
+<p><span class="square_lightgrey" data-id="box_7">b</span> <span class="square_lightgrey" data-id="box_8">u</span> <span class="square_lightgrey" data-id="box_9">2</span></p>
+<p><span class="square_lightgrey" data-id="box_10">c</span> <span class="square_lightgrey" data-id="box_11">v</span> <span class="square_lightgrey" data-id="box_12">3</span></p>
+</div><div class="column" style="width:40%;">
+
+</div><div class="column" style="width:auto;">
+<p>y</p>
+<p><span class="square_darkblue" data-id="box_13">E</span> <span class="square_darkblue" data-id="box_14">F</span> <span class="square_darkblue" data-id="box_15">G</span></p>
+<p><span class="square_lightblue" data-id="box_16">a</span> <span class="square_lightblue" data-id="box_17">t</span> <span class="square_lightblue" data-id="box_18">3</span></p>
+<p><span class="square_lightblue" data-id="box_19">b</span> <span class="square_lightblue" data-id="box_20">u</span> <span class="square_lightblue" data-id="box_21">2</span></p>
+<p><span class="square_lightblue" data-id="box_22">d</span> <span class="square_lightblue" data-id="box_23">w</span> <span class="square_lightblue" data-id="box_24">1</span></p>
+</div>
+</div>
+</section>
+<section id="bind_cols-1" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>bind_cols()</code></h2>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x &amp; y</p>
+<p><span class="square_darkgrey" data-id="box_1">A</span> <span class="square_darkgrey" data-id="box_2">B</span> <span class="square_darkgrey" data-id="box_3">C</span> <span class="square_darkblue" data-id="box_13">E</span> <span class="square_darkblue" data-id="box_14">F</span> <span class="square_darkblue" data-id="box_15">G</span></p>
+<p><span class="square_lightgrey" data-id="box_4">a</span> <span class="square_lightgrey" data-id="box_5">t</span> <span class="square_lightgrey" data-id="box_6">1</span> <span class="square_lightblue" data-id="box_16">a</span> <span class="square_lightblue" data-id="box_17">t</span> <span class="square_lightblue" data-id="box_18">3</span></p>
+<p><span class="square_lightgrey" data-id="box_7">b</span> <span class="square_lightgrey" data-id="box_8">u</span> <span class="square_lightgrey" data-id="box_9">2</span> <span class="square_lightblue" data-id="box_19">b</span> <span class="square_lightblue" data-id="box_20">u</span> <span class="square_lightblue" data-id="box_21">2</span></p>
+<p><span class="square_lightgrey" data-id="box_10">c</span> <span class="square_lightgrey" data-id="box_11">v</span> <span class="square_lightgrey" data-id="box_12">3</span> <span class="square_lightblue" data-id="box_22">d</span> <span class="square_lightblue" data-id="box_23">w</span> <span class="square_lightblue" data-id="box_24">1</span></p>
+</div>
+</div>
+<ul>
+<li><p><strong>Um Variablen zu kombinieren</strong></p></li>
+<li><p>z.B. Pre- und post-exposure Messungen bei einem Experiment.</p></li>
+</ul>
+</section>
+<section id="bind_rows" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>bind_rows()</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>x</p>
+<p><span class="square_darkgrey" data-id="boxThree1">ID</span> <span class="square_darkgrey" data-id="boxThree2">B</span> <span class="square_darkgrey" data-id="boxThree3">C</span></p>
+<p><span class="square_lightgrey" data-id="boxThree4">a</span> <span class="square_lightgrey" data-id="boxThree5">t</span> <span class="square_lightgrey" data-id="boxThree6">1</span></p>
+<p><span class="square_lightgrey" data-id="boxThree7">b</span> <span class="square_lightgrey" data-id="boxThree8">u</span> <span class="square_lightgrey" data-id="boxThree9">2</span></p>
+</div><div class="column" style="width:50%;">
+<p>y</p>
+<p><span class="square_darkblue" data-id="boxThree13">ID</span> <span class="square_darkblue" data-id="boxThree14">B</span> <span class="square_darkblue" data-id="boxThree15">D</span></p>
+<p><span class="square_lightblue" data-id="boxThree19">c</span> <span class="square_lightblue" data-id="boxThree20">v</span> <span class="square_lightblue" data-id="boxThree21">3</span></p>
+<p><span class="square_lightblue" data-id="boxThree22">d</span> <span class="square_lightblue" data-id="boxThree23">w</span> <span class="square_lightblue" data-id="boxThree24">4</span></p>
+</div>
+</div>
+</section>
+<section id="bind_rows-1" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>bind_rows()</code></h2>
+<p>x &amp; y</p>
+<div class="columns">
+<div class="column" style="color: white;">
+<p>_ <span class="square_darkgrey" data-id="boxThree1">ID</span> <span class="square_darkgrey" data-id="boxThree2">B</span> <span class="square_darkgrey" data-id="boxThree3">C</span></p>
+<p>_ <span class="square_lightgrey" data-id="boxThree4">a</span> <span class="square_lightgrey" data-id="boxThree5">t</span> <span class="square_lightgrey" data-id="boxThree6">1</span></p>
+<p>_ <span class="square_lightgrey" data-id="boxThree7">b</span> <span class="square_lightgrey" data-id="boxThree8">u</span> <span class="square_lightgrey" data-id="boxThree9">2</span></p>
+<p>_ <span class="square_lightblue" data-id="boxThree19">c</span> <span class="square_lightblue" data-id="boxThree20">v</span> <span class="square_lightblue" data-id="boxThree21">3</span></p>
+<p>_ <span class="square_lightblue" data-id="boxThree22">d</span> <span class="square_lightblue" data-id="boxThree23">w</span> <span class="square_lightblue" data-id="boxThree24">4</span></p>
+</div><div class="column" style="width:50%;">
+
+</div>
+</div>
+</section>
+<section id="komplexeres-zusammenfügen" class="slide level2">
+<h2>“Komplexeres” zusammenfügen</h2>
+<div>
+<ul>
+<li><p>Neben “Anhängen” gibt es “intelligentere<em>“</em> Varianten, Datensätze zusammenzuführen,</p></li>
+<li><p>z.B. durch einen <strong>gemeinsamen Schlüssel</strong></p>
+<ul>
+<li><p>= Variable, die Fälle in einem Datensatz mit einem anderen verbindet</p></li>
+<li><p>Meist existiert dafür eine ID-Variable</p></li>
+<li><p>z.B. für jede/n Teilnehmer*in in jedem Datensatz.</p></li>
+</ul></li>
+<li><p>Möglichkeiten der Verknüpfung unterscheiden sich bezüglich des Umgangs mit unterschiedlichen Werten im gemeinsamen Schlüssel</p></li>
+<li><p><strong>Varianten</strong>:</p>
+<div>
+<ul>
+<li class="fragment"><p>Left Join</p></li>
+<li class="fragment"><p>Right Join</p></li>
+<li class="fragment"><p>Inner Join</p></li>
+<li class="fragment"><p>Full Join</p></li>
+</ul>
+</div></li>
+</ul>
+</div>
+</section>
+<section id="übersicht" class="slide level2">
+<h2>Übersicht</h2>
+
+<img data-src="https://cdn.mindmajix.com/blog/images/db-01_2119.png" class="r-stretch"><p>Source: <span class="citation" data-cites="db-0121"><em>Db-01<span>_</span>2119.png (1421×1034)</em> (<a href="#/ref-db-0121" role="doc-biblioref" onclick="return false;">n.d.</a>)</span></p>
+</section>
+<section id="left_join" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>left_join()</code></h2>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x</p>
+<p><span class="square_darkgrey" data-id="1_box_1">ID</span> <span class="square_darkgrey" data-id="1_box_2">B</span> <span class="square_darkgrey" data-id="1_box_3">C</span></p>
+<p><span class="square_lightgrey" data-id="1_box_4">a</span> <span class="square_lightgrey" data-id="1_box_5">t</span> <span class="square_lightgrey" data-id="1_box_6">1</span></p>
+<p><span class="square_lightgrey" data-id="1_box_7">b</span> <span class="square_lightgrey" data-id="1_box_8">u</span> <span class="square_lightgrey" data-id="1_box_9">2</span></p>
+<p><span class="square_lightgrey" data-id="1_box_10">c</span> <span class="square_lightgrey" data-id="1_box_11">v</span> <span class="square_lightgrey" data-id="1_box_12">3</span></p>
+</div><div class="column" style="width:40%;">
+
+</div><div class="column" style="width:auto;">
+<p>y</p>
+<p><span class="square_darkblue" data-id="1_box_13">ID</span> <span class="square_darkblue" data-id="1_box_14">B</span> <span class="square_darkblue" data-id="1_box_15">D</span></p>
+<p><span class="square_lightblue" data-id="1_box_16">a</span> <span class="square_lightblue" data-id="1_box_17">t</span> <span class="square_lightblue" data-id="1_box_18">3</span></p>
+<p><span class="square_lightblue" data-id="1_box_19">b</span> <span class="square_lightblue" data-id="1_box_20">u</span> <span class="square_lightblue" data-id="1_box_21">2</span></p>
+<p><span class="square_lightblue" data-id="1_box_22">d</span> <span class="square_lightblue" data-id="1_box_23">w</span> <span class="square_lightblue" data-id="1_box_24">1</span></p>
+</div>
+</div>
+</section>
+<section id="left_join-1" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>left_join()</code></h2>
+<div>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x &amp; y</p>
+<p><span class="square_darkgrey" data-id="1_box_1">ID</span> <span class="square_darkgrey" data-id="1_box_2">B</span> <span class="square_darkgrey" data-id="1_box_3">C</span> <span class="square_darkblue" data-id="1_box_15">D</span></p>
+<p><span class="square_lightblue" data-id="1_box_16">a</span> <span class="square_lightgrey" data-id="1_box_5">t</span> <span class="square_lightgrey" data-id="1_box_6">1</span> <span class="square_lightblue" data-id="1_box_18">3</span></p>
+<p><span class="square_lightblue" data-id="1_box_19">b</span> <span class="square_lightgrey" data-id="1_box_8">u</span> <span class="square_lightgrey" data-id="1_box_9">2</span> <span class="square_lightblue" data-id="1_box_21">2</span></p>
+<p><span class="square_lightgrey" data-id="1_box_10">c</span> <span class="square_lightgrey" data-id="1_box_11">v</span> <span class="square_lightgrey" data-id="1_box_12">3</span></p>
+</div><div class="column" style="width:40%;">
+
+</div>
+</div>
+</div>
+</section>
+<section id="left_join-2" class="slide level2" data-auto-animate="T" data-auto-animate-unmatched="F">
+<h2 data-id="quarto-animate-title"><code>left_join()</code></h2>
+<div>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x &amp; y</p>
+<p><span class="square_darkgrey" data-id="1_box_1">ID</span> <span class="square_darkgrey" data-id="1_box_2">B</span> <span class="square_darkgrey" data-id="1_box_3">C</span> <span class="square_darkblue" data-id="1_box_15">D</span></p>
+<p><span class="square_lightblue" data-id="1_box_16">a</span> <span class="square_lightgrey" data-id="1_box_5">t</span> <span class="square_lightgrey" data-id="1_box_6">1</span> <span class="square_lightblue" data-id="1_box_18">3</span></p>
+<p><span class="square_lightblue" data-id="1_box_19">b</span> <span class="square_lightgrey" data-id="1_box_8">u</span> <span class="square_lightgrey" data-id="1_box_9">2</span> <span class="square_lightblue" data-id="1_box_21">2</span></p>
+<p><span class="square_lightgrey" data-id="1_box_10">c</span> <span class="square_lightgrey" data-id="1_box_11">v</span> <span class="square_lightgrey" data-id="1_box_12">3</span> <span class="square_white" data-id="">NA</span></p>
+</div><div class="column" style="width:40%;">
+
+</div>
+</div>
+</div>
+<ul>
+<li><p>Erhält alle einzigartigen Fälle (ID) des linken/ersten Datensatzes</p></li>
+<li><p><strong>Nicht</strong> die einzigartigen Fälle des rechten Datensatzes</p></li>
+<li><p>Fehlende Variablen werden zu NAs</p></li>
+</ul>
+</section>
+<section id="right_join" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>right_join()</code></h2>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x</p>
+<p><span class="square_darkgrey" data-id="box_1">ID</span> <span class="square_darkgrey" data-id="box_2">B</span> <span class="square_darkgrey" data-id="box_3">C</span></p>
+<p><span class="square_lightgrey" data-id="box_4">a</span> <span class="square_lightgrey" data-id="box_5">t</span> <span class="square_lightgrey" data-id="box_6">1</span></p>
+<p><span class="square_lightgrey" data-id="box_7">b</span> <span class="square_lightgrey" data-id="box_8">u</span> <span class="square_lightgrey" data-id="box_9">2</span></p>
+<p><span class="square_lightgrey" data-id="box_10">c</span> <span class="square_lightgrey" data-id="box_11">v</span> <span class="square_lightgrey" data-id="box_12">3</span></p>
+</div><div class="column" style="width:40%;">
+
+</div><div class="column" style="width:auto;">
+<p>y</p>
+<p><span class="square_darkblue" data-id="box_13">ID</span> <span class="square_darkblue" data-id="box_14">B</span> <span class="square_darkblue" data-id="box_15">D</span></p>
+<p><span class="square_lightblue" data-id="box_16">a</span> <span class="square_lightblue" data-id="box_17">t</span> <span class="square_lightblue" data-id="box_18">3</span></p>
+<p><span class="square_lightblue" data-id="box_19">b</span> <span class="square_lightblue" data-id="box_20">u</span> <span class="square_lightblue" data-id="box_21">2</span></p>
+<p><span class="square_lightblue" data-id="box_22">d</span> <span class="square_lightblue" data-id="box_23">w</span> <span class="square_lightblue" data-id="box_24">1</span></p>
+</div>
+</div>
+</section>
+<section id="right_join-1" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>right_join()</code></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:auto;">
+<p>x &amp; y</p>
+<p><span class="square_darkblue" data-id="box_13">ID</span> <span class="square_darkblue" data-id="box_14">B</span> <span class="square_darkgrey" data-id="box_3">C</span> <span class="square_darkblue" data-id="box_15">D</span></p>
+<p><span class="square_lightgrey" data-id="box_4">a</span> <span class="square_lightblue" data-id="box_17">t</span> <span class="square_lightgrey" data-id="box_6">1</span> <span class="square_lightblue" data-id="box_18">3</span></p>
+<p><span class="square_lightgrey" data-id="box_7">b</span> <span class="square_lightblue" data-id="box_20">u</span> <span class="square_lightgrey" data-id="box_9">2</span> <span class="square_lightblue" data-id="box_21">2</span></p>
+<p><span class="square_lightblue" data-id="box_22">d</span> <span class="square_lightblue" data-id="box_23">w</span> <span class="square_white" data-id="">NA</span> <span class="square_lightblue" data-id="box_24">1</span></p>
+</div>
+</div>
+<ul>
+<li>Identisch zu left_join, nur “rechts”</li>
+</ul>
+</section>
+<section id="inner_join" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>inner_join()</code></h2>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x</p>
+<p><span class="square_darkgrey" data-id="boxTwo1">ID</span> <span class="square_darkgrey" data-id="boxTwo2">B</span> <span class="square_darkgrey" data-id="boxTwo3">C</span></p>
+<p><span class="square_lightgrey" data-id="boxTwo4">a</span> <span class="square_lightgrey" data-id="boxTwo5">t</span> <span class="square_lightgrey" data-id="boxTwo6">1</span></p>
+<p><span class="square_lightgrey" data-id="boxTwo7">b</span> <span class="square_lightgrey" data-id="boxTwo8">u</span> <span class="square_lightgrey" data-id="boxTwo9">2</span></p>
+<p><span class="square_lightgrey" data-id="boxTwo10">c</span> <span class="square_lightgrey" data-id="boxTwo11">v</span> <span class="square_lightgrey" data-id="boxTwo12">3</span></p>
+</div><div class="column" style="width:40%;">
+
+</div><div class="column" style="width:auto;">
+<p>y</p>
+<p><span class="square_darkblue" data-id="boxTwo13">ID</span> <span class="square_darkblue" data-id="boxTwo14">B</span> <span class="square_darkblue" data-id="boxTwo15">D</span></p>
+<p><span class="square_lightblue" data-id="boxTwo16">a</span> <span class="square_lightblue" data-id="boxTwo17">t</span> <span class="square_lightblue" data-id="boxTwo18">3</span></p>
+<p><span class="square_lightblue" data-id="boxTwo19">b</span> <span class="square_lightblue" data-id="boxTwo20">u</span> <span class="square_lightblue" data-id="boxTwo21">2</span></p>
+<p><span class="square_lightblue" data-id="boxTwo22">d</span> <span class="square_lightblue" data-id="boxTwo23">w</span> <span class="square_lightblue" data-id="boxTwo24">1</span></p>
+</div>
+</div>
+</section>
+<section id="inner_join-1" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>inner_join()</code></h2>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x &amp; y</p>
+<p><span class="square_darkgrey" data-id="boxTwo1">ID</span> <span class="square_darkgrey" data-id="boxTwo2">B</span> <span class="square_darkgrey" data-id="boxTwo3">C</span> <span class="square_darkblue" data-id="boxTwo15">D</span></p>
+<p><span class="square_lightblue" data-id="boxTwo16">a</span> <span class="square_lightgrey" data-id="boxTwo5">t</span> <span class="square_lightgrey" data-id="boxTwo6">1</span> <span class="square_lightblue" data-id="boxTwo18">3</span></p>
+<p><span class="square_lightblue" data-id="boxTwo19">b</span> <span class="square_lightgrey" data-id="boxTwo8">u</span> <span class="square_lightgrey" data-id="boxTwo9">2</span> <span class="square_lightblue" data-id="boxTwo21">2</span></p>
+</div><div class="column" style="width:40%;">
+
+</div><div class="column" style="width:auto;">
+
+</div>
+</div>
+<ul>
+<li>Es werden nur IDs behalten, die in beiden Datensätzen existieren</li>
+</ul>
+</section>
+<section id="full_join" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>full_join()</code></h2>
+<div class="columns">
+<div class="column" style="width:auto;">
+<p>x</p>
+<p><span class="square_darkgrey" data-id="box_1">ID</span> <span class="square_darkgrey" data-id="box_2">B</span> <span class="square_darkgrey" data-id="box_3">C</span></p>
+<p><span class="square_lightgrey" data-id="box_4">a</span> <span class="square_lightgrey" data-id="box_5">t</span> <span class="square_lightgrey" data-id="box_6">1</span></p>
+<p><span class="square_lightgrey" data-id="box_7">b</span> <span class="square_lightgrey" data-id="box_8">u</span> <span class="square_lightgrey" data-id="box_9">2</span></p>
+<p><span class="square_lightgrey" data-id="box_10">c</span> <span class="square_lightgrey" data-id="box_11">v</span> <span class="square_lightgrey" data-id="box_12">3</span></p>
+</div><div class="column" style="width:40%;">
+
+</div><div class="column" style="width:auto;">
+<p>y</p>
+<p><span class="square_darkblue" data-id="box_13">ID</span> <span class="square_darkblue" data-id="box_14">B</span> <span class="square_darkblue" data-id="box_15">D</span></p>
+<p><span class="square_lightblue" data-id="box_16">a</span> <span class="square_lightblue" data-id="box_17">t</span> <span class="square_lightblue" data-id="box_18">3</span></p>
+<p><span class="square_lightblue" data-id="box_19">b</span> <span class="square_lightblue" data-id="box_20">u</span> <span class="square_lightblue" data-id="box_21">2</span></p>
+<p><span class="square_lightblue" data-id="box_22">d</span> <span class="square_lightblue" data-id="box_23">w</span> <span class="square_lightblue" data-id="box_24">1</span></p>
+</div>
+</div>
+</section>
+<section id="full_join-1" class="slide level2" data-auto-animate="T">
+<h2 data-id="quarto-animate-title"><code>full_join()</code></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>x &amp; y</p>
+<p><span class="square_darkgrey" data-id="box_1">ID</span> <span class="square_darkgrey" data-id="box_2">B</span> <span class="square_darkgrey" data-id="box_3">C</span> <span class="square_darkblue" data-id="box_15">D</span></p>
+<p><span class="square_lightblue" data-id="box_16">a</span> <span class="square_lightgrey" data-id="box_5">t</span> <span class="square_lightgrey" data-id="box_6">1</span> <span class="square_lightblue" data-id="box_18">3</span></p>
+<p><span class="square_lightblue" data-id="box_19">b</span> <span class="square_lightgrey" data-id="box_8">u</span> <span class="square_lightgrey" data-id="box_9">2</span> <span class="square_lightblue" data-id="box_21">2</span></p>
+<p><span class="square_lightgrey" data-id="box_10">c</span> <span class="square_lightgrey" data-id="box_11">v</span> <span class="square_lightgrey" data-id="box_12">3</span> <span class="square_white" data-id="">NA</span></p>
+<p><span class="square_lightblue" data-id="box_22">d</span> <span class="square_lightblue" data-id="box_23">w</span> <span class="square_white" data-id="">NA</span> <span class="square_lightblue" data-id="box_24">1</span></p>
+</div><div class="column" style="width:auto;">
+
+</div>
+</div>
+<ul>
+<li><strong>Alle</strong> Werte und Reihen werden erhalten</li>
+</ul>
+</section></section>
+<section id="aufgabe-1" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Aufgabe 1</h1>
+<ol type="1">
+<li><p>Lesen Sie zwei Datensätze aus dem Ordner <code>data</code> ein:</p>
+<ul>
+<li><p><code>Momentary_Disco!+NO+LOGGING_20221020T113348+0200.xlsx</code></p></li>
+<li><p><code>momentary_disco_WITH_logging_20221020T113642+0200.xlsx</code></p></li>
+<li><p>a) Welche Funktion nutzen Sie zum einlesen?</p></li>
+</ul></li>
+<li><p>Vereinheitlichen Sie die Variablennamen mit <code>janitor::clean_names()</code></p></li>
+<li><p>Untersuchen Sie Variablen der Datensätze mit <code>glimpse()</code> mit <code>sjmisc::frq()</code></p>
+<ol type="a">
+<li>Was stellen Sie fest?</li>
+</ol></li>
+</ol>
+</section>
+
+<section>
+<section id="lösung-1" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Lösung 1</h1>
+<p><strong>⚠️ Erst nach der Bearbeitung weiterklicken! ⚠️</strong></p>
+</section>
+<section id="einlesen" class="slide level2">
+<h2>Einlesen</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Importing data from the version **without** logging</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>d_log_f <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"../../../pretest/data/Momentary_Disco!+NO+LOGGING_20221020T113348+0200.xlsx"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Importing data from the version **with** logging</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>d_log_t <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"../../../pretest/data/momentary_disco_WITH_logging_20221020T113642+0200.xlsx"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">colnames</span>(d_log_t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "Participant"                        
+  [2] "Trigger"                            
+  [3] "Trigger_date"                       
+  [4] "Trigger_time"                       
+  [5] "Trigger_counter"                    
+  [6] "Form"                               
+  [7] "Form_start_date"                    
+  [8] "Form_start_time"                    
+  [9] "Form_finish_date"                   
+ [10] "Form_finish_time"                   
+ [11] "Form_upload_date"                   
+ [12] "Form_upload_time"                   
+ [13] "Missing"                            
+ [14] "text_0"                             
+ [15] "blank_1"                            
+ [16] "text_1"                             
+ [17] "wb_ge"                              
+ [18] "text_2"                             
+ [19] "wb_energy"                          
+ [20] "wb_stress"                          
+ [21] "wb_connect"                         
+ [22] "procra"                             
+ [23] "item_863"                           
+ [24] "screentime_work"                    
+ [25] "screentime_leisure"                 
+ [26] "disco_1"                            
+ [27] "disco_2"                            
+ [28] "disco_3"                            
+ [29] "disco_4"                            
+ [30] "disco_5"                            
+ [31] "disco_6"                            
+ [32] "item_607"                           
+ [33] "disco_sd"                           
+ [34] "item_895"                           
+ [35] "motivation_distraction"             
+ [36] "motivation_wellbeing"               
+ [37] "motivation_social"                  
+ [38] "goal_conf_disconnection"            
+ [39] "text_3"                             
+ [40] "ns_autonomy"                        
+ [41] "ns_competence"                      
+ [42] "ns_relatedness"                     
+ [43] "item_1403"                          
+ [44] "disco_desire"                       
+ [45] "media_category_1"                   
+ [46] "media_category_2"                   
+ [47] "media_category_3"                   
+ [48] "media_category_4"                   
+ [49] "media_category_5"                   
+ [50] "media_category_6"                   
+ [51] "media_category_7"                   
+ [52] "text_6"                             
+ [53] "item_902"                           
+ [54] "item_910"                           
+ [55] "item_969"                           
+ [56] "wb_ge_1"                            
+ [57] "item_1057"                          
+ [58] "wb_energy_1"                        
+ [59] "wb_stress_1"                        
+ [60] "wb_connect_1"                       
+ [61] "procra_1"                           
+ [62] "item_986"                           
+ [63] "screentime_work_1"                  
+ [64] "screentime_leisure_1"               
+ [65] "disco_1_1"                          
+ [66] "disco_1_2"                          
+ [67] "disco_1_3"                          
+ [68] "disco_1_4"                          
+ [69] "disco_1_5"                          
+ [70] "disco_1_6"                          
+ [71] "item_1114"                          
+ [72] "disco_sd_1"                         
+ [73] "item_1114_copy1233"                 
+ [74] "motivation_distraction_1"           
+ [75] "motivation_wellbeing_1"             
+ [76] "motivation_social_1"                
+ [77] "goal_conf_disconnection_1"          
+ [78] "item_1114_copy1233_copy1413"        
+ [79] "ns_autonomy_1"                      
+ [80] "ns_competence_1"                    
+ [81] "ns_relatedness_1"                   
+ [82] "item_1478"                          
+ [83] "disco_desire_1"                     
+ [84] "media_category_1_1"                 
+ [85] "media_category_1_2"                 
+ [86] "media_category_1_3"                 
+ [87] "media_category_1_4"                 
+ [88] "media_category_1_5"                 
+ [89] "media_category_1_6"                 
+ [90] "media_category_1_7"                 
+ [91] "item_738"                           
+ [92] "item_1383"                          
+ [93] "item_753"                           
+ [94] "item_798"                           
+ [95] "missed_alarm"                       
+ [96] "missed_time"                        
+ [97] "disco_1_daily_alarm_1"              
+ [98] "disco_1_daily_alarm_2"              
+ [99] "disco_1_daily_alarm_3"              
+[100] "disco_1_daily_alarm_4"              
+[101] "disco_1_daily_alarm_5"              
+[102] "disco_1_daily_alarm_6"              
+[103] "disco_1_daily_time_1"               
+[104] "disco_1_daily_time_2"               
+[105] "disco_1_daily_time_3"               
+[106] "disco_1_daily_time_4"               
+[107] "disco_1_daily_time_5"               
+[108] "disco_1_daily_time_6"               
+[109] "item_938_copy1728"                  
+[110] "motivation_distraction_day_copy1729"
+[111] "motivation_wellbeing_day_copy1730"  
+[112] "motivation_social_day_copy1731"     
+[113] "item_1151"                          
+[114] "item_841_copy852"                   
+[115] "item_841"                           
+[116] "conscientiousness"                  
+[117] "item_1642"                          
+[118] "disco_thoughts"                     
+[119] "item_551"                           
+[120] "final_feedback"                     
+[121] "item_1519_copy1527"                 
+[122] "item_1519"                          
+[123] "item_1366"                          
+[124] "item_1381"                          
+[125] "participation_n"                    
+[126] "item_662"                           
+[127] "item_670"                           
+[128] "item_730"                           
+[129] "item_476"                           
+[130] "item_484"                           
+[131] "item_646"                           
+[132] "item_1019"                          
+[133] "item_617"                           
+[134] "item_633"                           
+[135] "item_638"                           
+[136] "item_708"                           
+[137] "welcome_text"                       
+[138] "welcome_text_copy527"               
+[139] "welcome_text_copy527_copy735"       
+[140] "item_1427"                          
+[141] "item_1432"                          
+[142] "welcome_text_copy521"               
+[143] "welcome_text_copy515"               
+[144] "item_673"                           
+[145] "feedback"                           
+[146] "feedback_pin"                       
+[147] "item_848_copy856"                   
+[148] "item_848"                           
+[149] "item_868"                           
+[150] "item_879"                           
+[151] "item_673_copy887"                   
+[152] "feedback_copy896"                   
+[153] "item_916"                           
+[154] "item_916_copy931"                   
+[155] "item_1443"                          
+[156] "item_656"                           
+[157] "day_n"                              
+[158] "daily_forms"                        
+[159] "participation_number"               
+[160] "final_day"                          
+[161] "finished"                           
+[162] "item_768"                           
+[163] "item39424"                          
+[164] "item_792"                           
+[165] "item_810"                           
+[166] "item_820"                           
+[167] "item_820_copy760"                   
+[168] "item985"                            
+[169] "end_of_day_fillout"                 </code></pre>
+</div>
+</div>
+</section>
+<section id="clean_names" class="slide level2">
+<h2><code>clean_names()</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">colnames</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  d_log_t</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "Participant"                        
+  [2] "Trigger"                            
+  [3] "Trigger_date"                       
+  [4] "Trigger_time"                       
+  [5] "Trigger_counter"                    
+  [6] "Form"                               
+  [7] "Form_start_date"                    
+  [8] "Form_start_time"                    
+  [9] "Form_finish_date"                   
+ [10] "Form_finish_time"                   
+ [11] "Form_upload_date"                   
+ [12] "Form_upload_time"                   
+ [13] "Missing"                            
+ [14] "text_0"                             
+ [15] "blank_1"                            
+ [16] "text_1"                             
+ [17] "wb_ge"                              
+ [18] "text_2"                             
+ [19] "wb_energy"                          
+ [20] "wb_stress"                          
+ [21] "wb_connect"                         
+ [22] "procra"                             
+ [23] "item_863"                           
+ [24] "screentime_work"                    
+ [25] "screentime_leisure"                 
+ [26] "disco_1"                            
+ [27] "disco_2"                            
+ [28] "disco_3"                            
+ [29] "disco_4"                            
+ [30] "disco_5"                            
+ [31] "disco_6"                            
+ [32] "item_607"                           
+ [33] "disco_sd"                           
+ [34] "item_895"                           
+ [35] "motivation_distraction"             
+ [36] "motivation_wellbeing"               
+ [37] "motivation_social"                  
+ [38] "goal_conf_disconnection"            
+ [39] "text_3"                             
+ [40] "ns_autonomy"                        
+ [41] "ns_competence"                      
+ [42] "ns_relatedness"                     
+ [43] "item_1403"                          
+ [44] "disco_desire"                       
+ [45] "media_category_1"                   
+ [46] "media_category_2"                   
+ [47] "media_category_3"                   
+ [48] "media_category_4"                   
+ [49] "media_category_5"                   
+ [50] "media_category_6"                   
+ [51] "media_category_7"                   
+ [52] "text_6"                             
+ [53] "item_902"                           
+ [54] "item_910"                           
+ [55] "item_969"                           
+ [56] "wb_ge_1"                            
+ [57] "item_1057"                          
+ [58] "wb_energy_1"                        
+ [59] "wb_stress_1"                        
+ [60] "wb_connect_1"                       
+ [61] "procra_1"                           
+ [62] "item_986"                           
+ [63] "screentime_work_1"                  
+ [64] "screentime_leisure_1"               
+ [65] "disco_1_1"                          
+ [66] "disco_1_2"                          
+ [67] "disco_1_3"                          
+ [68] "disco_1_4"                          
+ [69] "disco_1_5"                          
+ [70] "disco_1_6"                          
+ [71] "item_1114"                          
+ [72] "disco_sd_1"                         
+ [73] "item_1114_copy1233"                 
+ [74] "motivation_distraction_1"           
+ [75] "motivation_wellbeing_1"             
+ [76] "motivation_social_1"                
+ [77] "goal_conf_disconnection_1"          
+ [78] "item_1114_copy1233_copy1413"        
+ [79] "ns_autonomy_1"                      
+ [80] "ns_competence_1"                    
+ [81] "ns_relatedness_1"                   
+ [82] "item_1478"                          
+ [83] "disco_desire_1"                     
+ [84] "media_category_1_1"                 
+ [85] "media_category_1_2"                 
+ [86] "media_category_1_3"                 
+ [87] "media_category_1_4"                 
+ [88] "media_category_1_5"                 
+ [89] "media_category_1_6"                 
+ [90] "media_category_1_7"                 
+ [91] "item_738"                           
+ [92] "item_1383"                          
+ [93] "item_753"                           
+ [94] "item_798"                           
+ [95] "missed_alarm"                       
+ [96] "missed_time"                        
+ [97] "disco_1_daily_alarm_1"              
+ [98] "disco_1_daily_alarm_2"              
+ [99] "disco_1_daily_alarm_3"              
+[100] "disco_1_daily_alarm_4"              
+[101] "disco_1_daily_alarm_5"              
+[102] "disco_1_daily_alarm_6"              
+[103] "disco_1_daily_time_1"               
+[104] "disco_1_daily_time_2"               
+[105] "disco_1_daily_time_3"               
+[106] "disco_1_daily_time_4"               
+[107] "disco_1_daily_time_5"               
+[108] "disco_1_daily_time_6"               
+[109] "item_938_copy1728"                  
+[110] "motivation_distraction_day_copy1729"
+[111] "motivation_wellbeing_day_copy1730"  
+[112] "motivation_social_day_copy1731"     
+[113] "item_1151"                          
+[114] "item_841_copy852"                   
+[115] "item_841"                           
+[116] "conscientiousness"                  
+[117] "item_1642"                          
+[118] "disco_thoughts"                     
+[119] "item_551"                           
+[120] "final_feedback"                     
+[121] "item_1519_copy1527"                 
+[122] "item_1519"                          
+[123] "item_1366"                          
+[124] "item_1381"                          
+[125] "participation_n"                    
+[126] "item_662"                           
+[127] "item_670"                           
+[128] "item_730"                           
+[129] "item_476"                           
+[130] "item_484"                           
+[131] "item_646"                           
+[132] "item_1019"                          
+[133] "item_617"                           
+[134] "item_633"                           
+[135] "item_638"                           
+[136] "item_708"                           
+[137] "welcome_text"                       
+[138] "welcome_text_copy527"               
+[139] "welcome_text_copy527_copy735"       
+[140] "item_1427"                          
+[141] "item_1432"                          
+[142] "welcome_text_copy521"               
+[143] "welcome_text_copy515"               
+[144] "item_673"                           
+[145] "feedback"                           
+[146] "feedback_pin"                       
+[147] "item_848_copy856"                   
+[148] "item_848"                           
+[149] "item_868"                           
+[150] "item_879"                           
+[151] "item_673_copy887"                   
+[152] "feedback_copy896"                   
+[153] "item_916"                           
+[154] "item_916_copy931"                   
+[155] "item_1443"                          
+[156] "item_656"                           
+[157] "day_n"                              
+[158] "daily_forms"                        
+[159] "participation_number"               
+[160] "final_day"                          
+[161] "finished"                           
+[162] "item_768"                           
+[163] "item39424"                          
+[164] "item_792"                           
+[165] "item_810"                           
+[166] "item_820"                           
+[167] "item_820_copy760"                   
+[168] "item985"                            
+[169] "end_of_day_fillout"                 </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>d_log_t <span class="ot">=</span> d_log_t <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">clean_names</span>() <span class="co"># tidy names</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">colnames</span>(d_log_t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "participant"                        
+  [2] "trigger"                            
+  [3] "trigger_date"                       
+  [4] "trigger_time"                       
+  [5] "trigger_counter"                    
+  [6] "form"                               
+  [7] "form_start_date"                    
+  [8] "form_start_time"                    
+  [9] "form_finish_date"                   
+ [10] "form_finish_time"                   
+ [11] "form_upload_date"                   
+ [12] "form_upload_time"                   
+ [13] "missing"                            
+ [14] "text_0"                             
+ [15] "blank_1"                            
+ [16] "text_1"                             
+ [17] "wb_ge"                              
+ [18] "text_2"                             
+ [19] "wb_energy"                          
+ [20] "wb_stress"                          
+ [21] "wb_connect"                         
+ [22] "procra"                             
+ [23] "item_863"                           
+ [24] "screentime_work"                    
+ [25] "screentime_leisure"                 
+ [26] "disco_1"                            
+ [27] "disco_2"                            
+ [28] "disco_3"                            
+ [29] "disco_4"                            
+ [30] "disco_5"                            
+ [31] "disco_6"                            
+ [32] "item_607"                           
+ [33] "disco_sd"                           
+ [34] "item_895"                           
+ [35] "motivation_distraction"             
+ [36] "motivation_wellbeing"               
+ [37] "motivation_social"                  
+ [38] "goal_conf_disconnection"            
+ [39] "text_3"                             
+ [40] "ns_autonomy"                        
+ [41] "ns_competence"                      
+ [42] "ns_relatedness"                     
+ [43] "item_1403"                          
+ [44] "disco_desire"                       
+ [45] "media_category_1"                   
+ [46] "media_category_2"                   
+ [47] "media_category_3"                   
+ [48] "media_category_4"                   
+ [49] "media_category_5"                   
+ [50] "media_category_6"                   
+ [51] "media_category_7"                   
+ [52] "text_6"                             
+ [53] "item_902"                           
+ [54] "item_910"                           
+ [55] "item_969"                           
+ [56] "wb_ge_1"                            
+ [57] "item_1057"                          
+ [58] "wb_energy_1"                        
+ [59] "wb_stress_1"                        
+ [60] "wb_connect_1"                       
+ [61] "procra_1"                           
+ [62] "item_986"                           
+ [63] "screentime_work_1"                  
+ [64] "screentime_leisure_1"               
+ [65] "disco_1_1"                          
+ [66] "disco_1_2"                          
+ [67] "disco_1_3"                          
+ [68] "disco_1_4"                          
+ [69] "disco_1_5"                          
+ [70] "disco_1_6"                          
+ [71] "item_1114"                          
+ [72] "disco_sd_1"                         
+ [73] "item_1114_copy1233"                 
+ [74] "motivation_distraction_1"           
+ [75] "motivation_wellbeing_1"             
+ [76] "motivation_social_1"                
+ [77] "goal_conf_disconnection_1"          
+ [78] "item_1114_copy1233_copy1413"        
+ [79] "ns_autonomy_1"                      
+ [80] "ns_competence_1"                    
+ [81] "ns_relatedness_1"                   
+ [82] "item_1478"                          
+ [83] "disco_desire_1"                     
+ [84] "media_category_1_1"                 
+ [85] "media_category_1_2"                 
+ [86] "media_category_1_3"                 
+ [87] "media_category_1_4"                 
+ [88] "media_category_1_5"                 
+ [89] "media_category_1_6"                 
+ [90] "media_category_1_7"                 
+ [91] "item_738"                           
+ [92] "item_1383"                          
+ [93] "item_753"                           
+ [94] "item_798"                           
+ [95] "missed_alarm"                       
+ [96] "missed_time"                        
+ [97] "disco_1_daily_alarm_1"              
+ [98] "disco_1_daily_alarm_2"              
+ [99] "disco_1_daily_alarm_3"              
+[100] "disco_1_daily_alarm_4"              
+[101] "disco_1_daily_alarm_5"              
+[102] "disco_1_daily_alarm_6"              
+[103] "disco_1_daily_time_1"               
+[104] "disco_1_daily_time_2"               
+[105] "disco_1_daily_time_3"               
+[106] "disco_1_daily_time_4"               
+[107] "disco_1_daily_time_5"               
+[108] "disco_1_daily_time_6"               
+[109] "item_938_copy1728"                  
+[110] "motivation_distraction_day_copy1729"
+[111] "motivation_wellbeing_day_copy1730"  
+[112] "motivation_social_day_copy1731"     
+[113] "item_1151"                          
+[114] "item_841_copy852"                   
+[115] "item_841"                           
+[116] "conscientiousness"                  
+[117] "item_1642"                          
+[118] "disco_thoughts"                     
+[119] "item_551"                           
+[120] "final_feedback"                     
+[121] "item_1519_copy1527"                 
+[122] "item_1519"                          
+[123] "item_1366"                          
+[124] "item_1381"                          
+[125] "participation_n"                    
+[126] "item_662"                           
+[127] "item_670"                           
+[128] "item_730"                           
+[129] "item_476"                           
+[130] "item_484"                           
+[131] "item_646"                           
+[132] "item_1019"                          
+[133] "item_617"                           
+[134] "item_633"                           
+[135] "item_638"                           
+[136] "item_708"                           
+[137] "welcome_text"                       
+[138] "welcome_text_copy527"               
+[139] "welcome_text_copy527_copy735"       
+[140] "item_1427"                          
+[141] "item_1432"                          
+[142] "welcome_text_copy521"               
+[143] "welcome_text_copy515"               
+[144] "item_673"                           
+[145] "feedback"                           
+[146] "feedback_pin"                       
+[147] "item_848_copy856"                   
+[148] "item_848"                           
+[149] "item_868"                           
+[150] "item_879"                           
+[151] "item_673_copy887"                   
+[152] "feedback_copy896"                   
+[153] "item_916"                           
+[154] "item_916_copy931"                   
+[155] "item_1443"                          
+[156] "item_656"                           
+[157] "day_n"                              
+[158] "daily_forms"                        
+[159] "participation_number"               
+[160] "final_day"                          
+[161] "finished"                           
+[162] "item_768"                           
+[163] "item39424"                          
+[164] "item_792"                           
+[165] "item_810"                           
+[166] "item_820"                           
+[167] "item_820_copy760"                   
+[168] "item985"                            
+[169] "end_of_day_fillout"                 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="taking-a-glimpse" class="slide level2">
+<h2>Taking a <code>glimpse()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>d_log_t <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(d_log_t<span class="sc">$</span>form)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="datenbereinigung" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Datenbereinigung</h1>
+<p><strong>Von Rohdaten zu konsistenten Daten</strong></p>
+<p>👀 missing 💯 extremwerte 📏 straightlining</p>
+</section>
+<section id="stufen-der-datenqualität" class="slide level2">
+<h2>Stufen der Datenqualität</h2>
+<div class="columns">
+<div class="column" style="width:66%;">
+<ul>
+<li><p>Ziel der Datenbereingiung ist die Steigerung der Datenqualität</p></li>
+<li><p>Der Prozess umfasst mehrere Schritte</p></li>
+<li><p>Teilweise mehrfach wiederholt</p></li>
+<li><p>Gelingt nur durch eine aktive Auseinandersetzung mit den Daten</p></li>
+</ul>
+</div><div class="column" style="width:33%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../../../images/02_pre_processing_chain.jpg"></p>
+<p></p><figcaption><span class="citation" data-cites="dejonge">Jonge &amp; Loo (<a href="#/ref-dejonge" role="doc-biblioref" onclick="return false;">n.d.</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section>
+<section id="literature" class="title-slide slide level1 inverse smaller scrollable" data-background-color="#971B2F">
+<h1>Literature</h1>
+
+<img src="../../../images/logo.svg" class="slide-logo r-stretch"><div class="footer footer-default">
+
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography">
+<div id="ref-db-0121" class="csl-entry" role="doc-biblioentry">
+<em>Db-01<span>_</span>2119.png (1421×1034)</em>. (n.d.). <a href="https://cdn.mindmajix.com/blog/images/db-01_2119.png">https://cdn.mindmajix.com/blog/images/db-01_2119.png</a>
+</div>
+<div id="ref-dejonge" class="csl-entry" role="doc-biblioentry">
+Jonge, E. de, &amp; Loo, M. van der. (n.d.). <em>An introduction to data cleaning with R</em>. <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf</a>
+</div>
+<div id="ref-positsoftware2021" class="csl-entry" role="doc-biblioentry">
+Posit Software. (2021). <em>Data-Transformation</em>. <a href="https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf">https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf</a>
+</div>
+<div id="ref-wickham2016" class="csl-entry" role="doc-biblioentry">
+Wickham, H., &amp; Grolemund, G. (2016). <em>R for data science: Import, tidy, transform, visualize, and model data</em> (First edition). O’Reilly.
+</div>
+</div>
+</section>
+
+
     </div>
   </div>
 
@@ -376,11 +1447,11 @@
 'previewLinksAuto': true,
 'smaller': false,
 'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
+'autoAnimateEasing': "ease-in-out",
+'autoAnimateDuration': 0.5,
 'autoAnimateUnmatched': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":false},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":false},
+'chalkboard': {"buttons":false,"theme":"whiteboard"},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -401,7 +1472,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: 'c',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -506,14 +1577,14 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
-        transitionSpeed: 'default',
+        transitionSpeed: 'fast',
 
         // Transition style for full page slide backgrounds
         // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
+        backgroundTransition: 'fade',
 
         // Number of slides away from the current that are visible
         viewDistance: 3,
@@ -526,9 +1597,9 @@
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1929,
 
-        height: 700,
+        height: 1080,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -560,6 +1631,48 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
