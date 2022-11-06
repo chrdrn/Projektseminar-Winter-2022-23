@@ -1,6 +1,19 @@
 ---
-format: html
-
+title: "Projektseminar 2022/23"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    theme: 
+      light: flatly
+      dark: darkly
+    smooth-scroll: true
+    css: style.css
+book:
+  favicon: https://www.kommunikationswissenschaft.rw.fau.de/favicon.ico
+editor_options: 
+  chunk_output_type: console
 ---
 
 [Session 02](content/02/index.html){target="_blank"}
