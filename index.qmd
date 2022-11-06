@@ -1,11 +1,6 @@
 ---
 format: html
-theme: 
-  - content/slidetheme.scss
+
 ---
 
-[Session 02](content/02/index.html){style=".external target"}
-
-<iframe src="content/02/index.html" width="800" height="900">
-
-</iframe>
+[Session 02](content/02/index.html){target="_blank"}
