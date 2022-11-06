@@ -1,10 +1,11 @@
 ---
-title: "Projektseminar 22/23"
-author: "Julius Klingelhoefer"
 format: html
-editor: visual
+theme: 
+  - content/slidetheme.scss
 ---
 
-## Test
+[Session 02](content/02/index.html){style=".external target"}
 
-[Session 02](/content/02-Datenaufbereitung I/02_slides.html)
+<iframe src="content/02/index.html" width="800" height="900">
+
+</iframe>
