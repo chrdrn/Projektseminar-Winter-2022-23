@@ -10,7 +10,6 @@ format:
       light: flatly
       dark: darkly
     smooth-scroll: true
-    css: style.css
 book:
   favicon: https://www.kommunikationswissenschaft.rw.fau.de/favicon.ico
 editor_options: 
@@ -24,4 +23,7 @@ editor_options:
 
 - Mit `E`, dann `STRG + P` können Sie die Folien drucken (am besten Querformat, ohne Rand).
 
-## [Session 02](content/02/index.html){target="_blank"}
+## Sitzung 01 - Keine Quarto Slides
+
+## Datenaufbereitung 02
+[Sitzung 02](content/02/index.html){target="_blank"}
