@@ -1,5 +1,6 @@
 ---
 title: "Projektseminar 2022/23"
+author: "Julius Klingelhoefer"
 format: 
   html:
     toc: true
@@ -16,4 +17,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-[Session 02](content/02/index.html){target="_blank"}
+## Anleitung
+- Unten finden Sie Links zu den Folien. Die Folien öffnen sich in einem neuen Tab.
+
+- Mit `F` können Sie den **Vollbild-Modus** aktivieren
+
+- Mit `E`, dann `STRG + P` können Sie die Folien drucken (am besten Querformat, ohne Rand).
+
+## [Session 02](content/02/index.html){target="_blank"}
