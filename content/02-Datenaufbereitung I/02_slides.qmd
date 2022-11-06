@@ -5,11 +5,11 @@ title: "Slides"
 <div>
 
 ```{=html}
-<iframe class="slide-deck" src="slides/" width = "800" height = "450"></iframe>
+<iframe class="slide-deck" src="slides/index.html" width = "800" height = "450"></iframe>
 ```
 
 </div>
 
-Click [here](slides/){target="_blank"} for full screen.
+Click [here](slides/index.html){target="_blank"} for full screen.
 
-Download by hitting 'e' on your keyboard then Ctrl+P print to PDF
+Download by hitting 'e' on your keyboard then Ctrl+P print to PDF (horizontal).
