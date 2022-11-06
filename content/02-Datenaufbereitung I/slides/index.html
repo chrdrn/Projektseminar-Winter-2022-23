@@ -10,6 +10,7 @@
   <meta name="generator" content="quarto-1.0.36">
 
   <meta name="author" content="Julius Klingelhoefer">
+  <meta name="dcterms.date" content="2022-11-06">
   <title>Projektseminar</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -413,6 +414,7 @@
   <h1 class="title">Projektseminar</h1>
   <p class="subtitle">Datenaufbereitung I</p>
   <p class="author">Julius Klingelhoefer</p>
+  <p class="date">2022-11-06</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -424,7 +426,10 @@
 <li><a href="#/aufgabe-1" id="/toc-aufgabe-1">Aufgabe 1</a></li>
 <li><a href="#/lösung-1" id="/toc-lösung-1">Lösung 1</a></li>
 <li><a href="#/datenbereinigung" id="/toc-datenbereinigung">Datenbereinigung</a></li>
-<li><a href="#/literature" id="/toc-literature">Literature</a></li>
+<li><a href="#/aufgabe-2" id="/toc-aufgabe-2">Aufgabe 2</a></li>
+<li><a href="#/lösung-2" id="/toc-lösung-2">Lösung 2</a></li>
+<li><a href="#/bonus" id="/toc-bonus">Bonus</a></li>
+<li><a href="#/literatur" id="/toc-literatur">Literatur</a></li>
 </ul>
 </nav>
 </section>
@@ -439,10 +444,13 @@
 </section>
 <section id="neuerungen" class="slide level2">
 <h2>Neuerungen</h2>
-<p>Mehr Abwechslung und Interaktivität: R-Übungselemte schon in den Vortrag:</p>
+<ul>
+<li><p>Mehr Abwechslung und Interaktivität: R-Übungselemte schon in den Vortrag:</p>
 <ul>
 <li><p>Kleinere Arbeitsphasen während des Vortrags</p></li>
 <li><p>Überarbeitungen aus der Sitzung sind Grundlage für die anschließenden Arbeitsaufträge</p></li>
+</ul></li>
+<li><p>Prä-Registrierung(en): Jetzt verfügbar, s. <span class="purple">Teams</span>!</p></li>
 </ul>
 </section>
 <section id="rstudio-server" class="slide level2">
@@ -624,8 +632,7 @@
 <section id="übersicht" class="slide level2">
 <h2>Übersicht</h2>
 
-<img data-src="https://cdn.mindmajix.com/blog/images/db-01_2119.png" class="r-stretch"><p>Source: <span class="citation" data-cites="db-0121"><em>Db-01<span>_</span>2119.png (1421×1034)</em> (<a href="#/ref-db-0121" role="doc-biblioref" onclick="return false;">n.d.</a>)</span></p>
-</section>
+<img data-src="https://cdn.mindmajix.com/blog/images/db-01_2119.png" class="r-stretch quarto-figure-center"><p class="caption">Source: <span class="citation" data-cites="db-0121"><em>Db-01<span>_</span>2119.png (1421×1034)</em> (<a href="#/ref-db-0121" role="doc-biblioref" onclick="return false;">n.d.</a>)</span></p></section>
 <section id="left_join" class="slide level2" data-auto-animate="T">
 <h2 data-id="quarto-animate-title"><code>left_join()</code></h2>
 <div class="columns">
@@ -717,7 +724,7 @@
 </div>
 </div>
 <ul>
-<li>Identisch zu left_join, nur “rechts”</li>
+<li>Identisch zu <code>left_join</code>, nur “rechts”</li>
 </ul>
 </section>
 <section id="inner_join" class="slide level2" data-auto-animate="T">
@@ -767,6 +774,9 @@
 <p><span class="square_lightgrey" data-id="box_4">a</span> <span class="square_lightgrey" data-id="box_5">t</span> <span class="square_lightgrey" data-id="box_6">1</span></p>
 <p><span class="square_lightgrey" data-id="box_7">b</span> <span class="square_lightgrey" data-id="box_8">u</span> <span class="square_lightgrey" data-id="box_9">2</span></p>
 <p><span class="square_lightgrey" data-id="box_10">c</span> <span class="square_lightgrey" data-id="box_11">v</span> <span class="square_lightgrey" data-id="box_12">3</span></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
 </div><div class="column" style="width:40%;">
 
 </div><div class="column" style="width:auto;">
@@ -799,17 +809,21 @@
 <section id="aufgabe-1" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
 <h1>Aufgabe 1</h1>
 <ol type="1">
-<li><p>Lesen Sie zwei Datensätze aus dem Ordner <code>data</code> ein:</p>
+<li><p>Lesen Sie die zwei Datensätze aus dem Pretest aus dem Ordner <code>data</code> ein:</p>
 <ul>
 <li><p><code>Momentary_Disco!+NO+LOGGING_20221020T113348+0200.xlsx</code></p></li>
 <li><p><code>momentary_disco_WITH_logging_20221020T113642+0200.xlsx</code></p></li>
 <li><p>a) Welche Funktion nutzen Sie zum einlesen?</p></li>
 </ul></li>
 <li><p>Vereinheitlichen Sie die Variablennamen mit <code>janitor::clean_names()</code></p></li>
+<li><p>Verbinden Sie die beiden Datensätze</p>
+<ul>
+<li>a) Welche Funktion nutzen Sie und wieso?</li>
+</ul></li>
 <li><p>Untersuchen Sie Variablen der Datensätze mit <code>glimpse()</code> mit <code>sjmisc::frq()</code></p>
-<ol type="a">
-<li>Was stellen Sie fest?</li>
-</ol></li>
+<ul>
+<li>a) Was stellen Sie fest?</li>
+</ul></li>
 </ol>
 </section>
 
@@ -1183,9 +1197,9 @@
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>d_log_t <span class="ot">=</span> d_log_t <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>d_log_t_c <span class="ot">=</span> d_log_t <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">clean_names</span>() <span class="co"># tidy names</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">colnames</span>(d_log_t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">colnames</span>(d_log_t_c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] "participant"                        
   [2] "trigger"                            
@@ -1361,12 +1375,564 @@
 </div>
 </div>
 </section>
+<section id="adding-rows" class="slide level2">
+<h2>Adding rows</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>data_both <span class="ot">=</span> <span class="fu">rbind</span>(d_log_f, d_log_t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">summary</span>(d_log_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Participant       Trigger           Trigger_date                   
+ Min.   :  1.00   Length:103         Min.   :2022-09-27 19:39:17.00  
+ 1st Qu.:128.00   Class :character   1st Qu.:2022-10-02 14:27:13.00  
+ Median :128.00   Mode  :character   Median :2022-10-06 16:12:13.00  
+ Mean   : 98.47                      Mean   :2022-10-07 05:36:22.07  
+ 3rd Qu.:128.00                      3rd Qu.:2022-10-10 20:25:11.00  
+ Max.   :128.00                      Max.   :2022-10-18 15:17:42.00  
+                                                                     
+  Trigger_time                    Trigger_counter     Form          
+ Min.   :2022-09-27 19:39:17.00   Min.   : 1.00   Length:103        
+ 1st Qu.:2022-10-02 14:27:13.00   1st Qu.:10.50   Class :character  
+ Median :2022-10-06 16:12:13.00   Median :29.00   Mode  :character  
+ Mean   :2022-10-07 05:36:22.07   Mean   :33.17                     
+ 3rd Qu.:2022-10-10 20:25:11.00   3rd Qu.:54.50                     
+ Max.   :2022-10-18 15:17:42.00   Max.   :78.00                     
+                                                                    
+ Form_start_date                  Form_start_time                 
+ Min.   :2022-09-27 19:39:26.00   Min.   :2022-09-27 19:39:26.00  
+ 1st Qu.:2022-10-02 14:42:20.50   1st Qu.:2022-10-02 14:42:20.50  
+ Median :2022-10-06 16:24:46.00   Median :2022-10-06 16:24:46.00  
+ Mean   :2022-10-07 05:46:58.92   Mean   :2022-10-07 05:46:58.92  
+ 3rd Qu.:2022-10-10 20:29:35.50   3rd Qu.:2022-10-10 20:29:35.50  
+ Max.   :2022-10-18 15:23:49.00   Max.   :2022-10-18 15:23:49.00  
+                                                                  
+ Form_finish_date                 Form_finish_time                
+ Min.   :2022-09-27 19:39:52.00   Min.   :2022-09-27 19:39:52.00  
+ 1st Qu.:2022-10-02 14:42:25.00   1st Qu.:2022-10-02 14:42:25.00  
+ Median :2022-10-06 16:26:04.00   Median :2022-10-06 16:26:04.00  
+ Mean   :2022-10-07 05:47:46.71   Mean   :2022-10-07 05:47:46.71  
+ 3rd Qu.:2022-10-10 20:31:34.50   3rd Qu.:2022-10-10 20:31:34.50  
+ Max.   :2022-10-18 15:23:49.00   Max.   :2022-10-18 15:23:49.00  
+                                                                  
+ Form_upload_date                 Form_upload_time                
+ Min.   :2022-09-27 19:39:55.00   Min.   :2022-09-27 19:39:55.00  
+ 1st Qu.:2022-10-02 15:45:54.00   1st Qu.:2022-10-02 15:45:54.00  
+ Median :2022-10-06 17:26:07.00   Median :2022-10-06 17:26:07.00  
+ Mean   :2022-10-07 09:04:45.86   Mean   :2022-10-07 09:04:45.86  
+ 3rd Qu.:2022-10-10 20:32:03.00   3rd Qu.:2022-10-10 20:32:03.00  
+ Max.   :2022-10-18 17:22:58.00   Max.   :2022-10-18 17:22:58.00  
+                                                                  
+   Missing           text_0        blank_1         text_1       
+ Length:103         Mode:logical   Mode:logical   Mode:logical  
+ Class :character   NA's:103       NA's:103       NA's:103      
+ Mode  :character                                               
+                                                                
+                                                                
+                                                                
+                                                                
+     wb_ge        text_2          wb_energy       wb_stress       wb_connect   
+ Min.   :2.000   Mode:logical   Min.   :1.000   Min.   :1.000   Min.   :3.000  
+ 1st Qu.:5.000   NA's:103       1st Qu.:3.000   1st Qu.:2.000   1st Qu.:4.000  
+ Median :5.000                  Median :4.000   Median :2.500   Median :5.000  
+ Mean   :5.294                  Mean   :4.029   Mean   :2.853   Mean   :4.765  
+ 3rd Qu.:6.000                  3rd Qu.:5.000   3rd Qu.:3.000   3rd Qu.:5.000  
+ Max.   :7.000                  Max.   :7.000   Max.   :7.000   Max.   :7.000  
+ NA's   :69                     NA's   :69      NA's   :69      NA's   :69     
+     procra      item_863       screentime_work  screentime_leisure
+ Min.   :1.000   Mode:logical   Min.   :  0.00   Min.   : 0.00     
+ 1st Qu.:1.000   NA's:103       1st Qu.:  0.00   1st Qu.:16.25     
+ Median :1.000                  Median :  0.00   Median :30.00     
+ Mean   :2.029                  Mean   : 16.21   Mean   :28.65     
+ 3rd Qu.:2.750                  3rd Qu.: 27.50   3rd Qu.:30.00     
+ Max.   :7.000                  Max.   :102.00   Max.   :92.00     
+ NA's   :69                     NA's   :69       NA's   :69        
+    disco_1          disco_2          disco_3          disco_4      
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.2059   Mean   :0.3235   Mean   :0.2353   Mean   :0.3824  
+ 3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:1.0000  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :69       NA's   :69       NA's   :69       NA's   :69      
+    disco_5          disco_6       item_607          disco_sd    
+ Min.   :0.0000   Min.   :0.0000   Mode:logical   Min.   :1.000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   NA's:103       1st Qu.:5.000  
+ Median :0.0000   Median :0.0000                  Median :5.000  
+ Mean   :0.4118   Mean   :0.3824                  Mean   :5.238  
+ 3rd Qu.:1.0000   3rd Qu.:1.0000                  3rd Qu.:6.000  
+ Max.   :1.0000   Max.   :1.0000                  Max.   :7.000  
+ NA's   :69       NA's   :69                      NA's   :82     
+ item_895       motivation_distraction motivation_wellbeing motivation_social
+ Mode:logical   Min.   :1.000          Min.   :1.00         Min.   :1.0      
+ NA's:103       1st Qu.:2.000          1st Qu.:2.00         1st Qu.:4.0      
+                Median :5.000          Median :6.00         Median :5.5      
+                Mean   :4.048          Mean   :4.45         Mean   :5.0      
+                3rd Qu.:6.000          3rd Qu.:6.00         3rd Qu.:6.0      
+                Max.   :7.000          Max.   :7.00         Max.   :7.0      
+                NA's   :82             NA's   :83           NA's   :83       
+ goal_conf_disconnection  text_3         ns_autonomy    ns_competence  
+ Min.   :1.00            Mode:logical   Min.   :4.000   Min.   :3.000  
+ 1st Qu.:2.00            NA's:103       1st Qu.:5.000   1st Qu.:5.000  
+ Median :3.00                           Median :5.000   Median :5.000  
+ Mean   :3.65                           Mean   :5.077   Mean   :5.154  
+ 3rd Qu.:5.25                           3rd Qu.:5.000   3rd Qu.:6.000  
+ Max.   :7.00                           Max.   :7.000   Max.   :7.000  
+ NA's   :83                             NA's   :90      NA's   :90     
+ ns_relatedness  item_1403       disco_desire   media_category_1
+ Min.   :3.000   Mode:logical   Min.   :1.000   Min.   :0.0000  
+ 1st Qu.:5.000   NA's:103       1st Qu.:1.000   1st Qu.:0.0000  
+ Median :5.000                  Median :2.000   Median :1.0000  
+ Mean   :5.231                  Mean   :2.308   Mean   :0.6923  
+ 3rd Qu.:6.000                  3rd Qu.:3.000   3rd Qu.:1.0000  
+ Max.   :7.000                  Max.   :7.000   Max.   :1.0000  
+ NA's   :90                     NA's   :90      NA's   :90      
+ media_category_2 media_category_3 media_category_4 media_category_5
+ Min.   :0.0000   Min.   :0.0000   Min.   :0        Min.   :0       
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0        1st Qu.:0       
+ Median :0.0000   Median :1.0000   Median :0        Median :0       
+ Mean   :0.3846   Mean   :0.6154   Mean   :0        Mean   :0       
+ 3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:0        3rd Qu.:0       
+ Max.   :1.0000   Max.   :1.0000   Max.   :0        Max.   :0       
+ NA's   :90       NA's   :90       NA's   :90       NA's   :90      
+ media_category_6 media_category_7  text_6        item_902       item_910      
+ Min.   :0.0000   Min.   :0.0000   Mode:logical   Mode:logical   Mode:logical  
+ 1st Qu.:0.0000   1st Qu.:0.0000   NA's:103       NA's:103       NA's:103      
+ Median :1.0000   Median :0.0000                                               
+ Mean   :0.5385   Mean   :0.1538                                               
+ 3rd Qu.:1.0000   3rd Qu.:0.0000                                               
+ Max.   :1.0000   Max.   :1.0000                                               
+ NA's   :90       NA's   :90                                                   
+ item_969          wb_ge_1      item_1057       wb_energy_1     wb_stress_1   
+ Mode:logical   Min.   :3.000   Mode:logical   Min.   :1.000   Min.   :1.000  
+ NA's:103       1st Qu.:5.000   NA's:103       1st Qu.:2.000   1st Qu.:2.000  
+                Median :6.000                  Median :3.000   Median :2.000  
+                Mean   :5.538                  Mean   :3.385   Mean   :2.077  
+                3rd Qu.:7.000                  3rd Qu.:5.000   3rd Qu.:2.000  
+                Max.   :7.000                  Max.   :6.000   Max.   :3.000  
+                NA's   :90                     NA's   :90      NA's   :90     
+  wb_connect_1      procra_1     item_986       screentime_work_1
+ Min.   :2.000   Min.   :1.000   Mode:logical   Min.   :  0.00   
+ 1st Qu.:5.000   1st Qu.:1.000   NA's:103       1st Qu.:  0.00   
+ Median :5.000   Median :1.000                  Median :  0.00   
+ Mean   :5.154   Mean   :1.154                  Mean   : 16.92   
+ 3rd Qu.:6.000   3rd Qu.:1.000                  3rd Qu.:  0.00   
+ Max.   :7.000   Max.   :3.000                  Max.   :120.00   
+ NA's   :90      NA's   :90                     NA's   :90       
+ screentime_leisure_1   disco_1_1        disco_1_2        disco_1_3     
+ Min.   :  0.00       Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:  0.00       1st Qu.:0.0000   1st Qu.:1.0000   1st Qu.:0.0000  
+ Median :  0.00       Median :1.0000   Median :1.0000   Median :1.0000  
+ Mean   : 16.15       Mean   :0.5385   Mean   :0.7692   Mean   :0.6154  
+ 3rd Qu.: 20.00       3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :100.00       Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :90           NA's   :90       NA's   :90       NA's   :90      
+   disco_1_4        disco_1_5        disco_1_6      item_1114     
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Mode:logical  
+ 1st Qu.:1.0000   1st Qu.:1.0000   1st Qu.:0.0000   NA's:103      
+ Median :1.0000   Median :1.0000   Median :0.0000                 
+ Mean   :0.7692   Mean   :0.7692   Mean   :0.1538                 
+ 3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:0.0000                 
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.0000                 
+ NA's   :90       NA's   :90       NA's   :90                     
+   disco_sd_1    item_1114_copy1233 motivation_distraction_1
+ Min.   :2.000   Mode:logical       Min.   :1.000           
+ 1st Qu.:5.000   NA's:103           1st Qu.:4.000           
+ Median :5.000                      Median :5.000           
+ Mean   :5.273                      Mean   :4.818           
+ 3rd Qu.:6.500                      3rd Qu.:6.000           
+ Max.   :7.000                      Max.   :7.000           
+ NA's   :92                         NA's   :92              
+ motivation_wellbeing_1 motivation_social_1 goal_conf_disconnection_1
+ Min.   :1.000          Min.   :1.000       Min.   :2.000            
+ 1st Qu.:1.000          1st Qu.:4.000       1st Qu.:2.000            
+ Median :2.000          Median :7.000       Median :5.000            
+ Mean   :2.545          Mean   :5.273       Mean   :3.818            
+ 3rd Qu.:3.500          3rd Qu.:7.000       3rd Qu.:5.000            
+ Max.   :6.000          Max.   :7.000       Max.   :6.000            
+ NA's   :92             NA's   :92          NA's   :92               
+ item_1114_copy1233_copy1413 ns_autonomy_1 ns_competence_1 ns_relatedness_1
+ Mode:logical                Min.   :5     Min.   :5.00    Min.   :5       
+ NA's:103                    1st Qu.:5     1st Qu.:5.25    1st Qu.:5       
+                             Median :5     Median :5.50    Median :5       
+                             Mean   :5     Mean   :5.50    Mean   :5       
+                             3rd Qu.:5     3rd Qu.:5.75    3rd Qu.:5       
+                             Max.   :5     Max.   :6.00    Max.   :5       
+                             NA's   :101   NA's   :101     NA's   :101     
+ item_1478      disco_desire_1 media_category_1_1 media_category_1_2
+ Mode:logical   Min.   :1.00   Min.   :1          Min.   :0.00      
+ NA's:103       1st Qu.:1.25   1st Qu.:1          1st Qu.:0.25      
+                Median :1.50   Median :1          Median :0.50      
+                Mean   :1.50   Mean   :1          Mean   :0.50      
+                3rd Qu.:1.75   3rd Qu.:1          3rd Qu.:0.75      
+                Max.   :2.00   Max.   :1          Max.   :1.00      
+                NA's   :101    NA's   :101        NA's   :101       
+ media_category_1_3 media_category_1_4 media_category_1_5 media_category_1_6
+ Min.   :0.00       Min.   :0.00       Min.   :0          Min.   :0.00      
+ 1st Qu.:0.25       1st Qu.:0.25       1st Qu.:0          1st Qu.:0.25      
+ Median :0.50       Median :0.50       Median :0          Median :0.50      
+ Mean   :0.50       Mean   :0.50       Mean   :0          Mean   :0.50      
+ 3rd Qu.:0.75       3rd Qu.:0.75       3rd Qu.:0          3rd Qu.:0.75      
+ Max.   :1.00       Max.   :1.00       Max.   :0          Max.   :1.00      
+ NA's   :101        NA's   :101        NA's   :101        NA's   :101       
+ media_category_1_7 item_738       item_1383      item_753       item_798      
+ Min.   :0          Mode:logical   Mode:logical   Mode:logical   Mode:logical  
+ 1st Qu.:0          NA's:103       NA's:103       NA's:103       NA's:103      
+ Median :0                                                                     
+ Mean   :0                                                                     
+ 3rd Qu.:0                                                                     
+ Max.   :0                                                                     
+ NA's   :101                                                                   
+  missed_alarm    missed_time    disco_1_daily_alarm_1 disco_1_daily_alarm_2
+ Min.   :1.000   Min.   :1.000   Min.   :1             Min.   :0            
+ 1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1             1st Qu.:0            
+ Median :2.000   Median :2.000   Median :1             Median :0            
+ Mean   :1.538   Mean   :1.692   Mean   :1             Mean   :0            
+ 3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:1             3rd Qu.:0            
+ Max.   :2.000   Max.   :2.000   Max.   :1             Max.   :0            
+ NA's   :90      NA's   :90      NA's   :97            NA's   :97           
+ disco_1_daily_alarm_3 disco_1_daily_alarm_4 disco_1_daily_alarm_5
+ Min.   :0             Min.   :0             Min.   :0            
+ 1st Qu.:0             1st Qu.:0             1st Qu.:0            
+ Median :0             Median :0             Median :0            
+ Mean   :0             Mean   :0             Mean   :0            
+ 3rd Qu.:0             3rd Qu.:0             3rd Qu.:0            
+ Max.   :0             Max.   :0             Max.   :0            
+ NA's   :97            NA's   :97            NA's   :97           
+ disco_1_daily_alarm_6 disco_1_daily_time_1 disco_1_daily_time_2
+ Min.   :0             Min.   :0.00         Min.   :1           
+ 1st Qu.:0             1st Qu.:0.75         1st Qu.:1           
+ Median :0             Median :1.00         Median :1           
+ Mean   :0             Mean   :0.75         Mean   :1           
+ 3rd Qu.:0             3rd Qu.:1.00         3rd Qu.:1           
+ Max.   :0             Max.   :1.00         Max.   :1           
+ NA's   :97            NA's   :99           NA's   :99          
+ disco_1_daily_time_3 disco_1_daily_time_4 disco_1_daily_time_5
+ Min.   :0.0          Min.   :0.0          Min.   :0.00        
+ 1st Qu.:0.0          1st Qu.:0.0          1st Qu.:0.75        
+ Median :0.5          Median :0.5          Median :1.00        
+ Mean   :0.5          Mean   :0.5          Mean   :0.75        
+ 3rd Qu.:1.0          3rd Qu.:1.0          3rd Qu.:1.00        
+ Max.   :1.0          Max.   :1.0          Max.   :1.00        
+ NA's   :99           NA's   :99           NA's   :99          
+ disco_1_daily_time_6 item_938_copy1728 motivation_distraction_day_copy1729
+ Min.   :0            Mode:logical      Min.   :1.000                      
+ 1st Qu.:0            NA's:103          1st Qu.:5.000                      
+ Median :0                              Median :5.000                      
+ Mean   :0                              Mean   :4.889                      
+ 3rd Qu.:0                              3rd Qu.:6.000                      
+ Max.   :0                              Max.   :7.000                      
+ NA's   :99                             NA's   :94                         
+ motivation_wellbeing_day_copy1730 motivation_social_day_copy1731
+ Min.   :1.000                     Min.   :1.000                 
+ 1st Qu.:2.000                     1st Qu.:5.000                 
+ Median :3.000                     Median :6.000                 
+ Mean   :3.556                     Mean   :5.222                 
+ 3rd Qu.:5.000                     3rd Qu.:7.000                 
+ Max.   :6.000                     Max.   :7.000                 
+ NA's   :94                        NA's   :94                    
+ item_1151      item_841_copy852 item_841       conscientiousness
+ Mode:logical   Mode:logical     Mode:logical   Min.   :5        
+ NA's:103       NA's:103         NA's:103       1st Qu.:5        
+                                                Median :5        
+                                                Mean   :5        
+                                                3rd Qu.:5        
+                                                Max.   :5        
+                                                NA's   :102      
+ item_1642      disco_thoughts item_551       final_feedback    
+ Mode:logical   Min.   :5      Mode:logical   Length:103        
+ NA's:103       1st Qu.:5      NA's:103       Class :character  
+                Median :5                     Mode  :character  
+                Mean   :5                                       
+                3rd Qu.:5                                       
+                Max.   :5                                       
+                NA's   :102                                     
+ item_1519_copy1527 item_1519      item_1366      item_1381     
+ Mode:logical       Mode:logical   Mode:logical   Mode:logical  
+ NA's:103           NA's:103       NA's:103       NA's:103      
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+ participation_n item_662       item_670          item_730    item_476      
+ Min.   :-1      Mode:logical   Mode:logical   Min.   :3043   Mode:logical  
+ 1st Qu.: 0      NA's:103       NA's:103       1st Qu.:3043   NA's:103      
+ Median :22                                    Median :3043                 
+ Mean   :19                                    Mean   :3043                 
+ 3rd Qu.:35                                    3rd Qu.:3043                 
+ Max.   :41                                    Max.   :3043                 
+ NA's   :88                                    NA's   :101                  
+    item_484   item_646       item_1019      item_617       item_633      
+ Min.   :2     Mode:logical   Mode:logical   Mode:logical   Mode:logical  
+ 1st Qu.:2     NA's:103       NA's:103       NA's:103       NA's:103      
+ Median :2                                                                
+ Mean   :2                                                                
+ 3rd Qu.:2                                                                
+ Max.   :2                                                                
+ NA's   :102                                                              
+ item_638       item_708       welcome_text   welcome_text_copy527
+ Mode:logical   Mode:logical   Mode:logical   Mode:logical        
+ NA's:103       NA's:103       NA's:103       NA's:103            
+                                                                  
+                                                                  
+                                                                  
+                                                                  
+                                                                  
+ welcome_text_copy527_copy735 item_1427      item_1432     
+ Mode:logical                 Mode:logical   Mode:logical  
+ NA's:103                     NA's:103       NA's:103      
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+ welcome_text_copy521 welcome_text_copy515 item_673          feedback  
+ Mode:logical         Mode:logical         Mode:logical   Min.   :2    
+ NA's:103             NA's:103             NA's:103       1st Qu.:2    
+                                                          Median :2    
+                                                          Mean   :2    
+                                                          3rd Qu.:2    
+                                                          Max.   :2    
+                                                          NA's   :102  
+ feedback_pin   item_848_copy856 item_848       item_868       item_879      
+ Mode:logical   Mode:logical     Mode:logical   Mode:logical   Mode:logical  
+ NA's:103       NA's:103         NA's:103       NA's:103       NA's:103      
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+ item_673_copy887 feedback_copy896 item_916       item_916_copy931
+ Mode:logical     Min.   :1        Mode:logical   Mode:logical    
+ NA's:103         1st Qu.:1        NA's:103       NA's:103        
+                  Median :1                                       
+                  Mean   :1                                       
+                  3rd Qu.:1                                       
+                  Max.   :1                                       
+                  NA's   :102                                     
+ item_1443         item_656       day_n     daily_forms    participation_number
+ Mode:logical   Min.   :1     Min.   :13    Mode:logical   Min.   :40          
+ NA's:103       1st Qu.:1     1st Qu.:13    NA's:103       1st Qu.:40          
+                Median :1     Median :13                   Median :40          
+                Mean   :1     Mean   :13                   Mean   :40          
+                3rd Qu.:1     3rd Qu.:13                   3rd Qu.:40          
+                Max.   :1     Max.   :13                   Max.   :40          
+                NA's   :101   NA's   :102                  NA's   :102         
+ final_day      finished          item_768     item39424       item_792    
+ Mode:logical   Mode:logical   Min.   : 1    Min.   :0.00   Min.   :40.00  
+ NA's:103       NA's:103       1st Qu.: 4    1st Qu.:0.25   1st Qu.:40.25  
+                               Median : 7    Median :0.50   Median :40.50  
+                               Mean   : 7    Mean   :0.50   Mean   :40.50  
+                               3rd Qu.:10    3rd Qu.:0.75   3rd Qu.:40.75  
+                               Max.   :13    Max.   :1.00   Max.   :41.00  
+                               NA's   :101   NA's   :101    NA's   :101    
+    item_810       item_820   item_820_copy760    item985    
+ Min.   :0.00   Min.   :0     Min.   :3043     Min.   :1.00  
+ 1st Qu.:0.25   1st Qu.:0     1st Qu.:3043     1st Qu.:2.25  
+ Median :0.50   Median :0     Median :3043     Median :3.50  
+ Mean   :0.50   Mean   :0     Mean   :3043     Mean   :3.50  
+ 3rd Qu.:0.75   3rd Qu.:0     3rd Qu.:3043     3rd Qu.:4.75  
+ Max.   :1.00   Max.   :0     Max.   :3043     Max.   :6.00  
+ NA's   :101    NA's   :101   NA's   :101      NA's   :101   
+ end_of_day_fillout
+ Mode:logical      
+ NA's:103          
+                   
+                   
+                   
+                   
+                   </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      id              version           Participant      Trigger         
+ Length:67          Length:67          Min.   :128.0   Length:67         
+ Class :character   Class :character   1st Qu.:128.0   Class :character  
+ Mode  :character   Mode  :character   Median :128.0   Mode  :character  
+                                       Mean   :266.3                     
+                                       3rd Qu.:533.0                     
+                                       Max.   :609.0                     
+                                                                         
+  Trigger_date                    Trigger_time                  
+ Min.   :2022-09-25 09:54:06.0   Min.   :2022-09-25 09:54:06.0  
+ 1st Qu.:2022-09-29 03:11:05.0   1st Qu.:2022-09-29 03:11:05.0  
+ Median :2022-09-30 20:46:34.0   Median :2022-09-30 20:46:34.0  
+ Mean   :2022-10-02 10:56:30.9   Mean   :2022-10-02 10:56:30.9  
+ 3rd Qu.:2022-10-06 02:00:22.5   3rd Qu.:2022-10-06 02:00:22.5  
+ Max.   :2022-10-10 20:25:11.0   Max.   :2022-10-10 20:25:11.0  
+                                                                
+ Trigger_counter     Form           Form_start_date                 
+ Min.   : 4.00   Length:67          Min.   :2022-09-25 10:14:49.00  
+ 1st Qu.:12.50   Class :character   1st Qu.:2022-09-29 03:11:14.00  
+ Median :21.00   Mode  :character   Median :2022-09-30 20:48:59.00  
+ Mean   :30.16                      Mean   :2022-10-02 11:06:53.96  
+ 3rd Qu.:47.50                      3rd Qu.:2022-10-06 02:17:47.50  
+ Max.   :76.00                      Max.   :2022-10-10 20:31:10.00  
+                                                                    
+ Form_start_time                  Form_finish_date                
+ Min.   :2022-09-25 10:14:49.00   Min.   :2022-09-25 10:16:42.00  
+ 1st Qu.:2022-09-29 03:11:14.00   1st Qu.:2022-09-29 03:13:04.00  
+ Median :2022-09-30 20:48:59.00   Median :2022-09-30 20:49:58.00  
+ Mean   :2022-10-02 11:06:53.96   Mean   :2022-10-02 11:08:44.60  
+ 3rd Qu.:2022-10-06 02:17:47.50   3rd Qu.:2022-10-06 02:19:07.00  
+ Max.   :2022-10-10 20:31:10.00   Max.   :2022-10-10 20:32:00.00  
+                                                                  
+ Form_finish_time                 Form_upload_date                
+ Min.   :2022-09-25 10:16:42.00   Min.   :2022-09-25 10:16:44.00  
+ 1st Qu.:2022-09-29 03:13:04.00   1st Qu.:2022-09-29 04:14:06.50  
+ Median :2022-09-30 20:49:58.00   Median :2022-09-30 20:50:00.00  
+ Mean   :2022-10-02 11:08:44.60   Mean   :2022-10-02 12:02:38.02  
+ 3rd Qu.:2022-10-06 02:19:07.00   3rd Qu.:2022-10-06 03:19:08.50  
+ Max.   :2022-10-10 20:32:00.00   Max.   :2022-10-10 20:32:03.00  
+                                                                  
+ Form_upload_time                   Missing              wb_ge      
+ Min.   :2022-09-25 10:16:44.00   Length:67          Min.   :1.000  
+ 1st Qu.:2022-09-29 04:14:06.50   Class :character   1st Qu.:5.000  
+ Median :2022-09-30 20:50:00.00   Mode  :character   Median :5.000  
+ Mean   :2022-10-02 12:02:38.02                      Mean   :5.152  
+ 3rd Qu.:2022-10-06 03:19:08.50                      3rd Qu.:6.000  
+ Max.   :2022-10-10 20:32:03.00                      Max.   :7.000  
+                                                     NA's   :1      
+   wb_energy       wb_stress       wb_connect        procra     
+ Min.   :1.000   Min.   :1.000   Min.   :2.000   Min.   :1.000  
+ 1st Qu.:3.000   1st Qu.:2.000   1st Qu.:4.000   1st Qu.:1.000  
+ Median :3.000   Median :2.000   Median :5.000   Median :1.000  
+ Mean   :3.697   Mean   :2.621   Mean   :4.455   Mean   :1.667  
+ 3rd Qu.:5.000   3rd Qu.:3.000   3rd Qu.:5.000   3rd Qu.:2.000  
+ Max.   :7.000   Max.   :6.000   Max.   :7.000   Max.   :5.000  
+ NA's   :1       NA's   :1       NA's   :1       NA's   :1      
+ screentime_work  screentime_leisure    disco_1          disco_2      
+ Min.   :  0.00   Min.   :  0.00     Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:  0.00   1st Qu.:  5.00     1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :  0.00   Median : 20.00     Median :0.0000   Median :0.0000  
+ Mean   : 21.79   Mean   : 24.42     Mean   :0.3182   Mean   :0.4848  
+ 3rd Qu.: 30.00   3rd Qu.: 30.00     3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :120.00   Max.   :100.00     Max.   :1.0000   Max.   :1.0000  
+ NA's   :1        NA's   :1          NA's   :1        NA's   :1       
+    disco_3          disco_4          disco_5          no_disco     
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :1.0000   Median :1.0000   Median :0.0000  
+ Mean   :0.3939   Mean   :0.5606   Mean   :0.5606   Mean   :0.2879  
+ 3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :1        NA's   :1        NA's   :1        NA's   :1       
+    disco_sd     motivation_distraction motivation_wellbeing motivation_social
+ Min.   :1.000   Min.   :1.000          Min.   :1.000        Min.   :1.000    
+ 1st Qu.:5.000   1st Qu.:3.000          1st Qu.:2.000        1st Qu.:2.000    
+ Median :5.000   Median :5.000          Median :5.000        Median :5.000    
+ Mean   :5.191   Mean   :4.447          Mean   :4.022        Mean   :4.217    
+ 3rd Qu.:6.000   3rd Qu.:6.000          3rd Qu.:6.000        3rd Qu.:6.000    
+ Max.   :7.000   Max.   :7.000          Max.   :7.000        Max.   :7.000    
+ NA's   :20      NA's   :20             NA's   :21           NA's   :21       
+ goal_conf_disconnection  ns_autonomy    ns_competence   ns_relatedness 
+ Min.   :1.000           Min.   :2.000   Min.   :2.000   Min.   :3.000  
+ 1st Qu.:2.000           1st Qu.:5.000   1st Qu.:4.000   1st Qu.:5.000  
+ Median :3.000           Median :5.000   Median :5.000   Median :5.000  
+ Mean   :3.826           Mean   :4.684   Mean   :4.526   Mean   :5.158  
+ 3rd Qu.:6.000           3rd Qu.:5.000   3rd Qu.:5.000   3rd Qu.:6.000  
+ Max.   :7.000           Max.   :6.000   Max.   :6.000   Max.   :7.000  
+ NA's   :21              NA's   :48      NA's   :48      NA's   :48     
+  disco_desire media_category_1 media_category_2 media_category_3
+ Min.   :1.0   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:1.0   1st Qu.:1.0000   1st Qu.:0.0000   1st Qu.:0.5000  
+ Median :1.0   Median :1.0000   Median :0.0000   Median :1.0000  
+ Mean   :2.0   Mean   :0.7895   Mean   :0.3684   Mean   :0.7368  
+ 3rd Qu.:2.5   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :5.0   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :48    NA's   :48       NA's   :48       NA's   :48      
+ media_category_4 media_category_5 media_category_6 media_category_7 
+ Min.   :0.0000   Min.   :0        Min.   :0.0000   Min.   :0.00000  
+ 1st Qu.:0.0000   1st Qu.:0        1st Qu.:0.0000   1st Qu.:0.00000  
+ Median :0.0000   Median :0        Median :1.0000   Median :0.00000  
+ Mean   :0.1053   Mean   :0        Mean   :0.5263   Mean   :0.05263  
+ 3rd Qu.:0.0000   3rd Qu.:0        3rd Qu.:1.0000   3rd Qu.:0.00000  
+ Max.   :1.0000   Max.   :0        Max.   :1.0000   Max.   :1.00000  
+ NA's   :48       NA's   :48       NA's   :48       NA's   :48       
+  missed_alarm   missed_time   disco_1_daily_alarm_1 disco_1_daily_alarm_2
+ Min.   :1.00   Min.   :1.00   Min.   :1             Min.   :0.0000       
+ 1st Qu.:1.00   1st Qu.:1.00   1st Qu.:1             1st Qu.:0.0000       
+ Median :1.00   Median :2.00   Median :1             Median :0.0000       
+ Mean   :1.45   Mean   :1.65   Mean   :1             Mean   :0.4546       
+ 3rd Qu.:2.00   3rd Qu.:2.00   3rd Qu.:1             3rd Qu.:1.0000       
+ Max.   :2.00   Max.   :2.00   Max.   :1             Max.   :1.0000       
+ NA's   :47     NA's   :47     NA's   :56            NA's   :56           
+ disco_1_daily_alarm_3 disco_1_daily_alarm_4 disco_1_daily_alarm_5
+ Min.   :0.0000        Min.   :0.0000        Min.   :0.0000       
+ 1st Qu.:0.0000        1st Qu.:0.0000        1st Qu.:0.0000       
+ Median :0.0000        Median :0.0000        Median :0.0000       
+ Mean   :0.2727        Mean   :0.3636        Mean   :0.2727       
+ 3rd Qu.:0.5000        3rd Qu.:1.0000        3rd Qu.:0.5000       
+ Max.   :1.0000        Max.   :1.0000        Max.   :1.0000       
+ NA's   :56            NA's   :56            NA's   :56           
+ disco_1_daily_alarm_6 disco_1_daily_time_1 disco_1_daily_time_2
+ Min.   :0             Min.   :0.0000       Min.   :0.0000      
+ 1st Qu.:0             1st Qu.:0.5000       1st Qu.:1.0000      
+ Median :0             Median :1.0000       Median :1.0000      
+ Mean   :0             Mean   :0.7143       Mean   :0.8571      
+ 3rd Qu.:0             3rd Qu.:1.0000       3rd Qu.:1.0000      
+ Max.   :0             Max.   :1.0000       Max.   :1.0000      
+ NA's   :56            NA's   :60           NA's   :60          
+ disco_1_daily_time_3 disco_1_daily_time_4 disco_1_daily_time_5
+ Min.   :0.0000       Min.   :0.0000       Min.   :0.0000      
+ 1st Qu.:0.0000       1st Qu.:0.5000       1st Qu.:1.0000      
+ Median :1.0000       Median :1.0000       Median :1.0000      
+ Mean   :0.5714       Mean   :0.7143       Mean   :0.8571      
+ 3rd Qu.:1.0000       3rd Qu.:1.0000       3rd Qu.:1.0000      
+ Max.   :1.0000       Max.   :1.0000       Max.   :1.0000      
+ NA's   :60           NA's   :60           NA's   :60          
+ disco_1_daily_time_6 motivation_distraction_day motivation_wellbeing_day
+ Min.   :0            Min.   :1.000              Min.   :1.000           
+ 1st Qu.:0            1st Qu.:5.000              1st Qu.:2.000           
+ Median :0            Median :5.000              Median :4.000           
+ Mean   :0            Mean   :5.143              Mean   :3.857           
+ 3rd Qu.:0            3rd Qu.:6.000              3rd Qu.:5.750           
+ Max.   :0            Max.   :7.000              Max.   :7.000           
+ NA's   :60           NA's   :53                 NA's   :53              
+ motivation_social_day conscientiousness disco_thoughts final_feedback    
+ Min.   :1.000         Min.   :5         Min.   :5      Length:67         
+ 1st Qu.:3.250         1st Qu.:5         1st Qu.:5      Class :character  
+ Median :5.500         Median :5         Median :5      Mode  :character  
+ Mean   :4.929         Mean   :5         Mean   :5                        
+ 3rd Qu.:7.000         3rd Qu.:5         3rd Qu.:5                        
+ Max.   :7.000         Max.   :5         Max.   :5                        
+ NA's   :53            NA's   :66        NA's   :66                       
+ participation_n    feedback   feedback_pin       day_n      daily_forms 
+ Min.   : NA     Min.   : NA   Mode:logical   Min.   : NA   Min.   : NA  
+ 1st Qu.: NA     1st Qu.: NA   NA's:67        1st Qu.: NA   1st Qu.: NA  
+ Median : NA     Median : NA                  Median : NA   Median : NA  
+ Mean   :NaN     Mean   :NaN                  Mean   :NaN   Mean   :NaN  
+ 3rd Qu.: NA     3rd Qu.: NA                  3rd Qu.: NA   3rd Qu.: NA  
+ Max.   : NA     Max.   : NA                  Max.   : NA   Max.   : NA  
+ NA's   :67      NA's   :67                   NA's   :67    NA's   :67   
+ participation_number final_day      finished       end_of_day_fillout
+ Min.   : NA          Mode:logical   Mode:logical   Mode:logical      
+ 1st Qu.: NA          NA's:67        NA's:67        NA's:67           
+ Median : NA                                                          
+ Mean   :NaN                                                          
+ 3rd Qu.: NA                                                          
+ Max.   : NA                                                          
+ NA's   :67                                                           </code></pre>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li>Warum habe ich hier <code>rbind()</code> verwendet?</li>
+</ul>
+</section>
 <section id="taking-a-glimpse" class="slide level2">
 <h2>Taking a <code>glimpse()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>d_log_t <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(d_log_t<span class="sc">$</span>form)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>d_log_t <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(d_log_t<span class="sc">$</span>form)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -1394,9 +1960,368 @@
 </div>
 </div>
 </div>
+</section>
+<section id="typische-strategie2" class="slide level2">
+<h2>Typische Strategie<sup>1</sup></h2>
+<ol type="1">
+<li><p>Bewertung allgemeiner Merkmale des Datensatzes, z. B.:</p>
+<ul>
+<li><p>Wie viele Fälle sind enthalten? Wie viele Variablen?</p></li>
+<li><p>Wie lauten die Variablennamen? Sind sie sinnvoll?</p></li>
+<li><p>Welchen Typ hat jede Variable: numerisch, kategorisch, logisch</p></li>
+<li><p>Wie viele eindeutige Werte hat jede Variable?</p></li>
+<li><p>Welcher Wert tritt am häufigsten auf, und wie oft kommt er vor?</p></li>
+<li><p>Gibt es fehlende Werte? Wenn ja, wie häufig ist dies der Fall?</p></li>
+</ul></li>
+<li><p>Untersuchung deskriptiver Statistiken für jede Variable;</p></li>
+<li><p>Explorative Visualisierung (mind. für besonders relevante Variablen)</p></li>
+<li><p>Suche nach Anomalien in den Daten (mind. für besonders relevante Variablen)</p></li>
+<li><p>Untersuchung der Beziehungen zwischen Schlüsselvariablen mit Hilfe von Scatterplots/Boxplots/Mosaic-Plots;</p></li>
+<li><p>Dokumentation des Vorgehens und der Ergebnisse (z.B. mit .qmd-Dokument). Dient als Grundlage für die anschließende Analyse und Erläuterung der Ergebnisse.</p></li>
+</ol>
+<aside><ol class="aside-footnotes"><li id="fn2" role="doc-endnote"><p>Nach <span class="citation" data-cites="ronaldk.pearson2018">Pearson (<a href="#/ref-ronaldk.pearson2018" role="doc-biblioref" onclick="return false;">2018</a>)</span> p.&nbsp;81</p></li></ol></aside></section>
+<section id="umgang-mit-fehlenden-werten" class="slide level2">
+<h2>Umgang mit fehlenden Werten</h2>
+<ul>
+<li><p>Variierende Gründe für fehlende Werte (Ausfüllverhalten, Studiendesign etc.)</p></li>
+<li><p>Können mit verschiedenen Problemem verbunden sein (Verringerung statistischer Aussagekraft, Verzerrung von Schätzungen etc.)</p></li>
+</ul>
+<p><strong>Fokus im Kontext dieser Sitzung:</strong></p>
+<ul>
+<li><p>Überprüfung der Join/Merge-Prozedur</p></li>
+<li><p>Plausibilitätsprüfung (Kontrolle der fehlenden Werte für Variablen und Fälle)</p></li>
+<li><p>Vielzahl an Paketen und Funktionen:</p>
+<ul>
+<li><p><code>visdat</code></p></li>
+<li><p><code>naniar</code></p></li>
+<li><p><code>dlookr</code>(::diagnose)</p></li>
+<li><p><code>DataExplorer</code></p></li>
+<li><p>…</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="visualisierung-fehlender-werte-mit-visdat" class="slide level2">
+<h2>Visualisierung fehlender Werte mit <code>visdat</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#example with a subset of variables/observations</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>data[<span class="fu">c</span>(<span class="dv">50</span><span class="sc">:</span><span class="dv">70</span>),<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">51</span>)] <span class="sc">%&gt;%</span> <span class="fu">vis_miss</span>() <span class="sc">+</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">size =</span> <span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="fälle-mit-hohem-anteil-an-fehlenden-werten" class="slide level2">
+<h2><strong>Fälle mit hohem Anteil an fehlenden Werten</strong></h2>
+<ul>
+<li><code>miss_case_summary</code> (bzw. <code>miss_var_summary</code>); Fälle (Variablen ) mit einem hohen Anteil Missing Values identifizieren</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">filter</span>(Form <span class="sc">==</span> <span class="st">"a Situational Survey"</span>  <span class="sc">|</span> Form <span class="sc">==</span> <span class="st">"b End of Day"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">miss_case_summary</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">summarise_all</span>(mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  id      case n_miss pct_miss
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1 nl_128  23     36.7     50.9
+2 yl_533   3     34.4     47.8
+3 yl_552   4.5   36.6     50.9
+4 yl_609   4.5   35.9     49.8</code></pre>
+</div>
+</div>
+<ul>
+<li>Dann mit der filter-Funktion (bzw. select-Funktion bei Variablen) für die weitere Analyse ausschließbar</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>df_excluded <span class="ot">=</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">filter</span>(id <span class="sc">!=</span> <span class="st">"yl_533"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="anomalien-in-daten" class="slide level2" style=".incremental">
+<h2>Anomalien in Daten</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li class="fragment"><p>Typischerweise besonders (uni- und multivariate) <strong>Ausreißer</strong> und <strong>Extremwerte</strong> im Fokus</p></li>
+<li class="fragment"><p>Zusätzlich Prüfen von</p>
+<ul>
+<li class="fragment"><p>Besonderheiten, z.B. auffällige Antwortmuster</p></li>
+<li class="fragment"><p>einzelne Parameter im Hinblick auf inhaltliche Kriterien, z.B. Ausfülldauer, Gewissenhaftigkeit</p></li>
+</ul></li>
+<li class="fragment"><p>Im Fokus: <strong>Straighlining</strong></p>
+<ul>
+<li class="fragment">= (nahezu) identische Antworten in einer Reihe von Fragenbatterien mit denselben Antwortkategorien</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://cdn.pixabay.com/photo/2016/12/19/23/11/checklist-1919328_960_720.png"></p>
+<p></p><figcaption><a href="https://pixabay.com/illustrations/checklist-list-check-mark-business-1919328/">Tumisu on Pixabay</a></figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="identifikation-von-straightlining" class="slide level2">
+<h2>Identifikation von “Straightlining”</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Verschiedene Ansätze</p>
+<ul>
+<li><p>Anteil der befragten Personen, die nur eine einzige Antwortkategorie verwenden</p></li>
+<li><p>Mittelwert der Wurzel der aboluten Differenzen zwischen allen Itempaaren innerhalb einer Batterie</p></li>
+<li><p>Anteil der maximalen Anzahl identischer Ratings innerhalb einer Batterie</p></li>
+<li><p>Standardabweichung oder <strong>Varianz des Ratings für jede befragte Person</strong></p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>var <span class="ot">=</span> sosci_pre_survey <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-5"><a href="#cb17-5"></a>    <span class="co"># here example for only a few variables</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>    <span class="at">var_disco_level =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(disco_level_w_1<span class="sc">:</span>disco_level_w_6)), </span>
+<span id="cb17-7"><a href="#cb17-7"></a>    <span class="at">var_disco_tech =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(disco_tech_w_1<span class="sc">:</span>disco_tech_w_6)),</span>
+<span id="cb17-8"><a href="#cb17-8"></a>    <span class="at">var_mindfulness =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(mindfulness_01<span class="sc">:</span>mindfulness_05)),</span>
+<span id="cb17-9"><a href="#cb17-9"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-11"><a href="#cb17-11"></a>    <span class="at">id =</span> id,</span>
+<span id="cb17-12"><a href="#cb17-12"></a>    <span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"var_"</span>), round, <span class="dv">2</span>)</span>
+<span id="cb17-13"><a href="#cb17-13"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="identifikation-von-straighlining-varianz" class="slide level2">
+<h2>Identifikation von “Straighlining”: Varianz</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<h3 id="code">Code</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>plot <span class="ot">=</span> var <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">select</span>(id, <span class="fu">contains</span>(<span class="st">"var_"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"var_"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4"></a>                <span class="sc">~</span> sjmisc<span class="sc">::</span><span class="fu">rec</span>(.,<span class="at">rec =</span> <span class="st">"0=1;else=0"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a>  <span class="fu">mutate</span>(<span class="at">var_sum =</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>           <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"var_"</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a>  sjPlot<span class="sc">::</span><span class="fu">plot_frq</span>(var_sum) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-9"><a href="#cb18-9"></a>    <span class="at">title =</span> <span class="st">"Identifying Straightlining"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10"></a>    <span class="at">x =</span> <span class="st">"Number of indices without variance"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11"></a>    <span class="at">y =</span> <span class="st">"Number of cases"</span>) <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<h3 id="plot">Plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</div>
+</div>
+</div><section id="section" class="slide level2">
+<h2></h2>
+</section>
+</div>
 </section></section>
-<section id="literature" class="title-slide slide level1 inverse smaller scrollable" data-background-color="#971B2F">
-<h1>Literature</h1>
+<section>
+<section id="aufgabe-2" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Aufgabe 2</h1>
+<ol type="1">
+<li>Lesen Sie den Pretest-Vorbefragungs-Datensatz <code>data_abschalten_2022-10-20_18-11.xlsx</code> ein</li>
+<li>Überprüfen Sie die Anzahl der Missing Values <strong>pro Variable</strong> mit Hilfe der Funktion <code>naniar::miss_var_summary</code></li>
+<li>Identifizieren Sie Straightlining (für ausgewählte Variablen)</li>
+<li>Verbinden Sie den Pretest-Vorbefragungs-Datensatz mit den bereits eingelesenen situationsbezogenen Fragebögen (Tip auf der nächsten Seite beachten)</li>
+</ol>
+</section>
+<section id="tip-logging-varianten-aufarbeitung" class="slide level2">
+<h2>Tip: Logging-Varianten-Aufarbeitung</h2>
+<p>Die zwei Varianten (mit und ohne Logging) beinhalten zusätzlichen Aufwand bei der Aufbereitung. Sie können den folgenden Code nutzen, um die IDs zu erstellen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># note: 9 needs to be added because 1-9 were reserved for the technical pretest</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="co"># adding 9 for both</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>sosci_pre_survey <span class="ot">=</span> sosci_pre_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-5"><a href="#cb20-5"></a>    <span class="at">movi_id_nl =</span> UR01<span class="sc">+</span><span class="dv">9</span>, <span class="co">#1 in the urn corresponds to id no. 10</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>    <span class="at">movi_id_yl =</span> UR02<span class="sc">+</span><span class="dv">9</span>  <span class="co">#1 in the urn corresponds to id no. 10</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-8"><a href="#cb20-8"></a>  <span class="fu">select</span>(movi_id_nl, movi_id_yl, <span class="fu">everything</span>())</span>
+<span id="cb20-9"><a href="#cb20-9"></a></span>
+<span id="cb20-10"><a href="#cb20-10"></a><span class="co">#creating id variable for non-logging version</span></span>
+<span id="cb20-11"><a href="#cb20-11"></a>sosci_pre_survey_nl <span class="ot">=</span> sosci_pre_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb20-12"><a href="#cb20-12"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(movi_id_nl)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-13"><a href="#cb20-13"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">"nl_"</span>, movi_id_nl)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a>  <span class="fu">select</span>(id, <span class="fu">everything</span>())</span>
+<span id="cb20-15"><a href="#cb20-15"></a></span>
+<span id="cb20-16"><a href="#cb20-16"></a><span class="co">#creating id variable for logging version</span></span>
+<span id="cb20-17"><a href="#cb20-17"></a>sosci_pre_survey_yl <span class="ot">=</span> sosci_pre_survey <span class="sc">%&gt;%</span> </span>
+<span id="cb20-18"><a href="#cb20-18"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(movi_id_yl)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-19"><a href="#cb20-19"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">paste0</span>(<span class="st">"yl_"</span>, movi_id_yl)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-20"><a href="#cb20-20"></a>  <span class="fu">select</span>(id, <span class="fu">everything</span>())</span>
+<span id="cb20-21"><a href="#cb20-21"></a></span>
+<span id="cb20-22"><a href="#cb20-22"></a>sosci_pre_survey <span class="ot">=</span> <span class="fu">rbind</span>(sosci_pre_survey_nl, sosci_pre_survey_yl) <span class="co">#joining both versions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="lösung-2" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Lösung 2</h1>
+<p><strong>⚠️ Erst nach der Bearbeitung weiterklicken! ⚠️</strong></p>
+</section>
+<section id="datensatz-einlesen" class="slide level2">
+<h2>Datensatz einlesen</h2>
+<p>Wie bisher:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>sosci_pre_survey <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"../../../pretest/data/data_abschalten_2022-10-20_18-11.xlsx"</span>, <span class="at">col_types =</span> <span class="st">"guess"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2"></a></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="co">#converting one double to string</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>sosci_pre_survey <span class="ot">=</span> sosci_pre_survey <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">FI04_01 =</span> <span class="fu">toString</span>(FI04_01))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="missing-values-prüfen" class="slide level2">
+<h2>Missing values prüfen</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">miss_var_summary</span>(sosci_pre_survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 158 × 3
+   variable              n_miss pct_miss
+   &lt;chr&gt;                  &lt;int&gt;    &lt;dbl&gt;
+ 1 SERIAL                    17    100  
+ 2 REF                       17    100  
+ 3 disco_context_other       17    100  
+ 4 ending_selection_text     17    100  
+ 5 MAILSENT                  17    100  
+ 6 sd_living_own_kids        16     94.1
+ 7 TIME022                   16     94.1
+ 8 disco_context_8           12     70.6
+ 9 disco_context_9           12     70.6
+10 disco_context_1           11     64.7
+# … with 148 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="straightlining-prüfen" class="slide level2">
+<h2>Straightlining prüfen</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># creating variance variables</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>var <span class="ot">=</span> sosci_pre_survey <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">replace</span>(<span class="fu">is.na</span>(.), <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-6"><a href="#cb24-6"></a>    <span class="co"># here example for only a few variables</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a>    <span class="at">var_disco_level =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(disco_level_w_1<span class="sc">:</span>disco_level_w_6)), </span>
+<span id="cb24-8"><a href="#cb24-8"></a>    <span class="at">var_disco_tech =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(disco_tech_w_1<span class="sc">:</span>disco_tech_w_6)),</span>
+<span id="cb24-9"><a href="#cb24-9"></a>    <span class="at">var_mindfulness =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(mindfulness_01<span class="sc">:</span>mindfulness_05)),</span>
+<span id="cb24-10"><a href="#cb24-10"></a>    <span class="at">var_availability =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(availability_preference_01<span class="sc">:</span>availability_preference_04)),</span>
+<span id="cb24-11"><a href="#cb24-11"></a>    <span class="at">var_disco_context =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(disco_context_1<span class="sc">:</span>disco_context_11)),</span>
+<span id="cb24-12"><a href="#cb24-12"></a>    <span class="at">var_fomo =</span> <span class="fu">var</span>(<span class="fu">c_across</span>(fomo_01<span class="sc">:</span>fomo_10)),</span>
+<span id="cb24-13"><a href="#cb24-13"></a>    <span class="co"># ...</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a>    <span class="co"># ...</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a>    <span class="co"># ...</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb24-17"><a href="#cb24-17"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-18"><a href="#cb24-18"></a>    <span class="at">id =</span> id,</span>
+<span id="cb24-19"><a href="#cb24-19"></a>    <span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"var_"</span>), round, <span class="dv">2</span>)</span>
+<span id="cb24-20"><a href="#cb24-20"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># creating plot</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>plot <span class="ot">=</span> var <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">select</span>(id, <span class="fu">contains</span>(<span class="st">"var_"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"var_"</span>),</span>
+<span id="cb25-5"><a href="#cb25-5"></a>                <span class="sc">~</span> sjmisc<span class="sc">::</span><span class="fu">rec</span>(.,<span class="at">rec =</span> <span class="st">"0=1;else=0"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">mutate</span>(<span class="at">var_sum =</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>           <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"var_"</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a>  sjPlot<span class="sc">::</span><span class="fu">plot_frq</span>(var_sum) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-10"><a href="#cb25-10"></a>    <span class="at">title =</span> <span class="st">"Identifying Straightlining"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11"></a>    <span class="at">x =</span> <span class="st">"Number of indices without variance"</span>,</span>
+<span id="cb25-12"><a href="#cb25-12"></a>    <span class="at">y =</span> <span class="st">"Number of cases"</span>) <span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13"></a>  <span class="fu">theme_pubr</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="alle-datensätze-zusammenfügen" class="slide level2">
+<h2>Alle Datensätze zusammenfügen</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>data_long <span class="ot">=</span> <span class="fu">merge</span>(data, sosci_pre_survey, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2"></a></span>
+<span id="cb26-3"><a href="#cb26-3"></a>data_long <span class="ot">=</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a>  clean_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="bonus" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Bonus</h1>
+<p><strong>Falls noch Zeit ist</strong></p>
+</section>
+<section id="datenimport-mit-readr" class="slide level2">
+<h2>Datenimport mit readr</h2>
+<ul>
+<li><p>Empfehlung: readr-Paket</p>
+<ul>
+<li><p>Standardpaket, wenn “Import Dataset…”-Option im File-Pane genutzt wird (und es sich um “einfache” tabellarische Daten handelt)</p></li>
+<li><p>Ermöglicht Definition und Erkennung zusätzliche Argumente (z.B zur Spezifikation des Variablentyps bzw. -class)</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>df <span class="ot">=</span> <span class="fu">read_delim</span>(</span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="at">file =</span> <span class="st">"example.csv"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="at">escape_double =</span> F,</span>
+<span id="cb27-5"><a href="#cb27-5"></a>  <span class="at">trim_ws =</span> T</span>
+<span id="cb27-6"><a href="#cb27-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
+</section>
+<section id="dplyr-vs.-base-r-zusammenfügen" class="slide level2">
+<h2><code>dplyr</code> vs.&nbsp;base R zusammenfügen</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="base-r">Base R</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">merge</span>(</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="at">x =</span> dataframe_1,  <span class="at">y =</span> dataframe_2,</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="at">by =</span> <span class="st">"key"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="at">all =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Zusätzliche Argumente für:
+<ul>
+<li><p>left join: <code>all.x = T</code></p></li>
+<li><p>right_Join: <code>all.y = T</code></p></li>
+<li><p>full_join: <code>all = F</code></p></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="dplyr">dplyr</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">inner_join</span>(</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="at">x =</span> dataframe_1,  <span class="at">y =</span> dataframe_2,</span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="at">by =</span> <span class="st">"key"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>dplyr bietet eine Funktion für jede Art von Verknüpfung:</p>
+<ul>
+<li><p><code>right_join()</code></p></li>
+<li><p><code>left_join()</code></p></li>
+<li><p><code>full_join()</code></p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section></section>
+<section id="literatur" class="title-slide slide level1 inverse smaller scrollable" data-background-color="#971B2F">
+<h1>Literatur</h1>
 
 <img src="../../../images/logo.svg" class="slide-logo r-stretch"><div class="footer footer-default">
 
@@ -1407,6 +2332,9 @@
 </div>
 <div id="ref-dejonge" class="csl-entry" role="doc-biblioentry">
 Jonge, E. de, &amp; Loo, M. van der. (n.d.). <em>An introduction to data cleaning with R</em>. <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf</a>
+</div>
+<div id="ref-ronaldk.pearson2018" class="csl-entry" role="doc-biblioentry">
+Pearson, R. K. (2018). <em>Exploratory data analysis using r</em>. CRC Press.
 </div>
 <div id="ref-positsoftware2021" class="csl-entry" role="doc-biblioentry">
 Posit Software. (2021). <em>Data-Transformation</em>. <a href="https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf">https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf</a>
@@ -1597,7 +2525,7 @@ Wickham, H., &amp; Grolemund, G. (2016). <em>R for data science: Import, tidy, t
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1929,
+        width: 1920,
 
         height: 1080,
 

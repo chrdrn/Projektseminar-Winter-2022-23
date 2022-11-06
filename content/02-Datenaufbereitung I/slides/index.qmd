@@ -11,11 +11,11 @@ author:
     url: https://twitter.com/klingelhoefer_j/
     affiliation: Juniorprofessur für Kommunikationswissenschaft
     affiliation-url: https://www.kommunikationswissenschaft.rw.fau.de/julius-klingelhoefer/
-#date: 
+date: "`r Sys.Date()`" 
 #date-format: "DD.MM.YYYY"
 format:
   revealjs:
-    width: 1929
+    width: 1920
     height: 1080
     menu: false
     toc: true
@@ -27,6 +27,7 @@ format:
     background-transition: fade
     transition-speed: fast
     theme: ../../slidetheme.scss
+    fontsize: 5em
     #template-partials:
     slide-number: c
     chalkboard:
@@ -54,19 +55,179 @@ editor_options:
 
 ```{r setup}
 #| echo: false
+#| output: false
+
 
 # installing and activating required packages 
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse, dplyr, janitor, renv, readxl, haven, lme4)
+pacman::p_load(tidyverse, dplyr, janitor, renv, readxl, haven, visdat, naniar, dplyr, ggpubr)
+
+
+#_______________________
+# The following lines include code from another markdown document that are pasted here without explanations. See the pretest data cleaning and joining script for full context (not in this github repository) 
+#_______________________
+
+# Importing data from the version without logging
+d_log_f = read_excel("../../../pretest/data/Momentary_Disco!+NO+LOGGING_20221020T113348+0200.xlsx")
+# creating unique IDs (to avoid conflicts with the other study version)
+d_log_f = d_log_f %>% 
+  mutate(id = paste0("nl_",Participant)) %>% 
+  mutate(version = "no_logging") %>% 
+  select(id, version, everything())
+
+
+# Importing data from the version with logging
+d_log_t = read_excel("../../../pretest/data/momentary_disco_WITH_logging_20221020T113642+0200.xlsx")
+# creating unique IDs (to avoid conflicts with the other study version)
+d_log_t = d_log_t %>% 
+  mutate(id = paste0("yl_",Participant)) %>%
+  mutate(version = "with_logging") %>% 
+  select(id, version, everything())
+
+
+# Joining both datasets
+data = rbind(d_log_f, d_log_t)
+rm(d_log_f, d_log_t) # removing seperate dataframe, only keeping joined df
+
+
+# Merging variables present in the 4 daily and the one end of day questionnaire
+# moving variable names with _1 to the correct names
+x = data %>% 
+  filter(Form == "b End of Day") %>% 
+  mutate(
+    wb_ge = wb_ge_1,
+    wb_energy = wb_energy_1,
+    wb_stress = wb_stress_1,
+    wb_connect = wb_connect_1,
+    procra = procra_1,
+    screentime_work = screentime_work_1,
+    screentime_leisure = screentime_leisure_1,
+    disco_1 = disco_1_1, 
+    disco_2 = disco_1_2,
+    disco_3 = disco_1_3,
+    disco_4 = disco_1_4,
+    disco_5 = disco_1_5,
+    disco_6 = disco_1_6,
+    disco_sd = disco_sd_1,
+    motivation_distraction = motivation_distraction_1,
+    motivation_wellbeing = motivation_wellbeing_1,
+    motivation_social = motivation_social_1,
+    goal_conf_disconnection = goal_conf_disconnection_1,
+    ns_autonomy = ns_autonomy_1,
+    ns_competence = ns_competence_1,
+    ns_relatedness = ns_relatedness_1,
+    disco_desire = disco_desire_1,
+    media_category_1 = media_category_1_1,
+    media_category_2 = media_category_1_2,
+    media_category_3 = media_category_1_3,
+    media_category_4 = media_category_1_4,
+    media_category_5 = media_category_1_5,
+    media_category_6 = media_category_1_6,
+    media_category_6 = media_category_1_6,
+    media_category_7 = media_category_1_7,
+  )
+
+# filtering out all non-end of day questionnaires
+y = data %>% filter(Form != "b End of Day")
+
+# merging both filtered sets, selecting only forms with variables relevant for the analyses
+data = rbind(x, y)
+data = data %>%
+  arrange(Trigger_time) %>% 
+  arrange(id) %>% 
+  filter(Participant >= 10) %>%  
+  # IDs 1-10 were reserved for technical pretests in both versions
+  filter(Form == "a Situational Survey" | Form == "b End of Day" | Form == "c Final Survey")  
+
+# dropping variables that only contain text or non-recorded values
+na_vars = data %>%
+  summarise_all(funs(sum(is.na(.)))) 
+all_na_list = NULL
+for (i in 1:ncol(data))
+{
+  if(na_vars[1,i] == nrow(data))
+  {
+  all_na_list = append(all_na_list, colnames(na_vars[i]))
+  print(i)
+  }
+}
+all_na_list
+
+# creating a vector with all unwanted variables (e.g. movisensXS creates a variable each time more than one question question is shown per page and for every text displayed, including instructions; also removing the duplicate variables for the end of day survey that were moved to the correctly named variables earlier)
+unwanted_vars = c("wb_ge_1", "wb_energy_1", "wb_stress_1", "wb_connect_1", "procra_1", "screentime_work_1", "screentime_leisure_1", "disco_1_1", "disco_1_2", "disco_1_3", "disco_1_4", "disco_1_5", "disco_1_6", "disco_sd_1", "motivation_distraction_1", "motivation_wellbeing_1", "motivation_social_1", "goal_conf_disconnection_1", "ns_autonomy_1", "ns_competence_1", "ns_relatedness_1", "disco_desire_1", "media_category_1_1", "media_category_1_2", "media_category_1_3", "media_category_1_4", "media_category_1_5", "media_category_1_6", "media_category_1_6", "media_category_1_7", "text_0", "blank_1", "text_1", "text_2", "item_863", "item_607", "item_895", "text_3", "item_1403", "text_6", "item_902", "item_910", "item_969", "item_1057", "item_986", "item_1114", "item_1114_copy1233", "item_1114_copy1233_copy1413", "item_1478", "item_738", "item_1383", "item_753", "item_798", "item_938_copy1728", "item_1151", "item_841_copy852", "item_841", "item_1642", "item_551", "item_1519_copy1527", "item_1519","item_1366", "item_1381", "item_662", "item_670", "item_730", "item_476", "item_484", "item_646", "item_1019", "item_617", "item_633", "item_638", "item_708", "welcome_text", "welcome_text_copy527", "welcome_text_copy527_copy735", "item_1427", "item_1432", "welcome_text_copy521", "welcome_text_copy515", "item_673", "item_848_copy856", "item_848", "item_868", "item_879", "item_673_copy887", "feedback_copy896", "item_916", "item_916_copy931", "item_1443", "item_656", "item_792", "item_810", "item_820", "item_820_copy760", "item985", "item_768", "item39424")
+print(unwanted_vars)
+
+# filtering out the list of unwanted variables
+data_filtered = data %>% 
+  select(!one_of(unwanted_vars))
+
+#renaming inappropriately named variables
+data_filtered = data_filtered %>% 
+  rename(
+    motivation_distraction_day = motivation_distraction_day_copy1729,
+    motivation_wellbeing_day = motivation_wellbeing_day_copy1730,
+    motivation_social_day = motivation_social_day_copy1731,
+  )
+
+# renaming disco_6 to reflect that this item is selected if disco occurred
+data_filtered = data_filtered %>% 
+  rename(
+    no_disco = disco_6 
+  )
+
+# setting filtered data to data
+data = data_filtered
+print(colnames(data))
+
+# removing no longer needed variables/data frames
+rm(data_filtered, na_vars, x, y, all_na_list, i, unwanted_vars)
+
+
+sosci_pre_survey = read_excel("../../../pretest/data/data_abschalten_2022-10-20_18-11.xlsx", col_types = "guess")
+
+#converting one double to string
+sosci_pre_survey = sosci_pre_survey %>% mutate(FI04_01 = toString(FI04_01))
+
+# note: 9 needs to be added because 1-9 were reserved for the technical pretest
+# adding 9 for both
+sosci_pre_survey = sosci_pre_survey %>% 
+  mutate(
+    movi_id_nl = UR01+9, #1 in the urn corresponds to id no. 10
+    movi_id_yl = UR02+9  #1 in the urn corresponds to id no. 10
+  ) %>% 
+  select(movi_id_nl, movi_id_yl, everything())
+
+#creating id variable for non-logging version
+sosci_pre_survey_nl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_nl)) %>% 
+  mutate(id = paste0("nl_", movi_id_nl)) %>%
+  select(id, everything())
+
+#creating id variable for logging version
+sosci_pre_survey_yl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_yl)) %>% 
+  mutate(id = paste0("yl_", movi_id_yl)) %>%
+  select(id, everything())
+
+sosci_pre_survey = rbind(sosci_pre_survey_nl, sosci_pre_survey_yl) #joining both versions
+rm(sosci_pre_survey_nl, sosci_pre_survey_yl) # removing temporary data frames
+
+data_long = merge(data, sosci_pre_survey, by = "id")
+
+
+data_long = data_long %>%
+  clean_names
 ```
 
 ## Neuerungen
 
-Mehr Abwechslung und Interaktivität: R-Übungselemte schon in den Vortrag:
+-   Mehr Abwechslung und Interaktivität: R-Übungselemte schon in den Vortrag:
 
--   Kleinere Arbeitsphasen während des Vortrags
+    -   Kleinere Arbeitsphasen während des Vortrags
 
--   Überarbeitungen aus der Sitzung sind Grundlage für die anschließenden Arbeitsaufträge
+    -   Überarbeitungen aus der Sitzung sind Grundlage für die anschließenden Arbeitsaufträge
+
+-   Prä-Registrierung(en): Jetzt verfügbar, s. [Teams]{.purple}!
 
 ## RStudio Server
 
@@ -296,9 +457,7 @@ x & y
 
 ## Übersicht
 
-![](https://cdn.mindmajix.com/blog/images/db-01_2119.png)
-
-Source: @db-0121
+![Source: @db-0121](https://cdn.mindmajix.com/blog/images/db-01_2119.png)
 
 ## `left_join()` {auto-animate="T"}
 
@@ -433,7 +592,7 @@ x & y
 :::
 :::
 
--   Identisch zu left_join, nur "rechts"
+-   Identisch zu `left_join`, nur "rechts"
 
 ## `inner_join()` {auto-animate="T"}
 
@@ -501,6 +660,12 @@ x
 [b]{.square_lightgrey data-id="box_7"} [u]{.square_lightgrey data-id="box_8"} [2]{.square_lightgrey data-id="box_9"}
 
 [c]{.square_lightgrey data-id="box_10"} [v]{.square_lightgrey data-id="box_11"} [3]{.square_lightgrey data-id="box_12"}
+
+<br>
+
+<br>
+
+<br>
 :::
 
 ::: {.column width="40%"}
@@ -544,7 +709,7 @@ x & y
 
 # Aufgabe 1
 
-1.  Lesen Sie zwei Datensätze aus dem Ordner `data` ein:
+1.  Lesen Sie die zwei Datensätze aus dem Pretest aus dem Ordner `data` ein:
 
     -   `Momentary_Disco!+NO+LOGGING_20221020T113348+0200.xlsx`
 
@@ -554,9 +719,13 @@ x & y
 
 2.  Vereinheitlichen Sie die Variablennamen mit `janitor::clean_names()`
 
-3.  Untersuchen Sie Variablen der Datensätze mit `glimpse()` mit `sjmisc::frq()`
+3.  Verbinden Sie die beiden Datensätze
 
-    a.  Was stellen Sie fest?
+    -   a\) Welche Funktion nutzen Sie und wieso?
+
+4.  Untersuchen Sie Variablen der Datensätze mit `glimpse()` mit `sjmisc::frq()`
+
+    -   a\) Was stellen Sie fest?
 
 # Lösung 1
 
@@ -587,12 +756,34 @@ colnames(
 
 ::: {.column width="50%"}
 ```{r}
-d_log_t = d_log_t %>%
+d_log_t_c = d_log_t %>%
   clean_names() # tidy names
-colnames(d_log_t)
+colnames(d_log_t_c)
 ```
 :::
 :::
+
+## Adding rows
+
+```{r}
+data_both = rbind(d_log_f, d_log_t)
+```
+
+::: columns
+::: {.column width="50%"}
+```{r}
+summary(d_log_f)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+summary(data)
+```
+:::
+:::
+
+-   Warum habe ich hier `rbind()` verwendet?
 
 ## Taking a `glimpse()`
 
@@ -627,4 +818,357 @@ sjmisc::frq(d_log_t$form)
 :::
 :::
 
-# Literature
+## Typische Strategie[^2]
+
+[^2]: Nach @ronaldk.pearson2018 p. 81
+
+1.  Bewertung allgemeiner Merkmale des Datensatzes, z. B.:
+
+    -   Wie viele Fälle sind enthalten? Wie viele Variablen?
+
+    -   Wie lauten die Variablennamen? Sind sie sinnvoll?
+
+    -   Welchen Typ hat jede Variable: numerisch, kategorisch, logisch
+
+    -   Wie viele eindeutige Werte hat jede Variable?
+
+    -   Welcher Wert tritt am häufigsten auf, und wie oft kommt er vor?
+
+    -   Gibt es fehlende Werte? Wenn ja, wie häufig ist dies der Fall?
+
+2.  Untersuchung deskriptiver Statistiken für jede Variable;
+
+3.  Explorative Visualisierung (mind. für besonders relevante Variablen)
+
+4.  Suche nach Anomalien in den Daten (mind. für besonders relevante Variablen)
+
+5.  Untersuchung der Beziehungen zwischen Schlüsselvariablen mit Hilfe von Scatterplots/Boxplots/Mosaic-Plots;
+
+6.  Dokumentation des Vorgehens und der Ergebnisse (z.B. mit .qmd-Dokument). Dient als Grundlage für die anschließende Analyse und Erläuterung der Ergebnisse.
+
+## Umgang mit fehlenden Werten
+
+-   Variierende Gründe für fehlende Werte (Ausfüllverhalten, Studiendesign etc.)
+
+-   Können mit verschiedenen Problemem verbunden sein (Verringerung statistischer Aussagekraft, Verzerrung von Schätzungen etc.)
+
+**Fokus im Kontext dieser Sitzung:**
+
+-   Überprüfung der Join/Merge-Prozedur
+
+-   Plausibilitätsprüfung (Kontrolle der fehlenden Werte für Variablen und Fälle)
+
+-   Vielzahl an Paketen und Funktionen:
+
+    -   `visdat`
+
+    -   `naniar`
+
+    -   `dlookr`(::diagnose)
+
+    -   `DataExplorer`
+
+    -   ...
+
+## Visualisierung fehlender Werte mit `visdat`
+
+```{r}
+#example with a subset of variables/observations
+data[c(50:70),c(1:51)] %>% vis_miss() + 
+  theme(axis.text.x = element_text(angle = 90, size = 9))
+
+
+```
+
+## **Fälle mit hohem Anteil an fehlenden Werten**
+
+-   `miss_case_summary` (bzw. `miss_var_summary`); Fälle (Variablen ) mit einem hohen Anteil Missing Values identifizieren
+
+```{r}
+data %>%
+  filter(Form == "a Situational Survey"  | Form == "b End of Day") %>%
+  group_by(id) %>% 
+  miss_case_summary() %>% 
+  summarise_all(mean)
+```
+
+-   Dann mit der filter-Funktion (bzw. select-Funktion bei Variablen) für die weitere Analyse ausschließbar
+
+```{r}
+df_excluded = data %>% 
+  filter(id != "yl_533")
+```
+
+## Anomalien in Daten {style=".incremental"}
+
+::: columns
+::: {.column .incremental width="60%"}
+-   Typischerweise besonders (uni- und multivariate) **Ausreißer** und **Extremwerte** im Fokus
+
+-   Zusätzlich Prüfen von
+
+    -   Besonderheiten, z.B. auffällige Antwortmuster
+
+    -   einzelne Parameter im Hinblick auf inhaltliche Kriterien, z.B. Ausfülldauer, Gewissenhaftigkeit
+
+-   Im Fokus: **Straighlining**
+
+    -   = (nahezu) identische Antworten in einer Reihe von Fragenbatterien mit denselben Antwortkategorien
+:::
+
+::: {.column width="40%"}
+![[Tumisu on Pixabay](https://pixabay.com/illustrations/checklist-list-check-mark-business-1919328/)](https://cdn.pixabay.com/photo/2016/12/19/23/11/checklist-1919328_960_720.png)
+:::
+:::
+
+## Identifikation von "Straightlining"
+
+::: columns
+::: {.column width="50%"}
+Verschiedene Ansätze
+
+-   Anteil der befragten Personen, die nur eine einzige Antwortkategorie verwenden
+
+-   Mittelwert der Wurzel der aboluten Differenzen zwischen allen Itempaaren innerhalb einer Batterie
+
+-   Anteil der maximalen Anzahl identischer Ratings innerhalb einer Batterie
+
+-   Standardabweichung oder **Varianz des Ratings für jede befragte Person**
+:::
+
+::: {.column width="50%"}
+```{r}
+var = sosci_pre_survey %>%
+  replace(is.na(.), 0) %>% 
+  rowwise() %>%
+  mutate(
+    # here example for only a few variables
+    var_disco_level = var(c_across(disco_level_w_1:disco_level_w_6)), 
+    var_disco_tech = var(c_across(disco_tech_w_1:disco_tech_w_6)),
+    var_mindfulness = var(c_across(mindfulness_01:mindfulness_05)),
+  ) %>%
+  mutate(
+    id = id,
+    across(contains("var_"), round, 2)
+    )
+```
+:::
+:::
+
+## Identifikation von "Straighlining": Varianz
+
+::: columns
+::: {.column width="40%"}
+### Code
+
+```{r}
+plot = var %>%
+  select(id, contains("var_")) %>%
+  mutate(across(contains("var_"),
+                ~ sjmisc::rec(.,rec = "0=1;else=0"))) %>%
+  mutate(var_sum =
+           rowSums(across(contains("var_")))) %>%
+  sjPlot::plot_frq(var_sum) +
+  labs(
+    title = "Identifying Straightlining",
+    x = "Number of indices without variance",
+    y = "Number of cases") +
+  theme_pubr()
+```
+:::
+
+::: {.column width="60%"}
+### Plot
+
+```{r}
+plot
+```
+:::
+
+## 
+:::
+
+# Aufgabe 2
+
+1.  Lesen Sie den Pretest-Vorbefragungs-Datensatz `data_abschalten_2022-10-20_18-11.xlsx` ein
+2.  Überprüfen Sie die Anzahl der Missing Values **pro Variable** mit Hilfe der Funktion `naniar::miss_var_summary`
+3.  Identifizieren Sie Straightlining (für ausgewählte Variablen)
+4.  Verbinden Sie den Pretest-Vorbefragungs-Datensatz mit den bereits eingelesenen situationsbezogenen Fragebögen (Tip auf der nächsten Seite beachten)
+
+## Tip: Logging-Varianten-Aufarbeitung
+
+Die zwei Varianten (mit und ohne Logging) beinhalten zusätzlichen Aufwand bei der Aufbereitung. Sie können den folgenden Code nutzen, um die IDs zu erstellen:
+
+```{r}
+# note: 9 needs to be added because 1-9 were reserved for the technical pretest
+# adding 9 for both
+sosci_pre_survey = sosci_pre_survey %>% 
+  mutate(
+    movi_id_nl = UR01+9, #1 in the urn corresponds to id no. 10
+    movi_id_yl = UR02+9  #1 in the urn corresponds to id no. 10
+  ) %>% 
+  select(movi_id_nl, movi_id_yl, everything())
+
+#creating id variable for non-logging version
+sosci_pre_survey_nl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_nl)) %>% 
+  mutate(id = paste0("nl_", movi_id_nl)) %>%
+  select(id, everything())
+
+#creating id variable for logging version
+sosci_pre_survey_yl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_yl)) %>% 
+  mutate(id = paste0("yl_", movi_id_yl)) %>%
+  select(id, everything())
+
+sosci_pre_survey = rbind(sosci_pre_survey_nl, sosci_pre_survey_yl) #joining both versions
+```
+
+# Lösung 2
+
+**⚠️ Erst nach der Bearbeitung weiterklicken! ⚠️**
+
+## Datensatz einlesen
+
+Wie bisher:
+
+```{r}
+#| eval: false
+sosci_pre_survey = read_excel("../../../pretest/data/data_abschalten_2022-10-20_18-11.xlsx", col_types = "guess")
+
+#converting one double to string
+sosci_pre_survey = sosci_pre_survey %>% mutate(FI04_01 = toString(FI04_01))
+```
+
+## Missing values prüfen
+
+```{r}
+miss_var_summary(sosci_pre_survey)
+```
+
+## Straightlining prüfen
+
+::: columns
+::: {.column width="50%"}
+```{r}
+# creating variance variables
+var = sosci_pre_survey %>%
+  replace(is.na(.), 0) %>% 
+  rowwise() %>%
+  mutate(
+    # here example for only a few variables
+    var_disco_level = var(c_across(disco_level_w_1:disco_level_w_6)), 
+    var_disco_tech = var(c_across(disco_tech_w_1:disco_tech_w_6)),
+    var_mindfulness = var(c_across(mindfulness_01:mindfulness_05)),
+    var_availability = var(c_across(availability_preference_01:availability_preference_04)),
+    var_disco_context = var(c_across(disco_context_1:disco_context_11)),
+    var_fomo = var(c_across(fomo_01:fomo_10)),
+    # ...
+    # ...
+    # ...
+  ) %>%
+  mutate(
+    id = id,
+    across(contains("var_"), round, 2)
+    )
+```
+
+```{r}
+# creating plot
+plot = var %>%
+  select(id, contains("var_")) %>%
+  mutate(across(contains("var_"),
+                ~ sjmisc::rec(.,rec = "0=1;else=0"))) %>%
+  mutate(var_sum =
+           rowSums(across(contains("var_")))) %>%
+  sjPlot::plot_frq(var_sum) +
+  labs(
+    title = "Identifying Straightlining",
+    x = "Number of indices without variance",
+    y = "Number of cases") +
+  theme_pubr()
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+plot
+```
+:::
+:::
+
+## Alle Datensätze zusammenfügen
+
+```{r}
+data_long = merge(data, sosci_pre_survey, by = "id")
+
+data_long = data_long %>%
+  clean_names
+```
+
+# Bonus
+
+**Falls noch Zeit ist**
+
+## Datenimport mit readr
+
+-   Empfehlung: readr-Paket
+
+    -   Standardpaket, wenn "Import Dataset..."-Option im File-Pane genutzt wird (und es sich um "einfache" tabellarische Daten handelt)
+
+    -   Ermöglicht Definition und Erkennung zusätzliche Argumente (z.B zur Spezifikation des Variablentyps bzw. -class)
+
+    ```{r}
+    #| eval: false
+    df = read_delim(
+      file = "example.csv",
+      delim = "\t",
+      escape_double = F,
+      trim_ws = T
+    )
+    ```
+
+## `dplyr` vs. base R zusammenfügen
+
+::: columns
+::: {.column width="50%"}
+### Base R
+
+```{r}
+#| eval: false
+merge(
+x = dataframe_1,  y = dataframe_2,
+by = "key",
+all = F)
+```
+
+-   Zusätzliche Argumente für:
+    -   left join: `all.x = T`
+
+    -   right_Join: `all.y = T`
+
+    -   full_join: `all = F`
+:::
+
+::: {.column width="50%"}
+### dplyr
+
+```{r}
+#| eval: false
+inner_join(
+x = dataframe_1,  y = dataframe_2,
+by = "key")
+```
+
+-   dplyr bietet eine Funktion für jede Art von Verknüpfung:
+
+    -   `right_join()`
+
+    -   `left_join()`
+
+    -   `full_join()`
+:::
+:::
+
+# Literatur
