@@ -4,7 +4,7 @@ author: "Julius Klingelhoefer"
 format: 
   html:
     toc: true
-    toc-depth: 3
+    toc-depth: 2
     toc-location: left
     theme: 
       light: flatly
@@ -17,13 +17,25 @@ editor_options:
 ---
 
 ## Anleitung
-- Unten finden Sie Links zu den Folien. Die Folien öffnen sich in einem neuen Tab.
 
-- Mit `F` können Sie den **Vollbild-Modus** aktivieren
+-   Unten finden Sie Links zu den Folien. Die Folien öffnen sich in einem neuen Tab.
 
-- Mit `E`, dann `STRG + P` können Sie die Folien drucken (am besten Querformat, ohne Rand).
+-   Mit `F` können Sie den **Vollbild-Modus** aktivieren
+
+-   Mit `E`, dann `STRG + P` können Sie die Folien drucken (am besten Querformat, ohne Rand).
 
 ## Sitzung 01 - Keine Quarto Slides
 
+Siehe Teams für die Folien
+
 ## Datenaufbereitung 02
-[Sitzung 02](content/02/index.html){target="_blank"}
+
+Folien für [Sitzung 02](content/02/index.html){target="_blank"}
+
+<br>
+
+<br>
+
+#### Credit
+
+Vielen Dank an [Christoph Adrian](https://github.com/chrdrn/) für das Bereitstellen einer früheren Version der R-Inhalte dieses Kurses.
