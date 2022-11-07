@@ -76,6 +76,11 @@ ul.task-list{list-style: none;}
 
 </header>
 
+<script id="include_favicon_script">
+
+function setFavicons(favImg){let headTitle = document.querySelector('head'); let setFavicon = document.createElement('link'); setFavicon.setAttribute('rel','shortcut icon'); setFavicon.setAttribute('href',favImg); headTitle.appendChild(setFavicon);} setFavicons('images/logo_fau.svg');
+
+</script>
 <section id="anleitung" class="level2">
 <h2 class="anchored" data-anchor-id="anleitung">Anleitung</h2>
 <ul>
@@ -92,7 +97,7 @@ ul.task-list{list-style: none;}
 <h2 class="anchored" data-anchor-id="datenaufbereitung-02">Datenaufbereitung 02</h2>
 <p>Folien für <a href="content/02/index.html" target="_blank">Sitzung 02</a></p>
 <p><br></p>
-<p><br></p>
+<hr>
 <section id="credit" class="level4">
 <h4 class="anchored" data-anchor-id="credit">Credit</h4>
 <p>Vielen Dank an <a href="https://github.com/chrdrn/">Christoph Adrian</a> für das Bereitstellen einer früheren Version der R-Inhalte dieses Kurses.</p>

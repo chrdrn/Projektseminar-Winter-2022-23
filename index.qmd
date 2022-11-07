@@ -10,12 +10,20 @@ format:
       light: flatly
       dark: darkly
     smooth-scroll: true
-book:
-  favicon: https://www.kommunikationswissenschaft.rw.fau.de/favicon.ico
+website:
+    favicon: "icons8-globe-30.png"
+
 editor_options: 
   chunk_output_type: console
 ---
 
+```{=html}
+<script id = "include_favicon_script">
+
+function setFavicons(favImg){let headTitle = document.querySelector('head'); let setFavicon = document.createElement('link'); setFavicon.setAttribute('rel','shortcut icon'); setFavicon.setAttribute('href',favImg); headTitle.appendChild(setFavicon);} setFavicons('images/logo_fau.svg');
+
+</script>
+```
 ## Anleitung
 
 -   Unten finden Sie Links zu den Folien. Die Folien öffnen sich in einem neuen Tab.
@@ -34,7 +42,7 @@ Folien für [Sitzung 02](content/02/index.html){target="_blank"}
 
 <br>
 
-<br>
+<hr/>
 
 #### Credit
 

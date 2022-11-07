@@ -911,7 +911,7 @@ df_excluded = data %>%
 
     -   einzelne Parameter im Hinblick auf inhaltliche Kriterien, z.B. Ausfülldauer, Gewissenhaftigkeit
 
--   Im Fokus: **Straighlining**
+-   Im Fokus: **Straightlining**
 
     -   = (nahezu) identische Antworten in einer Reihe von Fragenbatterien mit denselben Antwortkategorien
 :::
@@ -984,8 +984,6 @@ plot = var %>%
 plot
 ```
 :::
-
-## 
 :::
 
 # Aufgabe 2

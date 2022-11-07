@@ -1,0 +1,31 @@
+---
+project:
+  type: website
+  output-dir: docs
+
+website:
+  reader-mode: true
+  page-footer: 
+   left: "Copyright 2022, Christoph Adrian"
+   right:
+    - icon: github
+      href: https://github.com/chrdrn/digital-behavioral-data
+    - icon: twitter
+      href: https://twitter.com/chrdrn
+  sidebar: 
+    title: "Digital behavioral data"
+    subtitle: "Wintersemester 2022/23"
+    style: floating
+    search: true
+    contents: 
+      - section: "Kick-Off"
+        contents:
+          - "content/02.qmd"
+
+format:
+  html:
+    theme: journal
+    css: styles.css
+    toc: true
+---
+1234

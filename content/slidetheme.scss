@@ -56,14 +56,13 @@ ul  li  ul > li, ol  li  ol > li, ul  li ol > li, ol li ul > li {
 aside {
   background-color: white;
   z-index: 9 !important;
-  position: fixed !important;
+  //position: fixed !important;
   width: 100% !important;
   padding-top: .25em !important;
   padding-left: .25em !important;
   }
 
 
-/*
 //cutting off everything if it overlaps, hiding scrollbar
 .slide{
   overflow-y: auto !important;
@@ -100,7 +99,7 @@ aside {
   overflow: visible !important;
  }
 
-*/
+
 
 .references {
   font-size: larger !important;
@@ -215,7 +214,7 @@ strong
   max-height: 50px !important;
   width: auto !important;
   color: $body-color !important;
-  background-color: #fff !important;
+  //background-color: #fff !important;
 }
 
 .slide-number, .reveal.has-logo .slide-number {
