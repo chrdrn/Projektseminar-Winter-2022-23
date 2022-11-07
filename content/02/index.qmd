@@ -1,11 +1,11 @@
 ---
 title: "Projektseminar"
+subtitle: "Datenaufbereitung I"
 title-slide-attributes:
   data-background-image: ../../images/background_dark_red.svg
   data-background-size: cover
   data-background-opacity: ".5"
   data-background-color: "#041E42"
-subtitle: "Datenaufbereitung I"
 author: 
   - name: Julius Klingelhoefer 
     url: https://twitter.com/klingelhoefer_j/

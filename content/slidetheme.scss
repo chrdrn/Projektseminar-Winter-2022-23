@@ -273,7 +273,7 @@ code, code > span, code + span, code span > span, code span > span > span {
 }
 
 //activating code highlighting
-code.active, code span:has(.active), code + span.active, code > span.active {
+code span:has(.active), code + span.active, code > span.active {
   font-weight: bold !important;
   font-size: larger !important;
   color: black !important;
@@ -282,6 +282,11 @@ code.active, code span:has(.active), code + span.active, code > span.active {
 code .active {
   background-color:#C50F3C25 !important;
 }
-
+code.active {
+  font-weight: bold !important;
+  font-size: larger !important;
+  color: black !important;
+  background-color:#C50F3C10 !important;
+}
 
 
