@@ -10,6 +10,9 @@ format:
       light: flatly
       dark: darkly
     smooth-scroll: true
+    include-in-header: '
+    '
+    
 website:
     favicon: "icons8-globe-30.png"
 
@@ -32,9 +35,9 @@ function setFavicons(favImg){let headTitle = document.querySelector('head'); let
 
 -   Mit `E`, dann `STRG + P` können Sie die Folien drucken (am besten Querformat, ohne Rand).
 
-## Sitzung 01 - Keine Quarto Slides
+## Sitzung 01
 
-Siehe Teams für die Folien
+Keine Quarto Slides - Siehe Teams für die Folien
 
 ## Datenaufbereitung 02
 

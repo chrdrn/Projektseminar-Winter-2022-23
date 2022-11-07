@@ -262,9 +262,27 @@ strong
 .square_white {background-color: #ffffff; z-index: -99 !important; color: lightgrey !important;}
 
 
-/*setting sice of footnotes*/
+/*setting size of footnotes*/
 .aside-footnotes p, .aside-footnotes ol {
   font-size: 1em !important;
 }
+
+
+code, code > span, code + span, code span > span, code span > span > span {
+
+    transition: all .1s linear;
+}
+
+
+code.active, code span:has(.active), code + span.active, code > span.active {
+  font-weight: bold !important;
+  font-size: larger !important;
+  color: black !important;
+  background-color:#C50F3C50 !important;
+}
+code .active {
+  background-color:#C50F3C25 !important;
+}
+
 
 

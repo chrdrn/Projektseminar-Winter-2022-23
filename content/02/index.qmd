@@ -15,6 +15,7 @@ date: "`r Sys.Date()`"
 #date-format: "DD.MM.YYYY"
 format:
   revealjs:
+    include-in-header: ../eventlistener.html
     width: 1920
     height: 1080
     menu: false
@@ -983,6 +984,7 @@ plot = var %>%
 ```{r}
 plot
 ```
+
 :::
 :::
 
