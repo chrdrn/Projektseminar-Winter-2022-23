@@ -232,7 +232,7 @@ data_long = data_long %>%
 
 ## RStudio Server
 
--   Weiterhin Nutzung des RStudio Servers möglich (außer Mittwochs) Erreichbar unter: http://131.188.248.179:8787\](http://131.188.248.179:8787
+-   Weiterhin Nutzung des RStudio Servers möglich (außer Mittwochs) Erreichbar unter: [http://131.188.248.179:8787](http://131.188.248.179:8787)
 
 -   **nur via VPN** erreichbar
 
