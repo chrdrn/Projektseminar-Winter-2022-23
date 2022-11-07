@@ -10,14 +10,6 @@ format:
       light: flatly
       dark: darkly
     smooth-scroll: true
-    include-in-header: '
-    '
-    
-website:
-    favicon: "icons8-globe-30.png"
-
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{=html}
@@ -46,6 +38,14 @@ Folien für [Sitzung 02](content/02/index.html){target="_blank"}
 <br>
 
 <hr />
+
+### Impressum
+
+::: {.callout-note collapse="true"}
+## Impressum
+
+This is an example of a 'folded' caution callout that can be expanded by the user. You can use `collapse="true"` to collapse it by default or `collapse="false"` to make a collapsible callout that is expanded by default.
+:::
 
 #### Credit
 
