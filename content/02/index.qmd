@@ -232,7 +232,7 @@ data_long = data_long %>%
 
 ## RStudio Server
 
--   Weiterhin Nutzung des RStudio Servers möglich (außer Mittwochs) Erreichbar unter: [http://131.188.248.179:8787](http://131.188.248.179:8787)
+-   Weiterhin Nutzung des RStudio Servers möglich (außer Mittwochs) Erreichbar unter: <http://131.188.248.179:8787>
 
 -   **nur via VPN** erreichbar
 
@@ -240,13 +240,13 @@ data_long = data_long %>%
 
 ## Zwischenberichtsfeedback
 
-- Fragen/Unklarheiten zum Zwischenbericht(-sfeedback)?
+-   Fragen/Unklarheiten zum Zwischenbericht(-sfeedback)?
 
 ## Sharepics
 
-- Start der Erhebung am 14.11.
+-   Start der Erhebung am 14.11.
 
-- Für uns ebenfalls?
+-   Für uns ebenfalls?
 
 # Datenaufbereitung
 
@@ -994,7 +994,6 @@ plot = var %>%
 ```{r}
 plot
 ```
-
 :::
 :::
 
@@ -1178,9 +1177,38 @@ by = "key")
     -   `left_join()`
 
     -   `full_join()`
-    
+:::
+:::
 
+## Tabellarische Übersicht der Missing Values
+
+::: columns
+::: {.column width="50%"}
+### `psych`
+
+```{r}
+data_long %>% psych::describe() %>% head(10)[c(1:4),]
+```
+:::
+
+::: {.column width="50%"}
+### `dlookr`
+
+```{r}
+data_long %>% dlookr::diagnose() %>% head(10)[c(1:4),]
+
+```
 :::
 :::
+
+## Identifikation von "Missing-Mustern"
+
+Visualisierung mit `naniar`
+
+```{r}
+data_long %>%
+  select(wb_ge:wb_connect, disco_1:no_disco, motivation_distraction:motivation_wellbeing) %>%
+  naniar::gg_miss_upset()
+```
 
 # Literatur

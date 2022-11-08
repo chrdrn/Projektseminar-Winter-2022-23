@@ -471,7 +471,7 @@
 <section id="rstudio-server" class="slide level2">
 <h2>RStudio Server</h2>
 <ul>
-<li><p>Weiterhin Nutzung des RStudio Servers möglich (außer Mittwochs) Erreichbar unter: <a href="http://131.188.248.179:8787">http://131.188.248.179:8787</a></p></li>
+<li><p>Weiterhin Nutzung des RStudio Servers möglich (außer Mittwochs) Erreichbar unter: <a href="http://131.188.248.179:8787" class="uri">http://131.188.248.179:8787</a></p></li>
 <li><p><strong>nur via VPN</strong> erreichbar</p></li>
 <li><p>Bitte nutzen Sie Ihren (alten) persönlichen Login</p></li>
 </ul>
@@ -2345,7 +2345,43 @@
 </ul>
 </div>
 </div>
-</section></section>
+</section>
+<section id="tabellarische-übersicht-der-missing-values" class="slide level2">
+<h2>Tabellarische Übersicht der Missing Values</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="psych"><code>psych</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>data_long <span class="sc">%&gt;%</span> psych<span class="sc">::</span><span class="fu">describe</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                vars  n mean sd
+form_start_time   10 67  NaN NA</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<h3 id="dlookr"><code>dlookr</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>data_long <span class="sc">%&gt;%</span> dlookr<span class="sc">::</span><span class="fu">diagnose</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  variables       types   missing_count missing_percent
+  &lt;chr&gt;           &lt;chr&gt;           &lt;int&gt;           &lt;dbl&gt;
+1 form_start_time POSIXct             0               0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="identifikation-von-missing-mustern" class="slide level2">
+<h2>Identifikation von “Missing-Mustern”</h2>
+<p>Visualisierung mit <code>naniar</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>data_long <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">select</span>(wb_ge<span class="sc">:</span>wb_connect, disco_1<span class="sc">:</span>no_disco, motivation_distraction<span class="sc">:</span>motivation_wellbeing) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a>  naniar<span class="sc">::</span><span class="fu">gg_miss_upset</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch"></section></section>
 <section id="literatur" class="title-slide slide level1 inverse smaller scrollable" data-background-color="#971B2F">
 <h1>Literatur</h1>
 
