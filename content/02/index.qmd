@@ -238,6 +238,12 @@ data_long = data_long %>%
 
 -   Bitte nutzen Sie Ihren (alten) persönlichen Login
 
+## Sharepics
+
+- Start der Erhebung am 14.11.
+
+- Für uns ebenfalls?
+
 # Datenaufbereitung
 
 Von Rohdaten bis zur Analyse
