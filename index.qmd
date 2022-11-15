@@ -27,7 +27,7 @@ function setFavicons(favImg){let headTitle = document.querySelector('head'); let
 
 -   Mit `E`, dann `STRG + P` können Sie die Folien drucken (am besten Querformat, ohne Rand).
 
-## Sitzung 01
+## 01 Einführung/Willkommen zurück
 
 Keine Quarto Slides - Siehe Teams für die Folien
 
