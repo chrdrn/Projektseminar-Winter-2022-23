@@ -31,13 +31,17 @@ function setFavicons(favImg){let headTitle = document.querySelector('head'); let
 
 Keine Quarto Slides - Siehe Teams für die Folien
 
-## Datenaufbereitung 02
+## 02 Datenaufbereitung I
 
 Folien für [Sitzung 02](content/02/index.html){target="_blank"}
 
+## 03 Datenaufbereitung II
+
+Folien für [Sitzung 03](content/03/index.html){target="_blank"}
+
 <br>
 
-<hr />
+<hr/>
 
 ### Impressum
 

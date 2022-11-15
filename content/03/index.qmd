@@ -717,6 +717,24 @@ data_long %>%
   frq(disco_index)
 ```
 
+## Weitere nützliche tidyverse-Befehle
+
+::: columns
+::: {.column width="50%"}
+![](images/paste-91D000AA.png)
+
+![](images/paste-AFB28D67.png)
+:::
+
+::: {.column width="50%"}
+![](images/paste-27E585B5.png)
+
+![](images/paste-5867612B.png)
+:::
+:::
+
+Quelle: @positsoftware2021
+
 # R-Aufgabe
 
 1.  Nutzen Sie die kennengelernten tidyverse-Funktionen, um
@@ -724,4 +742,4 @@ data_long %>%
 
     2.  ...die Messungen oder Personen in Gruppen zu unterteilen und zu vergleichen
 
-# Literature
+# Literatur
