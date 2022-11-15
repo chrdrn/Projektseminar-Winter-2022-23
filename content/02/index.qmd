@@ -1187,8 +1187,7 @@ by = "key")
 ### `psych`
 
 ```{r}
-data_long %>% psych::describe() %>% 
-  head(10)[c(1:4),]
+data_long %>% psych::describe() %>% head(10)[c(1:4),]
 ```
 :::
 
@@ -1196,9 +1195,7 @@ data_long %>% psych::describe() %>%
 ### `dlookr`
 
 ```{r}
-data_long %>% dlookr::diagnose() %>% 
-  head(10)[c(1:4),]
-
+data_long %>% dlookr::diagnose() %>% head(10)[c(1:4),]
 
 ```
 :::
@@ -1214,6 +1211,4 @@ data_long %>%
   naniar::gg_miss_upset()
 ```
 
-
 # Literatur
-

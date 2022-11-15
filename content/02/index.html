@@ -2352,8 +2352,7 @@
 <div class="column" style="width:50%;">
 <h3 id="psych"><code>psych</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>data_long <span class="sc">%&gt;%</span> psych<span class="sc">::</span><span class="fu">describe</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">head</span>(<span class="dv">10</span>)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>data_long <span class="sc">%&gt;%</span> psych<span class="sc">::</span><span class="fu">describe</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                vars  n mean sd
 form_start_time   10 67  NaN NA</code></pre>
@@ -2362,8 +2361,7 @@ form_start_time   10 67  NaN NA</code></pre>
 </div><div class="column" style="width:50%;">
 <h3 id="dlookr"><code>dlookr</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>data_long <span class="sc">%&gt;%</span> dlookr<span class="sc">::</span><span class="fu">diagnose</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">head</span>(<span class="dv">10</span>)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>data_long <span class="sc">%&gt;%</span> dlookr<span class="sc">::</span><span class="fu">diagnose</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   variables       types   missing_count missing_percent
