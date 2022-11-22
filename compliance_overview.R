@@ -1,21 +1,8 @@
----
-title: "Compliance Overview"
-author: "Julius Klingelhoefer"
-format: html
-editor: visual
-embed-resources: true
-editor_options: 
-  chunk_output_type: console
-execute:
-  echo: false
-  warning: false
----
-
 # Setup
 
-Active packages:
+## Active packages:
 
-```{r}
+ 
 #| echo: FALSE
 
 if (!require("pacman")) install.packages("pacman")
@@ -35,23 +22,24 @@ pacman::p_load(
   )
 
 (.packages())
-```
 
 # Loading Dataset
 
-first 20 variables
+#### first 20 variables
 
-```{r}
-base::load(file = "data_long.Rda")
+base::ifelse(file.exists("study/data_long.Rda"),
+             base::load(file = "study/data_long.Rda"),
+             base::load(file = "../../study/data_long.Rda")) #required for running quarto scripts location independent
+
 
 colnames(dl_raw)[1:20]
-```
+
 
 # Calculating relevant variables
 
 ## Creating Filter for Completed Probes
 
-```{r}
+
 #| echo: FALSE
 
 # adding variable to raw data set that includes only
@@ -70,12 +58,9 @@ dl = dl_raw %>%
 
 print("Valid probes:")
 table(dl$valid_probe, useNA = "ifany")
-```
+
 
 ## Calculating Duration Variables
-
-```{r}
-#| echo = F
 
 dl = dl %>% 
   mutate(
@@ -90,14 +75,11 @@ print("10 random start dates")
 sample(dl$day_start, 10)
 print("10 random most recent dates")
 sample(dl$day_newest, 10)
-```
+
 
 # Creating compliance overviews
 
 ## Creating Overview Graph
-
-```{r}
-#| echo: FALSE
 
 # Summarising daily responses/participants
 unique_daily = dl %>%
@@ -138,12 +120,9 @@ daily_plot = n_daily %>% ggplot() +
 ggplotly(daily_plot)
 
 rm(n_daily)
-```
+
 
 ### Calculating for Percentage of Filled out Surveys per Participant
-
-```{r}
-#| echo: FALSE
 
 fillout_overview = dl %>% 
   # filter(
@@ -205,14 +184,10 @@ ggplotly(plot_compliance_daily)
 
 
 rm(fillout_overview)
-```
 
 ## Mapping Participant's (Relative) Compliance
 
-Participants with enough compliance to receive compensation (assuming compliance continues to the same degree):
-
-```{r, fig.height = 40}
-#| echo: FALSE
+#### Participants with enough compliance to receive compensation (assuming compliance continues to the same degree):
 
 # Calculating compliance values
 a = dl %>% 
@@ -221,7 +196,7 @@ a = dl %>%
     total_valid = sum(valid_probe)
     )
 
-# adding compliance to data frame
+# Adding compliance to data frame
 dl = full_join(dl, a, by = "id") %>% 
   mutate(
     total_valid = 
@@ -234,9 +209,10 @@ dl = full_join(dl, a, by = "id") %>%
       max_participation > 0,
       total_valid/max_participation,
       0)
-    )
+    ) %>% 
+  ungroup() # ungrouping
 
-# summarising for plot
+# Summarising for plot
 compliance_overview = dl %>%
   filter(!is.na(valid_probe)) %>% 
   group_by(id) %>% 
@@ -245,7 +221,7 @@ compliance_overview = dl %>%
   )
   
 
-# plotting individual compliance
+# Plotting individual compliance
 compliance_plot =
   compliance_overview %>%
   filter(
@@ -284,12 +260,8 @@ dl %>%  group_by(id) %>%
   count(pass == TRUE)
  
 ggplotly(compliance_plot)
-```
 
 ## Mapping Participant's Absolute Fillout
-
-```{r, fig.height = 30}
-#| echo: FALSE
 
 # Creating data to visualize compliance
 probes = dl %>%
@@ -398,12 +370,10 @@ ggplotly(fillout_plot)
 
 # Saving plot
 # ggsave("fillout_plot.svg", device = NULL, width = 7.5, height = 30)
-```
+
 
 ## Getting comments
 
-```{r}
-#| echo: FALSE
 
 comments = dl_raw %>% 
   filter(!is.na(text_comment)) %>% 
@@ -425,4 +395,4 @@ table = kable(x = comments,
   column_spec(3, width = "20%")
 
 table
-```
+

@@ -1,0 +1,518 @@
+---
+title: "Connecting Data"
+author: "Julius Klingelhoefer"
+format: html
+embed-resources: true
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Setup
+
+### Installing & Loading Packages
+
+```{r}
+#| echo: FALSE
+#| output: FALSE
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  tidyverse, 
+  dplyr, 
+  janitor, 
+  renv, 
+  readxl,
+  lubridate,
+  svglite,
+  svgtools,
+  knitr,
+  kableExtra,
+  jtools
+  )
+```
+
+Active packages:
+
+```{r}
+#| echo: FALSE
+(.packages())
+```
+
+### Loading Data
+
+```{r}
+#| echo: FALSE
+
+# getting name of  files in each directory ordered newest to oldest
+# recording which file it is in "file_origin"
+file_list = fileSnapshot("study/data/xlsx")[1] %>% data.frame(.) %>% 
+  arrange(desc(info.mtime)) %>%
+  rownames_to_column("file_name") %>% 
+  mutate(
+    file_origin = 
+      ifelse(
+        str_count(file_name, fixed("WITH_logging")),
+        "yes_logging",
+        ifelse(
+          str_count(file_name, fixed("NO+LOGGING")),
+          "no_logging",
+          ifelse(
+            str_count(file_name, fixed("data_abschalten")),
+            "pre_survey",
+            NA
+          )
+        )
+      )
+  )
+  
+# Copying newest files, overwriting old files
+paste("Copying file", file_list %>% filter(file_origin == "pre_survey") %>% .[1,1])
+file.copy(from = 
+            paste0(
+              "study/data/xlsx/",
+              file_list %>% filter(file_origin == "pre_survey") %>% .[1,1]
+              ),
+          to = "study/data/pre_survey.xlsx", 
+          overwrite = T)
+
+paste("Copying file", file_list %>% filter(file_origin == "no_logging") %>% .[1,1])
+file.copy(from = 
+            paste0(
+              "study/data/xlsx/",
+              file_list %>% filter(file_origin == "no_logging") %>% .[1,1]
+              ),
+          to = "study/data/esm_no_logging.xlsx", 
+          overwrite = T)
+
+paste("Copying file", file_list %>% filter(file_origin == "yes_logging") %>% .[1,1])
+file.copy(from = 
+            paste0(
+              "study/data/xlsx/",
+              file_list %>% filter(file_origin == "yes_logging") %>% .[1,1]
+              ),
+          to = "study/data/esm_yes_logging.xlsx", 
+          overwrite = T)
+
+# Loading data
+pre_survey_raw = clean_names(read_excel("study/data/pre_survey.xlsx"))
+print("loaded pre-survey")
+esm_no_logging_raw = clean_names(read_excel("study/data/esm_no_logging.xlsx"))
+print("loaded study version without logging")
+esm_yes_logging_raw = clean_names(read_excel("study/data/esm_yes_logging.xlsx"))
+print("loaded study version with logging")
+
+rm(file_list)
+```
+
+### Combining ESM data
+
+```{r}
+#| echo: FALSE
+
+# Creating unique IDs for version with and without logging
+esm_no_logging_raw = esm_no_logging_raw  %>% 
+  mutate(id = paste0("nl", participant), .before = "participant")
+esm_yes_logging_raw = esm_yes_logging_raw %>% 
+  filter(participant != 4 & participant != 6) %>% 
+    #ID 4 and 6 were reserved to test if forms are working
+  mutate(id = paste0("yl", participant), .before = "participant")
+
+# joining esm-datasets
+esm_raw = bind_rows(esm_no_logging_raw, esm_yes_logging_raw)
+rm(esm_no_logging_raw, esm_yes_logging_raw)
+
+# removing unneccessary variables (those created by texts, etc.)
+esm_raw = esm_raw %>% 
+  select(
+    -text_0,
+    -blank_1,
+    -text_1,
+    -text_2,
+    -item_863,
+    -item_607,
+    -item_895,
+    -text_3,
+    -item_1403,
+    -text_6,
+    -item_902,
+    -item_910,
+    -item_969,
+    -item_1057,
+    -item_986,
+    -item_1114,
+    -item_1114_copy1233,
+    -item_1114_copy1233_copy1413,
+    -item_1478,
+    -item_1383,
+    -item_753,
+    -item_798,
+    -item_938_copy1728,
+    -item_841_copy852,
+    -item_841,
+    -item_662,
+    -item_670,
+    -item_476,
+    -item_646,
+    -item_1019,
+    -item_617,
+    -item_633,
+    -item_638,
+    -item_708,
+    -welcome_text,
+    -welcome_text_copy521,
+    -welcome_text_copy527,
+    -welcome_text_copy527_copy735,
+    -item_1427,
+    -item_1432,
+    -item_673,
+    -item_848_copy856,
+    -item_848,
+    -item_868,
+    -item_879,
+    -item_916,
+    -item_738,
+    -item_1151,
+    -item_1642,
+    -item_551,
+    -item_1519_copy1527,
+    -item_1382,
+    -item_1390,
+    -item_1406,
+    -item_673_copy887,
+    -item_916_copy931,
+    -item_1443,
+    -item_1393,
+    -item_1404,
+    -item_656,
+    -item_768,
+    -item39424,
+    -item_792,
+    -item_810,
+    -item_820,
+    -item_820_copy760,
+    -item_1151,
+    -item_1642,
+    -item_551,
+    -item_1519_copy1527,
+    -welcome_text_copy515,
+    -item_1382,
+    -item_1390,
+    -item_1406,
+    -item_673_copy887,
+    -item_1393,
+    -item_1506,
+    -item_1514,
+    -item985
+    ) %>% 
+  rename(
+    text_comment = item_730,
+    reward_choice = item_484,
+    feedback_study_results = feedback_copy896,
+    motivation_well_being_day = motivation_wellbeing_day_copy1730,
+    motivation_social_day = motivation_social_day_copy1731,
+    motivation_distraction_day = motivation_distraction_day_copy1729
+  ) %>%
+# Filtering out all cases before 11/14/2022, as these are tests
+  filter(trigger_date >= "2022-11-14")
+
+# Moving the values from the daily questionnaire to the appropriate column (without "_1" suffix)
+eod = esm_raw %>% filter(form == "b End of Day") %>% 
+  mutate(
+    wb_ge = wb_ge_1,
+    wb_energy = wb_energy_1,
+    wb_stress = wb_stress_1,
+    wb_connect = wb_connect_1,
+    procra = procra_1,
+    screentime_work = screentime_work_1,
+    screentime_leisure = screentime_leisure_1,
+    disco_1 = disco_1_1,
+    disco_2 = disco_1_2,
+    disco_3 = disco_1_3,
+    disco_4 = disco_1_4,
+    disco_5 = disco_1_5,
+    disco_6 = disco_1_6,
+    disco_sd = disco_sd_1,
+    motivation_distraction = motivation_distraction_1,
+    motivation_wellbeing = motivation_wellbeing_1,
+    motivation_social = motivation_social_1,
+    ns_autonomy = ns_autonomy_1,
+    ns_competence = ns_competence_1,
+    ns_relatedness = ns_relatedness_1,
+    media_category_1 = media_category_1_1,
+    media_category_2 = media_category_1_2,
+    media_category_3 = media_category_1_3,
+    media_category_4 = media_category_1_4,
+    media_category_5 = media_category_1_5,    
+    media_category_6 = media_category_1_6,
+    media_category_7 = media_category_1_7,
+    goal_conf = goal_conf_1
+  )
+
+# selecting only cases that were not end of day questionnaires
+sit = esm_raw %>% filter(form != "b End of Day")
+
+# Binding rows together and removing old variables
+esm_raw = 
+  bind_rows(sit, eod) %>% 
+  select(
+    -wb_ge_1,
+    -wb_energy_1,
+    -wb_stress_1,
+    -wb_connect_1,
+    -procra_1,
+    -screentime_work_1,
+    -screentime_leisure_1,
+    -disco_1_1,
+    -disco_1_2,
+    -disco_1_3,
+    -disco_1_4,
+    -disco_1_5,
+    -disco_1_6,
+    -disco_sd_1,
+    -motivation_distraction_1,
+    -motivation_wellbeing_1,
+    -motivation_social_1,
+    -ns_autonomy_1,
+    -ns_competence_1,
+    -ns_relatedness_1,
+    -media_category_1_1,
+    -media_category_1_2,
+    -media_category_1_3,
+    -media_category_1_4,
+    -media_category_1_5,    
+    -media_category_1_6,
+    -media_category_1_7,
+    -goal_conf_1
+  ) %>% 
+  mutate(
+    date_day = as.Date(trigger_date, "%d/%m,/%y", tz = attr(trigger_date, "tzone")),
+    time_day = format(trigger_date, format = "%H:%M:%S"),
+    .before = "trigger_date"
+  )
+rm(eod, sit) # removing no longer needed data sets
+
+# Calculating which probe number per day it was 
+esm_raw = esm_raw %>% 
+  mutate(
+    probe_time = 
+      ifelse(
+        trigger == "Button Pressed: Tagesabschluss-Fragebogen starten",
+        format(trigger_date, format = "%H:%M"),
+        ifelse(
+          str_sub(trigger, 1, 11) == "Random Time",
+          str_sub(trigger, -5),
+          NA
+        )
+      ),
+  .before = "participant")
+
+esm_raw = esm_raw %>%
+  mutate(
+    date_day_hm = 
+      paste0(
+        hour(trigger_time), ":",
+        formatC(minute(esm_raw$trigger_time), width = 2, flag = "0")
+        ),
+    .after = "probe_time")
+
+
+esm_raw = esm_raw %>% 
+  mutate(
+    probe_number_daily = 
+      ifelse(
+        (form == "a Situational Survey" | form == "b End of Day") & 
+          (
+            (probe_time >= "08:59" & probe_time <= "09:37") |
+            #time based on trigger not fillout, adding 1 minute to time window
+              (date_day_hm >= "08:59" & date_day_hm <= "09:37")
+            ), 
+        1,
+        ifelse(
+          (form == "a Situational Survey" | form == "b End of Day") & 
+            (
+              (probe_time >= "11:50" & probe_time <= "12:28") |
+                (date_day_hm >= "11:50" & date_day_hm <= "12:28")
+              ), 
+          2,
+          ifelse(
+            (form == "a Situational Survey" | form == "b End of Day") & 
+              (
+                (probe_time >= "14:41" & probe_time <= "15:19") |
+                (date_day_hm >= "14:41" & date_day_hm <= "15:19")  
+                ), 
+            3,
+            ifelse(
+              (form == "a Situational Survey" | form == "b End of Day") & 
+                (
+                  (probe_time >= "17:32" & probe_time <= "18:10") |
+                    (date_day_hm >= "17:32" & date_day_hm <= "18:10")
+              ), 
+              4,
+              ifelse(
+                (form == "b End of Day"), 
+                5,
+                NA
+      ))))), .before = "participant")
+
+days = esm_raw %>% 
+  group_by(id) %>% 
+  summarise(
+    day_min = min(format(trigger_date, "%d.%m.%y")), 
+    day_newest = max(unique(format(trigger_date, "%d.%m.%y"))) 
+  ) %>% 
+  mutate(
+    # adding one day because study starts 1 day after coupling
+    day_start = as.Date(parse_date_time(day_min, "dmy")) + 1,
+    day_newest = as.Date(parse_date_time(day_newest, "dmy"))
+  )
+
+# Joining day variables to pre-survey dataset
+esm_raw = merge(esm_raw, days, by = "id") 
+
+rm(days)
+
+print("first variables are:") 
+paste(colnames(esm_raw)[1:20])
+```
+
+### Creating filter variable for only valid, completed probes
+
+```{r}
+#| echo: FALSE
+
+# adding variable to raw data set that includes only
+esm_raw = esm_raw %>% 
+  mutate(
+    valid_probe = ifelse(
+      (form == "a Situational Survey" | form == "b End of Day") & is.na(missing),
+      TRUE,
+      ifelse(
+        is.na(form),
+        NA,
+        FALSE
+        )
+      ),
+  .after = "trigger")
+
+# creating dataset with only valid probes
+# esm_complete_probes = esm_raw %>% 
+#  filter(valid_probe == T) 
+
+print("Valid probes:")
+table(esm_raw$valid_probe, useNA = "ifany")
+```
+
+### Cleaning Up Pre-Survey and Joining with ESM-Data
+
+```{r}
+#| echo: FALSE
+
+pre_survey_raw = pre_survey_raw %>% 
+  rename(
+    disco_practice_other = dx05_01,
+    comment_pre_survey = fi04_01,
+    sd_education_text = sd05_09,
+    wb_ge = wb03,
+    device_type = ur04_fm_f,
+    logging_choice = fi03
+  ) %>% 
+  mutate(
+    id = ifelse(
+      !is.na(ur01),
+      paste0("nl", ur01 + 9), 
+      # adding 9 because ids 1-9 are reserved for pretest/problems
+      ifelse(
+        !is.na(ur02),
+        paste0("yl", ur02 + 9),
+        # adding 9 because ids 1-9 are reserved for pretest/problems
+        NA
+      )
+    ),
+    logging = 
+      ifelse(
+        !is.na(ur01),
+        FALSE,
+        ifelse(
+          !is.na(ur02),
+          TRUE,
+          NA
+        )
+      ),
+    .before = "case") %>% 
+  rename_with(.cols = case:deg_time, .fn = ~ paste0(.x, "_pre")) %>% 
+  select( 
+    # removing all no longer needed urn variables
+    -ur01_cp_pre,
+    -ur01_pre,
+    -ur02_cp_pre,
+    -ur02_pre,
+    -ur08_pre,
+    -ur08_01_pre
+    ) %>%
+  # Giving participants without an id an id
+  mutate(
+    id = ifelse(
+      is.na(id),
+      paste0("xl", row_number()),
+      id
+      )
+    )
+
+# Adding in participants who received a new ID due to technical isues
+
+## reading new ids
+new_ids = read_excel("study/data/new_ids.xlsx")
+
+## updating ids
+for(i in 1:length(new_ids))
+{
+pre_survey_raw = pre_survey_raw %>% 
+  mutate(
+    id = ifelse(
+      id == toString(new_ids[i, "old_id"]),
+      new_ids[i, "new_id"],
+      id
+      )
+    )
+}
+rm(new_ids)
+paste("Updated", i, "participant's IDs due to coupling issues")
+
+#converting ids in both datasets to strings
+pre_survey_raw = pre_survey_raw %>% mutate(id = as.character(id))
+esm_raw = esm_raw %>% mutate(id = as.character(id))
+
+# Creating raw joined data frame
+dl_raw = full_join(
+ esm_raw, 
+ pre_survey_raw, 
+ by = "id")
+
+# Removing participants who requested their data deleted
+delete_requests = read_excel("study/data/delete_requests.xlsx")
+for (id_del in delete_requests["id"]) 
+  {
+  dl_raw = dl_raw %>% 
+    filter(
+      id != id_del
+    )
+}
+rm(delete_requests)
+
+# Creating new id that does not include the matching information anymore
+dl_raw = dl_raw %>%
+  group_by(id) %>% 
+  mutate(
+  id = cur_group_id())
+  
+# removing old datasets
+rm(esm_raw, pre_survey_raw)
+```
+
+# Exporting Dataset
+
+```{r}
+save(dl_raw, file = "study/data_long.Rda")
+print('saved file as "data_long.Rda"' )
+```

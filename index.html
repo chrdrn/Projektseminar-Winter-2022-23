@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -40,12 +45,12 @@ ul.task-list{list-style: none;}
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  <nav id="TOC" role="doc-toc">
+  <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#anleitung" id="toc-anleitung" class="nav-link active" data-scroll-target="#anleitung">Anleitung</a></li>
-  <li><a href="#sitzung-01" id="toc-sitzung-01" class="nav-link" data-scroll-target="#sitzung-01">Sitzung 01</a></li>
+  <li><a href="#einführungwillkommen-zurück" id="toc-einführungwillkommen-zurück" class="nav-link" data-scroll-target="#einführungwillkommen-zurück">01 Einführung/Willkommen zurück</a></li>
   <li><a href="#datenaufbereitung-i" id="toc-datenaufbereitung-i" class="nav-link" data-scroll-target="#datenaufbereitung-i">02 Datenaufbereitung I</a></li>
   <li><a href="#datenaufbereitung-ii" id="toc-datenaufbereitung-ii" class="nav-link" data-scroll-target="#datenaufbereitung-ii">03 Datenaufbereitung II</a></li>
   </ul>
@@ -90,8 +95,8 @@ function setFavicons(favImg){let headTitle = document.querySelector('head'); let
 <li><p>Mit <code>E</code>, dann <code>STRG + P</code> können Sie die Folien drucken (am besten Querformat, ohne Rand).</p></li>
 </ul>
 </section>
-<section id="sitzung-01" class="level2">
-<h2 class="anchored" data-anchor-id="sitzung-01">Sitzung 01</h2>
+<section id="einführungwillkommen-zurück" class="level2">
+<h2 class="anchored" data-anchor-id="einführungwillkommen-zurück">01 Einführung/Willkommen zurück</h2>
 <p>Keine Quarto Slides - Siehe Teams für die Folien</p>
 </section>
 <section id="datenaufbereitung-i" class="level2">
@@ -232,6 +237,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -333,7 +348,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

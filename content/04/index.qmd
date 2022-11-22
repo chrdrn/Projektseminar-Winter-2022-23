@@ -52,7 +52,281 @@ editor_options:
 
 # Erhebungs-Updates
 
-## Von mir
+```{r}
+#| echo: false
+#| output: FALSE
+
+base::ifelse(file.exists("compliance_overview.R"),
+             source(file = "compliance_overview.R"),
+             source(file = "../../compliance_overview.R"))
+```
+
+## Von mir {auto-animate="T"}
+
+```{r}
+#| fig.height: 6
+#| fig.width: 20
+ggplotly(daily_plot)
+```
+
+Stand 22.11.22 12:40
+
+## Von mir {auto-animate="T"}
+
+```{r}
+#| echo: false
+#| fig.height: 30
+#| fig.width: 20
+ggplotly(fillout_plot)
+```
+
+Stand 22.11.22 12:40
+
+## Von mir II
+
+::: columns
+::: {.column width="50%"}
+-   Flyer:
+
+![](images/Zu%20viel%20am%20Smartphone.png){style="border: 5px solid #041E42" width="60%"}
+:::
+
+::: {.column width="50%"}
+-   WiSo-Studierendenverteiler:
+
+    -   \> 100 Anmeldungen
+
+    -   E-Mail wurde gestern versendet
+:::
+:::
 
 ## Von Ihnen?
 
+-   Wie lief es bei der Rekrutierung?
+
+-   Welche Maßnahmen haben Sie durchgeführt?
+
+-   Welche Rekrutierung
+
+# Arbeitsauftrag
+
+1.  Reflektieren Sie Ihre Rekrutierungsstrategie:
+    1.  Welche waren erfolgreich, welche weniger?
+
+    2.  Welche könenn noch ausgeweitet werden?
+2.  Planen Sie Ihre Strategie für die aktuelle Woche
+
+# **Ziel der heutigen R-Lektionen**
+
+Praktische Anwendung der Grundlagen der Variablenbearbeitung (bzw. der zentralen Befehle) der letzten Sitzungen im Kontext komplexer Transformationen
+
+-   Überprüfung der **Compliance**
+
+-   Überprüfung der Variable `time_rsi` auf **Outliers**
+
+## Filtern nach Probes
+
+-   Wie wissen wir ob es eine (vollständige) Probe handelt?
+
+-   ➡️ `filter()`
+
+```{r}
+dl %>% 
+  filter(
+    form == "a Situational Survey" | form == "b End of Day"
+  )%>% 
+  summary()
+```
+
+## Auswahl von Variablen
+
+-   ➡️ `select()`
+
+```{r}
+x = dl %>% 
+  select(id, disco_1:disco_5) 
+    
+colnames(x)
+```
+
+## Berechnung von Mittelwerten, z. B. disconnection
+
+```{r}
+x %>% summarise(
+  across(
+    disco_1:disco_5, mean, na.rm = T
+  ))
+```
+
+## Frage: 
+
+Wie können wir den Mittelwert pro Person bekommen?
+
+## Berechnung von Mittelwerten pro Person
+
+```{r}
+#| eval: false
+
+x %>% 
+  group_by(id) %>% 
+  summarise(
+  across(
+    disco_1:disco_5, mean, na.rm = T
+  ))
+```
+
+## Index erstellen
+
+```{r}
+# dplyr
+x %>% 
+  rowwise() %>% 
+  mutate(idx_disco = 
+           mean(c_across(disco_1:disco_5), na.rm = T),
+         .before = "disco_1") %>% 
+  summary()
+
+#sjmisc
+x %>% sjmisc::row_means(., disco_1:disco_5, n = Inf, var = "idx_disco") %>% 
+  summary()
+```
+
+# Compliance prüfen
+
+## Überprüfung der Compliance
+
+-   Compliance ist zentral für Power
+
+-   Problem: Trade-Off zwischenCompliance und Fallzahl(verlust)
+
+## Berechnung von Compliance
+
+-   Variable `finished` gibt an, ob eine Probe vollständig ist
+
+-   Berechnung der Compliance benötigt Ermittliung der `finished` Variablen
+
+```{r}
+dl %>% filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  mutate(
+  Complete_Probes = ifelse(
+    is.na(missing),
+    "finished",
+    "not valid")
+  ) %>% sjPlot::plot_frq(Complete_Probes)
+```
+
+## Mindestanforderungen an Compliance
+
+-   *ESM Best Practices* (letztes Semester): idealerweise \>= 80%, mind. \>= 75%
+
+-   Disconnection Kontext: Wahrscheinlich etwas geringere Compliance, z. B. durch verzicht auf Smartphone
+
+-   Betrachtung wie viele Personen \>= 75%/60%/50% ausgefüllt haben
+
+## Wie könnten wir das machen? {auto-animate="T"}
+
+## Wie könnten wir das machen? {auto-animate="T"}
+
+```{r}
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  group_by(id) %>% 
+  summarise(
+    c = sum(is.na(missing))/70
+  ) %>% 
+  mutate(
+    c_c = 
+      ifelse(
+        c > .75,
+        "> 75",
+        ifelse(
+          c>.6,
+          "> .6",
+          ifelse(
+            c > .5,
+            "> .5",
+            "< .5"
+          )
+        )
+      )
+  ) %>% 
+  sjPlot::plot_frq(
+    c_c
+  )
+
+
+```
+
+Achtung: Da die Studie erst eine Woche läuft, zeigt eine komplexere Berechnung die Compliance wahrscheinlich besser. S. GitHub für eine Darstellung basiert auf dem Datum und ausfüllbaren Probes.
+
+## `lubridate`
+
+-   Umgehen mit Datum und Uhrzeit ist schwieriger als mit "simplen" Skalendaten
+
+-   ➡️ `lubridate`-package kann helfen,
+
+-   z\. B.
+
+```{r}
+lubridate::day(sample(dl$trigger_date, size = 1))
+```
+
+## Ausfülldauer: `time_rsi` im Fokus
+
+-   Hoher wert, wenn Teilnehmer:in vergleichsweise schnell war, niedriger Wert, wenn besonders langsam (\</\> Median)
+
+```{r}
+x = dl %>% 
+  group_by(id) %>% 
+  summarise( # Note that this is related to the pre-survey
+    time_rsi = mean(time_rsi_pre)
+  )
+boxplot(x$time_rsi)
+```
+
+## Ausfülldauer der Probes
+
+```{r}
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  mutate(
+    dur = 
+      ifelse(
+        form_finish_date-form_start_date < 1000,
+        form_finish_date-form_start_date,
+        NA)
+  ) %>% 
+  ggpubr::ggboxplot(
+    ., "id", "dur"
+  )
+  
+```
+
+## Median der Ausfüldauer
+
+```{r}
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  mutate(
+    dur = form_finish_date-form_start_date
+  ) %>% 
+  ungroup() %>% 
+  summarise(
+    md = median(dur, na.rm = T)
+  )
+```
+
+# Arbeitsauftrag für die Sitzung
+
+1.  Finden Sie heraus, wie hoch die durchschnittliche Compliance ist
+    1.  Dabei zählen nur Situations- und Tagesabschlussfragebögen
+
+    2.  Stellen Sie die Compliance tabellarisch und/oder grafisch dar
+2.  Identifizieren Sie Personen, die die Vorbefragung möglicherweise unaufmerksam ausgefüllt haben, da sie zu schnell waren (`time_rsi`)
+3.  Optionale Bonusaufgabe: Treffen Sie eine Vorhersage darüber, wie viele Personen a) die mindest-compliance für die Belohnung erreichen weden und b) eine compliance von \>= .75 erreichen
+
+# Arbeitsauftrag bis nächste Woche
+
+Diese Woche nochmal *rekrutieren, rekrutieren, rekrutieren*
+
+➡️ Über Weihnachtszeit keine Erhebung
