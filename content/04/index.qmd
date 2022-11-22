@@ -69,7 +69,7 @@ base::ifelse(file.exists("compliance_overview.R"),
 ggplotly(daily_plot)
 ```
 
-Stand 22.11.22 12:40
+Stand `r paste(Sys.Date(), Sys.time())`
 
 ## Von mir {auto-animate="T"}
 
@@ -80,7 +80,7 @@ Stand 22.11.22 12:40
 ggplotly(fillout_plot)
 ```
 
-Stand 22.11.22 12:40
+Stand `r paste(Sys.Date(), Sys.time())`
 
 ## Von mir II
 
@@ -427,9 +427,10 @@ expected_compliance = dl %>%
       (max_day_newest == day_newest)
     )
     
-hist(expected_compliance$pred_compl)  
+# hist(expected_compliance$pred_compl) # uncomment to get histogram 
 
 table(expected_compliance$pred_compl > .6)
+table(expected_compliance$pred_compl > .75)
 ```
 
 # Arbeitsauftrag bis nächste Woche
