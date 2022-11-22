@@ -227,7 +227,11 @@ dl %>% filter(form == "a Situational Survey" | form == "b End of Day") %>%
 
 ## Wie könnten wir das machen? {auto-animate="T"}
 
+::: columns
+::: {.column width="50%"}
 ```{r}
+#| eval: false
+#| echo: true
 dl %>%
   filter(form == "a Situational Survey" | form == "b End of Day") %>% 
   group_by(id) %>% 
@@ -255,6 +259,43 @@ dl %>%
   )
 
 
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  group_by(id) %>% 
+  summarise(
+    c = sum(is.na(missing))/70
+  ) %>% 
+  mutate(
+    c_c = 
+      ifelse(
+        c > .75,
+        "> 75",
+        ifelse(
+          c>.6,
+          "> .6",
+          ifelse(
+            c > .5,
+            "> .5",
+            "< .5"
+          )
+        )
+      )
+  ) %>% 
+  sjPlot::plot_frq(
+    c_c
+  )
+
+```
+:::
+:::
+
+```{}
 ```
 
 Achtung: Da die Studie erst eine Woche läuft, zeigt eine komplexere Berechnung die Compliance wahrscheinlich besser. S. GitHub für eine Darstellung basiert auf dem Datum und ausfüllbaren Probes.

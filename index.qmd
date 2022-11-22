@@ -39,7 +39,7 @@ Folien für [Sitzung 02](content/02/index.html){target="_blank"}
 
 Folien für [Sitzung 03](content/03/index.html){target="_blank"}
 
-## 03 Datenaufbereitung III
+## 04 Datenaufbereitung III
 
 Folien für [Sitzung 04](content/04/index.html){target="_blank"}
 
