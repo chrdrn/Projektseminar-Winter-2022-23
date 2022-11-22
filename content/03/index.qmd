@@ -548,7 +548,7 @@ mean(data_long_plus$id_plus, na.rm = T)
 :::
 :::
 
-## *`mutate()`*: Neu oder überarbeiten 
+## *`mutate()`*: Neu oder überarbeiten
 
 ::: columns
 ::: {.column width="50%"}
@@ -576,7 +576,6 @@ data_long %>%
 
 ## Beispiel: Variablenausprägungen "zählen"
 
-
 ::: columns
 ::: {.column width="50%"}
 ### Einfaches Zählen mit `count()`
@@ -588,7 +587,7 @@ data_long %>%
 :::
 
 ::: {.column width="50%"}
-### Komfortable Lösung: `frq()` 
+### Komfortable Lösung: `frq()`
 
 ```{r}
 data_long %>% 
@@ -626,7 +625,6 @@ data_long %>%
 :::
 
 ## Beispiel: Mehrere Variablen editieren (simultan)
-
 
 ::: columns
 ::: {.column width="50%"}
@@ -669,7 +667,7 @@ Quelle: @positsoftware2021
 
 ![](images/paste-296C3599.png)
 
-Achtung: ungroup() nicht vergessen
+Achtung: `ungroup()` nicht vergessen
 
 Quelle: @positsoftware2021
 :::
@@ -741,5 +739,17 @@ Quelle: @positsoftware2021
     1.  ...interessierende Variablen zu erstellen
 
     2.  ...die Messungen oder Personen in Gruppen zu unterteilen und zu vergleichen
+
+# `sjmisc`: Nützliche Funktionen
+
+## Transformation mit `sjmisc`
+
+### Recodierung von Variablen
+
+XXXXXX
+
+### Komfortable Berechnung von fall- bzw. personenspezifischen Mittel- oder Summentwerten
+
+XXXXX
 
 # Literatur
