@@ -28,7 +28,9 @@ pacman::p_load(
   svgtools,
   knitr,
   kableExtra,
-  jtools
+  jtools,
+  sjmisc,
+  sjPlot
   )
 ```
 

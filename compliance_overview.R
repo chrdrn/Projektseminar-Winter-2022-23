@@ -44,7 +44,7 @@ colnames(dl_raw)[1:20]
 
 #| echo: FALSE
 
-# adding variable to raw data set that includes only
+# adding variable to raw data set that includes only completed probes
 dl = dl_raw %>% 
   mutate(
     valid_probe = ifelse(

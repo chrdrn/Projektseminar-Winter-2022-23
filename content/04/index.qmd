@@ -116,13 +116,13 @@ Stand 22.11.22 12:40
     2.  Welche könenn noch ausgeweitet werden?
 2.  Planen Sie Ihre Strategie für die aktuelle Woche
 
-# **Ziel der heutigen R-Lektionen**
+# Ziel der heutigen R-Lektionen
 
 Praktische Anwendung der Grundlagen der Variablenbearbeitung (bzw. der zentralen Befehle) der letzten Sitzungen im Kontext komplexer Transformationen
 
 -   Überprüfung der **Compliance**
 
--   Überprüfung der Variable `time_rsi` auf **Outliers**
+-   Überprüfung der Variable `time_rsi` auf **Outlier**
 
 ## Filtern nach Probes
 
@@ -158,7 +158,7 @@ x %>% summarise(
   ))
 ```
 
-## Frage: 
+## Frage:
 
 Wie können wir den Mittelwert pro Person bekommen?
 
@@ -295,9 +295,6 @@ dl %>%
 :::
 :::
 
-```{}
-```
-
 Achtung: Da die Studie erst eine Woche läuft, zeigt eine komplexere Berechnung die Compliance wahrscheinlich besser. S. GitHub für eine Darstellung basiert auf dem Datum und ausfüllbaren Probes.
 
 ## `lubridate`
@@ -359,12 +356,81 @@ dl %>%
 
 # Arbeitsauftrag für die Sitzung
 
-1.  Finden Sie heraus, wie hoch die durchschnittliche Compliance ist
-    1.  Dabei zählen nur Situations- und Tagesabschlussfragebögen
+1.  Führen Sie Analysen zur Compliance durch
+    1.  Finden Sie heraus, wie hoch die durchschnittliche Compliance ist. Dabei zählen nur Situations- und Tagesabschlussfragebögen
 
     2.  Stellen Sie die Compliance tabellarisch und/oder grafisch dar
 2.  Identifizieren Sie Personen, die die Vorbefragung möglicherweise unaufmerksam ausgefüllt haben, da sie zu schnell waren (`time_rsi`)
 3.  Optionale Bonusaufgabe: Treffen Sie eine Vorhersage darüber, wie viele Personen a) die mindest-compliance für die Belohnung erreichen weden und b) eine compliance von \>= .75 erreichen
+
+# Lösung
+
+## 1.1 Durchschnittliche Compliance
+
+```{r}
+x = dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  group_by(id) %>% 
+  summarise(c = sum(is.na(missing))/70) %>%
+  ungroup()
+# Note: 70 is the maximum amount. Thus, compliance is relatively low until the study is completed.
+# For a better but more complicated overview see "compliance_overview.R" on GitHub.)
+x %>%  summarise(compliance = mean(c))
+```
+
+## Tabellarische & Grafische Übersicht
+
+```{r}
+# table
+sjmisc::frq(x$c)
+
+hist(x$c)
+```
+
+## 2. Outlier bei der Ausfülldauer der Vorbefragung
+
+```{r}
+x = dl %>% select(id, time_rsi_pre) %>%
+  group_by(id) %>% summarise(id = mean(id), time_rsi = mean(time_rsi_pre)) 
+out = boxplot(x$time_rsi)
+out$out
+```
+
+## 3. Erwartete compliance
+
+```{r}
+# We can use the following variables I have already calculated (see Git):
+#   - max_participation = Maximum number of probes that a participant can fill ou
+#     (note this is based on the da)
+#   - valid_probe = Tells us how many probes a participant filled out
+#   - day_newest = most recent date a participant filled anything out
+
+
+
+expected_compliance = dl %>% 
+  group_by(id) %>% 
+  summarise(
+    valid_probe = sum(valid_probe),
+    max_participation = mean(max_participation) ,
+    attr = .9, #let's assume attrition of 10% and that this stays constant
+    day_newest = max(day_newest),
+    max_day_newest = max(dl$day_newest, na.rm = T)
+    ) %>% 
+  mutate(
+    compliance = valid_probe/max_participation
+  ) %>% 
+  summarise(
+    pred_compl = 
+      compliance *
+      attr *
+      # let's assume people who most recent day dropped out
+      (max_day_newest == day_newest)
+    )
+    
+hist(expected_compliance$pred_compl)  
+
+table(expected_compliance$pred_compl > .6)
+```
 
 # Arbeitsauftrag bis nächste Woche
 
