@@ -18,7 +18,8 @@ pacman::p_load(
   knitr,
   kableExtra,
   jtools,
-  plotly
+  plotly,
+  sjmisc
   )
 
 (.packages())
