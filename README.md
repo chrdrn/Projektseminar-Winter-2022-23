@@ -2,7 +2,7 @@
 
 ## Informationen
 
-Dieses Projekt enthält Materialien für das Projektseminar im Wintersemester 2022/23 der Juniorprofessur FAU Erlangen-Nürnberg.
+Dieses Projekt enthält Materialien für das Projektseminar im Wintersemester 2022/23 der Juniorprofessur für Kommunikationswissenschaft der FAU Erlangen-Nürnberg.
 
 ## Credit
 
