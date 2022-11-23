@@ -502,12 +502,15 @@ for (id_del in delete_requests["id"])
 }
 rm(delete_requests)
 
+comments = dl_raw %>%  select(id, text_comment, trigger_time) %>% filter(!is.na(text_comment))
+
+
 # Creating new id that does not include the matching information anymore
 dl_raw = dl_raw %>%
   group_by(id) %>% 
   mutate(
   id = cur_group_id())
-  
+
 # removing old datasets
 rm(esm_raw, pre_survey_raw)
 ```
