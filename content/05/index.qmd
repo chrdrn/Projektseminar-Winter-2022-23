@@ -235,7 +235,7 @@ lin
 ## Normalverteilung der Residuen
 
 ```{r}
-performance::check_normality() %>% plot(m0_disco, type = "qq")
+plot(performance::check_normality(x = m0_disco, type = "qq"))
 ```
 
 ## Heteroskedastizität
