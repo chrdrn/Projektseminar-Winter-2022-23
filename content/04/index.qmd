@@ -1,6 +1,6 @@
 ---
 title: "Projektseminar"
-subtitle: "Datenaufbereitung II"
+subtitle: "Datenaufbereitung III"
 title-slide-attributes:
   data-background-image: ../../images/background_dark_red.svg
   data-background-size: cover
@@ -69,7 +69,7 @@ base::ifelse(file.exists("compliance_overview.R"),
 ggplotly(daily_plot)
 ```
 
-Stand `r paste(Sys.Date(), Sys.time())`
+Stand `r paste(Sys.time())`
 
 ## Von mir {auto-animate="T"}
 
@@ -80,7 +80,7 @@ Stand `r paste(Sys.Date(), Sys.time())`
 ggplotly(fillout_plot)
 ```
 
-Stand `r paste(Sys.Date(), Sys.time())`
+Stand `r paste(Sys.time())`
 
 ## Von mir II
 
@@ -106,7 +106,7 @@ Stand `r paste(Sys.Date(), Sys.time())`
 
 -   Welche Maßnahmen haben Sie durchgeführt?
 
--   Welche Rekrutierung
+-   Welche Rekrutierung war besonders erfolgreich?
 
 # Arbeitsauftrag
 
@@ -378,7 +378,7 @@ x = dl %>%
 x %>%  summarise(compliance = mean(c))
 ```
 
-## Tabellarische & Grafische Übersicht
+## 1.2 Tabellarische & Grafische Übersicht
 
 ```{r}
 # table
@@ -414,18 +414,24 @@ expected_compliance = dl %>%
     max_participation = mean(max_participation) ,
     attr = .9, #let's assume attrition of 10% and that this stays constant
     day_newest = max(day_newest),
-    max_day_newest = max(dl$day_newest, na.rm = T)
+    max_day_newest = max(dl$day_newest, na.rm = T),
+    duration_end = mean(duration_end, na.rm =T)
     ) %>% 
   mutate(
     compliance = valid_probe/max_participation
-  ) %>% 
-  summarise(
+  ) %>%
+summarise(
     pred_compl = 
-      compliance *
-      attr *
-      # let's assume people who most recent day dropped out
-      (max_day_newest == day_newest)
-    )
+      ifelse(
+        duration_end <= Sys.Date(),
+        compliance,
+        ifelse(
+          max_day_newest == day_newest,
+          compliance * attr,  
+          # let's assume dropout if no probe on most recent day
+          NA)
+        )
+  )
     
 # hist(expected_compliance$pred_compl) # uncomment to get histogram 
 

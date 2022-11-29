@@ -2641,19 +2641,19 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="loading-data">Loading Data</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;Copying file data_abschalten_2022-11-20_17-07.xlsx&quot;</code></pre>
+<pre><code>[1] &quot;Copying file data_abschalten_2022-11-28_14-03.xlsx&quot;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;Copying file Momentary_Disco!+NO+LOGGING_20221122T195533+0100.xlsx&quot;</code></pre>
+<pre><code>[1] &quot;Copying file Momentary_Disco!+NO+LOGGING_20221128T152831+0100.xlsx&quot;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;Copying file momentary_disco_WITH_logging_20221122T195535+0100.xlsx&quot;</code></pre>
+<pre><code>[1] &quot;Copying file momentary_disco_WITH_logging_20221128T152829+0100.xlsx&quot;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
@@ -2695,7 +2695,7 @@ vertical-align: -.125em;
 <div class="cell-output cell-output-stdout">
 <pre><code>
 FALSE  TRUE 
- 4914  5320 </code></pre>
+ 9671 10995 </code></pre>
 </div>
 </div>
 </section>
@@ -2707,12 +2707,79 @@ FALSE  TRUE
 </div>
 </div>
 </section>
+<section id="checking-whether-a-participant-had-issues-receiving-their-reward-due-to-the-final-survey-coming-early" class="level3">
+<h3 class="anchored" data-anchor-id="checking-whether-a-participant-had-issues-receiving-their-reward-due-to-the-final-survey-coming-early">Checking whether a participant had issues receiving their reward due to the final survey coming early</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dl_raw <span class="ot">=</span> dl_raw <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">duration_start =</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.Date</span>(<span class="fu">as.POSIXct</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>          form <span class="sc">==</span> <span class="st">&quot;g First Day&quot;</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>          trigger_time,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>          <span class="cn">NA</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>)),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.after =</span> <span class="st">&quot;form&quot;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">duration_end =</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.Date</span>(</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>          form <span class="sc">==</span> <span class="st">&quot;g First Day&quot;</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>          duration_start <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">13</span>),</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>          <span class="cn">NA</span>),</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">origin =</span> <span class="st">&quot;1970-01-01&quot;</span>),</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">.after =</span> <span class="st">&quot;duration_start&quot;</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> dl_raw <span class="sc">%&gt;%</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">finished_on =</span> <span class="fu">mean</span>(duration_end, <span class="at">na.rm =</span> T),</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">final_q_filled =</span> <span class="fu">mean</span>(disco_thoughts, <span class="at">na.rm =</span> T) <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># number of filled out probes is based on:</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>      <span class="co"># the first item being filled out and </span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>      <span class="co"># the ESM-App reporting that a probe is not incomplete </span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_filled_out =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(wb_ge) <span class="sc">&amp;</span> <span class="fu">is.na</span>(missing))</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co"># adding calculated information to dataset</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>dl_raw <span class="ot">=</span> <span class="fu">full_join</span>(dl_raw, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = &quot;id&quot;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># getting all participants who did not get the reward questionnaire but filled out 42 or more probes</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> dl_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_filled_out =</span> <span class="fu">mean</span>(n_filled_out, <span class="at">na.rm =</span> T),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">final_q =</span> <span class="fu">mean</span>(final_q_filled, <span class="at">na.rm =</span> T),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cleaning-up-making-anonymization-stonger" class="level3">
+<h3 class="anchored" data-anchor-id="cleaning-up-making-anonymization-stonger">Cleaning up, making anonymization stonger</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating new id that does not include the matching information anymore</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>dl_raw <span class="ot">=</span> dl_raw <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">cur_group_id</span>())</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># removing old datasets</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(esm_raw, pre_survey_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 <section id="exporting-dataset" class="level1">
 <h1>Exporting Dataset</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(dl_raw, <span class="at">file =</span> <span class="st">&quot;study/data_long.Rda&quot;</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;saved file as &quot;data_long.Rda&quot;&#39;</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(dl_raw, <span class="at">file =</span> <span class="st">&quot;study/data_long.Rda&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&#39;saved file as &quot;data_long.Rda&quot;&#39;</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;saved file as \&quot;data_long.Rda\&quot;&quot;</code></pre>
 </div>

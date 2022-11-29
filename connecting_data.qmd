@@ -503,8 +503,64 @@ for (id_del in delete_requests["id"])
 rm(delete_requests)
 
 comments = dl_raw %>%  select(id, text_comment, trigger_time) %>% filter(!is.na(text_comment))
+```
+
+### Checking whether a participant had issues receiving their reward due to the final survey coming early
+
+```{r}
+dl_raw = dl_raw %>%
+  mutate(
+    duration_start = 
+      as.Date(as.POSIXct(
+        ifelse(
+          form == "g First Day",
+          trigger_time,
+          NA),
+        origin = "1970-01-01")),
+    .after = "form"
+  ) %>% 
+  mutate(
+    duration_end = 
+      as.Date(
+        ifelse(
+          form == "g First Day",
+          duration_start + days(1) + days(13),
+          NA),
+        origin = "1970-01-01"),
+    .after = "duration_start"
+    )
+
+x = dl_raw %>%
+  group_by(id) %>% 
+  summarise(
+    finished_on = mean(duration_end, na.rm = T),
+    final_q_filled = mean(disco_thoughts, na.rm = T) > 0,
+    # number of filled out probes is based on:
+      # the first item being filled out and 
+      # the ESM-App reporting that a probe is not incomplete 
+    n_filled_out = sum(!is.na(wb_ge) & is.na(missing))
+  )
+
+# adding calculated information to dataset
+dl_raw = full_join(dl_raw, x)
+
+rm(x)
 
 
+# getting all participants who did not get the reward questionnaire but filled out 42 or more probes
+
+x = dl_raw %>% 
+  group_by(id) %>% 
+  summarise(
+    n_filled_out = mean(n_filled_out, na.rm = T),
+    final_q = mean(final_q_filled, na.rm = T),
+  )
+
+```
+
+### Cleaning up, making anonymization stonger
+
+```{r}
 # Creating new id that does not include the matching information anymore
 dl_raw = dl_raw %>%
   group_by(id) %>% 

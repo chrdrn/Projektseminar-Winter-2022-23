@@ -19,14 +19,17 @@ pacman::p_load(
   kableExtra,
   jtools,
   plotly,
-  sjmisc
+  sjmisc,
+  ggpubr,
+  qqplotr,
+  lme4
   )
 
 (.packages())
 
 # Loading Dataset
 
-#### first 20 variables
+#### first 20 variables 
 
 base::ifelse(file.exists("study/data_long.Rda"),
              base::load(file = "study/data_long.Rda"),
@@ -385,6 +388,7 @@ comments = dl_raw %>%
     #replacing new line with character
   ) %>% 
   arrange(desc(form_start_date))
+
 
 table = kable(x = comments,
       #format = "simple,
