@@ -13,6 +13,7 @@ pacman::p_load(
   renv, 
   readxl,
   lubridate,
+  ggplot2,
   svglite,
   svgtools,
   knitr,

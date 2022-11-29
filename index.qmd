@@ -43,7 +43,7 @@ Folien für [Sitzung 03](content/03/index.html){target="_blank"}
 
 Folien für [Sitzung 04](content/04/index.html){target="_blank"}
 
-## 04 Datenaufbereitung IV, Voraussetzungen
+## 05 Datenaufbereitung IV, Voraussetzungen
 
 Folien für [Sitzung 05](content/05/index.html){target="_blank"}
 
