@@ -59,8 +59,9 @@ editor_options:
 #| output: FALSE
 
 base::ifelse(file.exists("compliance_overview.R"),
-             source(file = "compliance_overview.R"),
-             source(file = "../../compliance_overview.R"))
+             base::source(file = "compliance_overview.R"),
+             base::source(file = "../../compliance_overview.R"))
+
 ```
 
 ## Compliance I {auto-animate="T"}
@@ -108,45 +109,8 @@ Stand `r paste(Sys.time())`
 4.  Optionale Bonusaufgabe: Treffen Sie eine Vorhersage darüber, wie viele Personen a) die mindest-compliance für die Belohnung erreichen weden und b) eine compliance von \>= .75 erreichen -->
 ```
 ## Gemeinsame Besprechung der Compliance-Berechnung
+💻
 
-```{r}
-# We can use the following variables I have already calculated (see Git):
-#   - max_participation = Maximum number of probes that a participant can fill ou
-#     (note this is based on the da)
-#   - valid_probe = Tells us how many probes a participant filled out
-#   - day_newest = most recent date a participant filled anything out
-
-expected_compliance = dl %>% 
-  group_by(id) %>% 
-  summarise(
-    valid_probe = sum(valid_probe),
-    max_participation = mean(max_participation) ,
-    attr = .9, #let's assume attrition of 10% and that this stays constant
-    day_newest = max(day_newest),
-    max_day_newest = max(dl$day_newest, na.rm = T),
-    duration_end = mean(duration_end, na.rm =T)
-    ) %>% 
-  mutate(
-    compliance = valid_probe/max_participation
-  ) %>%
-summarise(
-    pred_compl = 
-      ifelse(
-        duration_end <= Sys.Date(),
-        compliance,
-        ifelse(
-          max_day_newest == day_newest,
-          compliance * attr,  
-          # let's assume dropout if no probe on most recent day
-          NA)
-        )
-  )
-    
-# hist(expected_compliance$pred_compl) # uncomment to get histogram 
-
-table(expected_compliance$pred_compl > .6)
-table(expected_compliance$pred_compl > .75)
-```
 
 # Mehrebenenanalyse: Refresher
 

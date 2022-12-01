@@ -1,0 +1,27 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  favicon: "images/logo_fau.svg"
+  reader-mode: true
+  page-footer: 
+   left: "Julius Klingelhoefer"
+   right:
+    - icon: github
+      href: https://github.com/klingelhoefer
+    - icon: twitter
+      href: https://twitter.com/klingelhoefer_j
+    - icon: mastodon
+      href: https://mastodon.social/@klingelhoefer
+  sidebar:
+    title: ""
+    style: "docked"
+    search: true
+
+      
+
+format:
+  html:
+    theme: journal
+    toc: true

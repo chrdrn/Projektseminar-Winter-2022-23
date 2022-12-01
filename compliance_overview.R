@@ -91,27 +91,27 @@ sample(dl$day_newest, 10)
 unique_daily = dl %>%
   filter(valid_probe) %>%
   # filter(
-  #   probe_number_daily >= 1 &
-  #   probe_number_daily <=5
+  #   probe_num >= 1 &
+  #   probe_num <=5
   # ) %>% 
   group_by(date_day) %>% 
   summarise(
     n = length(unique(id)),
     type = "Respondents",
-    probe_number_daily = NA
+    probe_nu = NA
     )
 
 forms_daily = dl %>%
   filter(valid_probe) %>% 
   # filter(
-  #  probe_number_daily >= 1 &
-  #  probe_number_daily <=5
+  #  probe_num >= 1 &
+  #  probe_num <=5
   # ) %>% 
-  group_by(date_day, probe_number_daily) %>% 
+  group_by(date_day, probe_num) %>% 
   summarise(
     n = length(id),
     type = "Forms",
-    probe_number_daily = mean(probe_number_daily)
+    probe_num = mean(probe_num)
     )
 
 n_daily = bind_rows(unique_daily, forms_daily)
@@ -119,7 +119,7 @@ n_daily = bind_rows(unique_daily, forms_daily)
 rm(unique_daily, forms_daily)
 
 daily_plot = n_daily %>% ggplot() +
-  aes(x = date_day, y = n, fill = probe_number_daily) +
+  aes(x = date_day, y = n, fill = probe_num) +
   geom_col(position = "stack") +
   facet_wrap(~ type)
 
@@ -132,7 +132,7 @@ rm(n_daily)
 
 fillout_overview = dl %>% 
   # filter(
-  #  probe_number_daily >= 1 & probe_number_daily <= 5
+  #  probe_num >= 1 & probe_num <= 5
   # ) %>%
   group_by(date_day, id) %>% 
   summarise(

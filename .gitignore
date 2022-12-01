@@ -379,3 +379,5 @@ MigrationBackup/
 FodyWeavers.xsd
 .Rproj.user
 content/02-Datenaufbereitung I/slides/.Rhistory
+
+/.quarto/

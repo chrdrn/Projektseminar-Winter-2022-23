@@ -1,5 +1,5 @@
 ---
-title: "Connecting Data"
+title: "Connecting Data and Initial Cleanup"
 author: "Julius Klingelhoefer"
 format: html
 embed-resources: true
@@ -318,45 +318,6 @@ esm_raw = esm_raw %>%
         ),
     .after = "probe_time")
 
-
-esm_raw = esm_raw %>% 
-  mutate(
-    probe_number_daily = 
-      ifelse(
-        (form == "a Situational Survey" | form == "b End of Day") & 
-          (
-            (probe_time >= "08:59" & probe_time <= "09:37") |
-            #time based on trigger not fillout, adding 1 minute to time window
-              (date_day_hm >= "08:59" & date_day_hm <= "09:37")
-            ), 
-        1,
-        ifelse(
-          (form == "a Situational Survey" | form == "b End of Day") & 
-            (
-              (probe_time >= "11:50" & probe_time <= "12:28") |
-                (date_day_hm >= "11:50" & date_day_hm <= "12:28")
-              ), 
-          2,
-          ifelse(
-            (form == "a Situational Survey" | form == "b End of Day") & 
-              (
-                (probe_time >= "14:41" & probe_time <= "15:19") |
-                (date_day_hm >= "14:41" & date_day_hm <= "15:19")  
-                ), 
-            3,
-            ifelse(
-              (form == "a Situational Survey" | form == "b End of Day") & 
-                (
-                  (probe_time >= "17:32" & probe_time <= "18:10") |
-                    (date_day_hm >= "17:32" & date_day_hm <= "18:10")
-              ), 
-              4,
-              ifelse(
-                (form == "b End of Day"), 
-                5,
-                NA
-      ))))), .before = "participant")
-
 days = esm_raw %>% 
   group_by(id) %>% 
   summarise(
@@ -378,31 +339,17 @@ print("first variables are:")
 paste(colnames(esm_raw)[1:20])
 ```
 
-### Creating filter variable for only valid, completed probes
+## Adding probe fill-out duration
 
 ```{r}
-#| echo: FALSE
-
-# adding variable to raw data set that includes only
 esm_raw = esm_raw %>% 
   mutate(
-    valid_probe = ifelse(
-      (form == "a Situational Survey" | form == "b End of Day") & is.na(missing),
-      TRUE,
-      ifelse(
-        is.na(form),
-        NA,
-        FALSE
-        )
-      ),
-  .after = "trigger")
+    dur = as.numeric(form_finish_date - form_start_date)
+  )
 
-# creating dataset with only valid probes
-# esm_complete_probes = esm_raw %>% 
-#  filter(valid_probe == T) 
+# boxplot(esm_raw$dur, ylim = c(0, 600)) # uncomment to get boxplot
 
-print("Valid probes:")
-table(esm_raw$valid_probe, useNA = "ifany")
+
 ```
 
 ### Cleaning Up Pre-Survey and Joining with ESM-Data
@@ -461,25 +408,38 @@ pre_survey_raw = pre_survey_raw %>%
       )
     )
 
-# Adding in participants who received a new ID due to technical isues
+# Adding in participants who started a new ID due to technical isues
 
 ## reading new ids
 new_ids = read_excel("study/data/new_ids.xlsx")
 
-## updating ids
 for(i in 1:length(new_ids))
-{
-pre_survey_raw = pre_survey_raw %>% 
-  mutate(
-    id = ifelse(
-      id == toString(new_ids[i, "old_id"]),
-      new_ids[i, "new_id"],
-      id
-      )
+  {
+
+## updating ids in pre-survey
+  pre_survey_raw = pre_survey_raw %>% 
+    mutate(
+      id = ifelse(
+        id == toString(new_ids[i, "old_id"]),
+        # adding new id to dataset
+        new_ids[i, "new_id"],
+        id
+        )
     )
-}
+## Changing id for existing esm probes (if any exist) 
+  esm_raw = esm_raw %>% 
+    mutate(
+      id = ifelse(
+        id == toString(new_ids[i, "old_id"]),
+        # adding new id to dataset
+        new_ids[i, "new_id"],
+        id
+        )
+    )
+  }
+
 rm(new_ids)
-paste("Updated", i, "participant's IDs due to coupling issues")
+paste("Updated", i, "participant's IDs")
 
 #converting ids in both datasets to strings
 pre_survey_raw = pre_survey_raw %>% mutate(id = as.character(id))
@@ -493,76 +453,164 @@ dl_raw = full_join(
 
 # Removing participants who requested their data deleted
 delete_requests = read_excel("study/data/delete_requests.xlsx")
-for (id_del in delete_requests["id"]) 
+for (i in 1:length(delete_requests$id)) 
   {
-  dl_raw = dl_raw %>% 
+  dl_raw = dl_raw %>%
     filter(
-      id != id_del
-    )
+      id != delete_requests$id[i]
+  )
+  print(delete_requests$id[i])
 }
-rm(delete_requests)
 
-comments = dl_raw %>%  select(id, text_comment, trigger_time) %>% filter(!is.na(text_comment))
+rm(delete_requests)
 ```
 
-### Checking whether a participant had issues receiving their reward due to the final survey coming early
+### Creating filter variable for only valid, completed probes, calculating compliance
 
 ```{r}
-dl_raw = dl_raw %>%
+# adding variable that indicates valid probes only
+### Note that movisensXS sometimes records the wrong trigger action, thus, we have to base the validity of each probe on whether the first and last item were filled out.This is additionally beneficial because it includes probes in which participants filled out the last probe of the day with the situational measurements but quit before finishing the additional questions in the end of day probe
+
+dl_raw = dl_raw %>% 
   mutate(
-    duration_start = 
-      as.Date(as.POSIXct(
-        ifelse(
-          form == "g First Day",
-          trigger_time,
-          NA),
-        origin = "1970-01-01")),
-    .after = "form"
-  ) %>% 
-  mutate(
-    duration_end = 
-      as.Date(
-        ifelse(
-          form == "g First Day",
-          duration_start + days(1) + days(13),
-          NA),
-        origin = "1970-01-01"),
-    .after = "duration_start"
+    valid_probe = ifelse(
+      # wb_ge is the first variable in each sit. questionnaire
+      !is.na(wb_ge) & 
+        #goal_conf is the last variable
+        !is.na(goal_conf), 
+      T,
+      F),
+      .after = "trigger"
     )
 
-x = dl_raw %>%
+print("Valid probes:")
+table(dl_raw$valid_probe, useNA = "ifany")
+
+# calculating compliance
+compliance = dl_raw %>%
   group_by(id) %>% 
   summarise(
-    finished_on = mean(duration_end, na.rm = T),
-    final_q_filled = mean(disco_thoughts, na.rm = T) > 0,
-    # number of filled out probes is based on:
-      # the first item being filled out and 
-      # the ESM-App reporting that a probe is not incomplete 
-    n_filled_out = sum(!is.na(wb_ge) & is.na(missing))
+    valid_probes_sum = sum(valid_probe, na.rm = T),
+    compliance = sum(valid_probe, na.rm = T)/70
   )
+table(compliance$compliance > .4)
 
-# adding calculated information to dataset
-dl_raw = full_join(dl_raw, x)
+# adding compliance information
+dl_raw = full_join(dl_raw, compliance, by = "id")
+rm(compliance)
 
-rm(x)
+# creating histogram
+# dl_raw %>% group_by(id) %>%
+#   summarise(compliance = mean(compliance)) %>%
+#   select(compliance) %>%
+#   # filter(compliance != 0) %>% # filtering out those with 0 compliance
+#   pull() %>%
+#   hist()
 
-
-# getting all participants who did not get the reward questionnaire but filled out 42 or more probes
-
-x = dl_raw %>% 
-  group_by(id) %>% 
-  summarise(
-    n_filled_out = mean(n_filled_out, na.rm = T),
-    final_q = mean(final_q_filled, na.rm = T),
-  )
-
+# Giving each observation a unique id
+dl_raw$probe_id = 1:nrow(dl_raw) 
+dl_raw = dl_raw %>% relocate("probe_id")
 ```
 
-### Cleaning up, making anonymization stonger
+### Identifying which \# of probe per day it was
+
+```{r}
+dl_raw = dl_raw %>% 
+  mutate(
+    probe_start = strftime(form_start_date, format="%H:%M:%S", tz = "UTC"),
+    trigger_time_internal = 
+      ifelse(
+        valid_probe == T,
+        ifelse(
+          str_sub(trigger, 1, 11) == "Random Time",
+          str_sub(trigger, -5),
+          NA),
+        NA),
+    .after = "id"
+  )
+
+
+dl_raw = dl_raw %>% 
+  mutate(
+    probe_num = 
+      ifelse(
+        valid_probe == T,
+        # adding 4 min. 59s to each end-time to account for delays
+        ifelse(
+          probe_start > "09:00:00" & probe_start < "09:55:59",
+          1,
+          ifelse(
+            probe_start > "11:51:00" & probe_start < "12:46:59",
+            2,
+            ifelse(
+              probe_start > "14:42:00" & probe_start < "15:37:59",
+              3,
+              ifelse(
+                probe_start > "17:33:00" & probe_start < "18:28:59",
+                4,
+                ifelse(
+                  probe_start > "20:24:00" & probe_start < "21:19:59",
+                  5,
+                  NA
+                )
+              )
+            )
+          )
+        ),
+        NA),
+    .before = "trigger"
+  ) %>% 
+  mutate(
+    probe_num = 
+      ifelse(
+        is.na(probe_num) & valid_probe == T,
+        # adding 5 min. to each end-time to account for delays
+        ifelse(
+          trigger_time_internal > "09:00" & trigger_time_internal < "09:56",
+          1,
+          ifelse(
+            trigger_time_internal > "11:51" & trigger_time_internal < "12:47",
+            2,
+            ifelse(
+              trigger_time_internal > "14:42:00" & trigger_time_internal < "15:38",
+              3,
+              ifelse(
+                trigger_time_internal > "17:33:00" & trigger_time_internal < "18:29",
+                4,
+                ifelse(
+                  trigger_time_internal > "20:24:00" & trigger_time_internal < "21:20",
+                  5,
+                  NA
+                )
+              )
+            )
+          )
+        ),
+        probe_num)
+  ) %>% 
+  mutate(
+    probe_num =
+      ifelse(
+        is.na(probe_num) & 
+          valid_probe == T &
+          probe_start > "21:00:00" &
+          probe_start < "23:59:00",
+        5,
+        probe_num)
+  )
+
+
+unidentifiable = dl_raw %>% filter(valid_probe == T)
+table(unidentifiable$probe_num, useNA = "ifany")
+rm(unidentifiable)
+```
+
+### Cleaning up, making anonymization stonger by generating new IDs
 
 ```{r}
 # Creating new id that does not include the matching information anymore
 dl_raw = dl_raw %>%
+  select(!participant) %>% 
   group_by(id) %>% 
   mutate(
   id = cur_group_id())
