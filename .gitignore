@@ -24,6 +24,8 @@
 *.json
 *.JSON
 
+.vs
+
 *.Rhistory
 
 # User-specific files (MonoDevelop/Xamarin Studio)

@@ -251,7 +251,7 @@ compliance_plot =
   theme_bw()
 
 # Compliance_plot
-ggsave("compliance_plot.svg", device = NULL, width = 7.5, height = 30)
+#ggsave("compliance_plot.svg", device = NULL, width = 7.5, height = 30)
 
 #checking compliance to see how many people would pass of those active on the current day (or the previous day,if it is after midnight and before 9 am)
 dl %>%  group_by(id) %>% 
@@ -402,4 +402,3 @@ table = kable(x = comments,
   column_spec(3, width = "20%")
 
 table
-

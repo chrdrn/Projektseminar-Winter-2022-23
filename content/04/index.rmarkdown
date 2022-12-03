@@ -1,0 +1,486 @@
+---
+title: "Projektseminar"
+subtitle: "Datenaufbereitung III"
+title-slide-attributes:
+  data-background-image: ../../images/background_dark_red.svg
+  data-background-size: cover
+  data-background-opacity: ".5"
+  data-background-color: "#041E42"
+author: 
+  - name: Julius Klingelhoefer 
+    url: https://twitter.com/klingelhoefer_j/
+    affiliation: Juniorprofessur für Kommunikationswissenschaft
+    affiliation-url: https://www.kommunikationswissenschaft.rw.fau.de/julius-klingelhoefer/
+date: "`r Sys.Date()`" 
+#date-format: "DD.MM.YYYY"
+format:
+  revealjs:
+    include-in-header: ../eventlistener.html
+    width: 1920
+    height: 1080
+    menu: false
+    toc: true
+    toc-depth: 1
+    toc-title: "Inhalt"
+    auto-animate-duration: 0.5
+    auto-animate-easing: ease-in-out
+    transition: slide
+    background-transition: fade
+    transition-speed: fast
+    theme: ../slidetheme.scss
+    fontsize: 5em
+    #template-partials:
+    slide-number: c
+    chalkboard:
+      buttons: false
+      theme: whiteboard
+    preview-links: auto
+    logo: ../../images/logo.svg
+    #footer: "[Projektseminar 22/23](https://github.com/klingelhoefer/Projektseminar-Winter-2022-23)"
+comments:
+  hypothesis: 
+    theme: clean
+execute:
+  echo: true
+filters: 
+  - ../bg_style.lua
+bibliography: references.bib
+csl: ../apa.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Erhebungs-Updates
+
+
+```{r}
+#| echo: false
+#| output: FALSE
+
+base::ifelse(file.exists("compliance_overview.R"),
+             source(file = "compliance_overview.R"),
+             source(file = "../../compliance_overview.R"))
+```
+
+
+## Von mir {auto-animate="T"}
+
+
+```{r}
+#| fig.height: 6
+#| fig.width: 20
+ggplotly(daily_plot)
+```
+
+
+Stand `r paste(Sys.time())`
+
+## Von mir {auto-animate="T"}
+
+
+```{r}
+#| echo: false
+#| fig.height: 30
+#| fig.width: 20
+ggplotly(fillout_plot)
+```
+
+
+Stand `r paste(Sys.time())`
+
+## Von mir II
+
+::: columns
+::: {.column width="50%"}
+-   Flyer:
+
+![](images/Zu%20viel%20am%20Smartphone.png){style="border: 5px solid #041E42" width="60%"}
+:::
+
+::: {.column width="50%"}
+-   WiSo-Studierendenverteiler:
+
+    -   \> 100 Anmeldungen
+
+    -   E-Mail wurde gestern versendet
+:::
+:::
+
+## Von Ihnen?
+
+-   Wie lief es bei der Rekrutierung?
+
+-   Welche Maßnahmen haben Sie durchgeführt?
+
+-   Welche Rekrutierung war besonders erfolgreich?
+
+# Arbeitsauftrag
+
+1.  Reflektieren Sie Ihre Rekrutierungsstrategie:
+    1.  Welche waren erfolgreich, welche weniger?
+
+    2.  Welche könenn noch ausgeweitet werden?
+2.  Planen Sie Ihre Strategie für die aktuelle Woche
+
+# Ziel der heutigen R-Lektionen
+
+Praktische Anwendung der Grundlagen der Variablenbearbeitung (bzw. der zentralen Befehle) der letzten Sitzungen im Kontext komplexer Transformationen
+
+-   Überprüfung der **Compliance**
+
+-   Überprüfung der Variable `time_rsi` auf **Outlier**
+
+## Filtern nach Probes
+
+-   Wie wissen wir ob es eine (vollständige) Probe handelt?
+
+-   ➡️ `filter()`
+
+
+```{r}
+dl %>% 
+  filter(
+    form == "a Situational Survey" | form == "b End of Day"
+  )%>% 
+  summary()
+```
+
+
+## Auswahl von Variablen
+
+-   ➡️ `select()`
+
+
+```{r}
+x = dl %>% 
+  select(id, disco_1:disco_5) 
+    
+colnames(x)
+```
+
+
+## Berechnung von Mittelwerten, z. B. disconnection
+
+
+```{r}
+x %>% summarise(
+  across(
+    disco_1:disco_5, mean, na.rm = T
+  ))
+```
+
+
+## Frage:
+
+Wie können wir den Mittelwert pro Person bekommen?
+
+## Berechnung von Mittelwerten pro Person
+
+
+```{r}
+#| eval: false
+
+x %>% 
+  group_by(id) %>% 
+  summarise(
+  across(
+    disco_1:disco_5, mean, na.rm = T
+  ))
+```
+
+
+## Index erstellen
+
+
+```{r}
+# dplyr
+x %>% 
+  rowwise() %>% 
+  mutate(idx_disco = 
+           mean(c_across(disco_1:disco_5), na.rm = T),
+         .before = "disco_1") %>% 
+  summary()
+
+#sjmisc
+x %>% sjmisc::row_means(., disco_1:disco_5, n = Inf, var = "idx_disco") %>% 
+  summary()
+```
+
+
+# Compliance prüfen
+
+## Überprüfung der Compliance
+
+-   Compliance ist zentral für Power
+
+-   Problem: Trade-Off zwischenCompliance und Fallzahl(verlust)
+
+## Berechnung von Compliance
+
+-   Variable `finished` gibt an, ob eine Probe vollständig ist
+
+-   Berechnung der Compliance benötigt Ermittliung der `finished` Variablen
+
+
+```{r}
+dl %>% filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  mutate(
+  Complete_Probes = ifelse(
+    is.na(missing),
+    "finished",
+    "not valid")
+  ) %>% sjPlot::plot_frq(Complete_Probes)
+```
+
+
+## Mindestanforderungen an Compliance
+
+-   *ESM Best Practices* (letztes Semester): idealerweise \>= 80%, mind. \>= 75%
+
+-   Disconnection Kontext: Wahrscheinlich etwas geringere Compliance, z. B. durch verzicht auf Smartphone
+
+-   Betrachtung wie viele Personen \>= 75%/60%/50% ausgefüllt haben
+
+## Wie könnten wir das machen? {auto-animate="T"}
+
+## Wie könnten wir das machen? {auto-animate="T"}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| eval: false
+#| echo: true
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  group_by(id) %>% 
+  summarise(
+    c = sum(is.na(missing))/70
+  ) %>% 
+  mutate(
+    c_c = 
+      ifelse(
+        c > .75,
+        "> 75",
+        ifelse(
+          c>.6,
+          "> .6",
+          ifelse(
+            c > .5,
+            "> .5",
+            "< .5"
+          )
+        )
+      )
+  ) %>% 
+  sjPlot::plot_frq(
+    c_c
+  )
+
+
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  group_by(id) %>% 
+  summarise(
+    c = sum(is.na(missing))/70
+  ) %>% 
+  mutate(
+    c_c = 
+      ifelse(
+        c > .75,
+        "> 75",
+        ifelse(
+          c>.6,
+          "> .6",
+          ifelse(
+            c > .5,
+            "> .5",
+            "< .5"
+          )
+        )
+      )
+  ) %>% 
+  sjPlot::plot_frq(
+    c_c
+  )
+
+```
+
+:::
+:::
+
+Achtung: Da die Studie erst eine Woche läuft, zeigt eine komplexere Berechnung die Compliance wahrscheinlich besser. S. GitHub für eine Darstellung basiert auf dem Datum und ausfüllbaren Probes.
+
+## `lubridate`
+
+-   Umgehen mit Datum und Uhrzeit ist schwieriger als mit "simplen" Skalendaten
+
+-   ➡️ `lubridate`-package kann helfen,
+
+-   z\. B.
+
+
+```{r}
+lubridate::day(sample(dl$trigger_date, size = 1))
+```
+
+
+## Ausfülldauer: `time_rsi` im Fokus
+
+-   Hoher wert, wenn Teilnehmer:in vergleichsweise schnell war, niedriger Wert, wenn besonders langsam (\</\> Median)
+
+
+```{r}
+x = dl %>% 
+  group_by(id) %>% 
+  summarise( # Note that this is related to the pre-survey
+    time_rsi = mean(time_rsi_pre)
+  )
+boxplot(x$time_rsi)
+```
+
+
+## Ausfülldauer der Probes
+
+
+```{r}
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  mutate(
+    dur = 
+      ifelse(
+        form_finish_date-form_start_date < 1000,
+        form_finish_date-form_start_date,
+        NA)
+  ) %>% 
+  ggpubr::ggboxplot(
+    ., "id", "dur"
+  )
+  
+```
+
+
+## Median der Ausfüldauer
+
+
+```{r}
+dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  mutate(
+    dur = form_finish_date-form_start_date
+  ) %>% 
+  ungroup() %>% 
+  summarise(
+    md = median(dur, na.rm = T)
+  )
+```
+
+
+# Arbeitsauftrag für die Sitzung
+
+1.  Führen Sie Analysen zur Compliance durch
+    1.  Finden Sie heraus, wie hoch die durchschnittliche Compliance ist. Dabei zählen nur Situations- und Tagesabschlussfragebögen
+
+    2.  Stellen Sie die Compliance tabellarisch und/oder grafisch dar
+2.  Identifizieren Sie Personen, die die Vorbefragung möglicherweise unaufmerksam ausgefüllt haben, da sie zu schnell waren (`time_rsi`)
+3.  Optionale Bonusaufgabe: Treffen Sie eine Vorhersage darüber, wie viele Personen a) die mindest-compliance für die Belohnung erreichen weden und b) eine compliance von \>= .75 erreichen
+
+# Lösung
+
+## 1.1 Durchschnittliche Compliance
+
+
+```{r}
+x = dl %>%
+  filter(form == "a Situational Survey" | form == "b End of Day") %>% 
+  group_by(id) %>% 
+  summarise(c = sum(is.na(missing))/70) %>%
+  ungroup()
+# Note: 70 is the maximum amount. Thus, compliance is relatively low until the study is completed.
+# For a better but more complicated overview see "compliance_overview.R" on GitHub.)
+x %>%  summarise(compliance = mean(c))
+```
+
+
+## 1.2 Tabellarische & Grafische Übersicht
+
+
+```{r}
+# table
+sjmisc::frq(x$c)
+
+hist(x$c)
+```
+
+
+## 2. Outlier bei der Ausfülldauer der Vorbefragung
+
+
+```{r}
+x = dl %>% select(id, time_rsi_pre) %>%
+  group_by(id) %>% summarise(id = mean(id), time_rsi = mean(time_rsi_pre)) 
+out = boxplot(x$time_rsi)
+out$out
+```
+
+
+## 3. Erwartete compliance
+
+
+```{r}
+# We can use the following variables I have already calculated (see Git):
+#   - max_participation = Maximum number of probes that a participant can fill ou
+#     (note this is based on the da)
+#   - valid_probe = Tells us how many probes a participant filled out
+#   - day_newest = most recent date a participant filled anything out
+
+
+
+expected_compliance = dl %>% 
+  group_by(id) %>% 
+  summarise(
+    valid_probe = sum(valid_probe),
+    max_participation = mean(max_participation) ,
+    attr = .9, #let's assume attrition of 10% and that this stays constant
+    day_newest = max(day_newest),
+    max_day_newest = max(dl$day_newest, na.rm = T),
+    duration_end = mean(duration_end, na.rm =T)
+    ) %>% 
+  mutate(
+    compliance = valid_probe/max_participation
+  ) %>%
+summarise(
+    pred_compl = 
+      ifelse(
+        duration_end <= Sys.Date(),
+        compliance,
+        ifelse(
+          max_day_newest == day_newest,
+          compliance * attr,  
+          # let's assume dropout if no probe on most recent day
+          NA)
+        )
+  )
+    
+# hist(expected_compliance$pred_compl) # uncomment to get histogram 
+
+table(expected_compliance$pred_compl > .6)
+table(expected_compliance$pred_compl > .75)
+```
+
+
+# Arbeitsauftrag bis nächste Woche
+
+Diese Woche nochmal *rekrutieren, rekrutieren, rekrutieren*
+
+➡️ Über Weihnachtszeit keine Erhebung
+

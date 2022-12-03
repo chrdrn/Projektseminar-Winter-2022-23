@@ -605,7 +605,56 @@ table(unidentifiable$probe_num, useNA = "ifany")
 rm(unidentifiable)
 ```
 
-### Cleaning up, making anonymization stonger by generating new IDs
+## Getting data for individual feedback
+
+```{r}
+pins = dl_raw %>% 
+  filter(
+    !is.na(feedback_pin)
+  ) %>% 
+  mutate(
+    pin_f = feedback_pin,
+    .after = "id"
+  )
+
+# identifying duplicate pins
+duplicate_pins = as.data.frame(table(pins$id)) 
+duplicate_pins$Var1 = as.character(duplicate_pins$Var1)
+
+
+
+for(i in 1:length(duplicate_pins$Freq))
+{
+  # creating additional ids
+  for(ii in 1:duplicate_pins[i, "Freq"])
+  {
+    duplicate_pins = duplicate_pins %>% 
+      mutate(
+        "id_{ii}" := ifelse(
+          Freq == ii | Freq > ii,
+          paste0(Var1, "_", ii),
+          NA))
+  }
+}
+
+#renaming id variable, adding study version
+duplicate_pins = duplicate_pins %>% 
+  rename(
+    id = Var1
+  )
+
+  
+
+
+str_split("nl213", c("nl", "yl"))[[1]][2]
+
+
+
+logging = 1
+no_logging = 2
+```
+
+## Cleaning up, making anonymization stonger by generating new IDs
 
 ```{r}
 # Creating new id that does not include the matching information anymore
