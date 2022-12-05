@@ -216,32 +216,6 @@ m0_disco %>% performance::check_outliers() %>% plot()
 
 # Fragen?
 
-<!-- ## Varying slopes & intercepts -->
-
-<!-- ![](images/paste-3B876F60.png){fig-align="center"} -->
-
-<!-- Quelle: [@gelman2007, p. 238] -->
-
-<!-- ## Random Effects Within-Between Modell (REWB) {auto-animate="T"} -->
-
-<!-- ![Rube Waddell (© Public Domain)](images/paste-16ED8EC1.png){fig-align="center"} -->
-
-<!-- ## REWB: Grundidee {auto-animate="T"} -->
-
-<!-- -   Mit Hilfe des REWB-Modells lassen sich für jede L1-Variable zwei Effekte schätzen: -->
-
-<!--     -   L1-Variable am Personenmittelwert zentriert: **within-person Effekt** -->
-
-<!--     -   L2-Personenmittelwert der L1-Variable: **between-person Effekt** -->
-
-<!-- -   Zusätzlich: -->
-
-<!--     -   weitere L1- und L2-Prädiktoren und -->
-
-<!--     -   varying slopes von L1-Prädiktoren möglich -->
-
-<!-- -    -->
-
 # Arbeitsauftrag
 
 1.  Suchen Sie sich eine für Ihre Analysen zentrale abhängige Variable heraus

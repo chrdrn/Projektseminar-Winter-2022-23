@@ -613,45 +613,84 @@ pins = dl_raw %>%
     !is.na(feedback_pin)
   ) %>% 
   mutate(
+    feedback_pin = feedback_pin,
     pin_f = feedback_pin,
     .after = "id"
-  )
+  ) %>% 
+  mutate (
+    version = 
+      ifelse(
+        str_sub(id, 1, 2) == "yl", 
+        1, 
+        ifelse(
+          str_sub(id, 1, 2) == "nl",
+          2,
+          NA
+          )
+        ),
+    .after = "id")
 
 # identifying duplicate pins
 duplicate_pins = as.data.frame(table(pins$id)) 
 duplicate_pins$Var1 = as.character(duplicate_pins$Var1)
 
+#pins = data.frame(id = pins$id, pin = pins$pin_f)
 
-
-for(i in 1:length(duplicate_pins$Freq))
+# making a dataframe that incorporates all duplicate ids
+dl_fe = NULL
+for(i in 1:length(pins$id))
 {
-  # creating additional ids
-  for(ii in 1:duplicate_pins[i, "Freq"])
-  {
-    duplicate_pins = duplicate_pins %>% 
-      mutate(
-        "id_{ii}" := ifelse(
-          Freq == ii | Freq > ii,
-          paste0(Var1, "_", ii),
-          NA))
-  }
+  x = dl_raw %>%
+    filter(id == pins$id[i]) %>% 
+    mutate(pin = pins$pin[i], .after = "id") %>% 
+    mutate(version = pins$version[i], .after = "id")
+  dl_fe = bind_rows(dl_fe, x)
 }
+rm(x)
 
-#renaming id variable, adding study version
-duplicate_pins = duplicate_pins %>% 
-  rename(
-    id = Var1
+# calculating aggregated values per probe
+dl_fe = dl_fe %>% 
+  mutate(
+    disco = rowMeans(.[, c("disco_1","disco_2","disco_3", "disco_4", "disco_5")]),
+    .after = "pin"
+    ) %>% 
+  select(
+    form_finish_date,
+    pin,
+    version, 
+    wb_ge,
+    wb_energy,
+    wb_stress,
+    wb_connect,
+    screentime_work,
+    screentime_leisure,
+    procra,
+    disco, 
+    goal_conf
+    ) %>% 
+  filter(!is.na(wb_ge)) %>% 
+  # getting date to aggregate score by day
+  mutate(
+    date = dmy(strftime(form_finish_date, format = "%d. %m. %y"))
+  ) %>% 
+  group_by(pin, version, date) %>% 
+  summarise(
+    wb_ge = mean(wb_ge, na.rm = T),
+    wb_energy = mean(wb_energy, na.rm = T),
+    wb_stress = mean(wb_stress, na.rm = T),
+    wb_connect = mean(wb_connect, na.rm = T),
+    screentime_work = mean(screentime_work, na.rm = T),
+    screentime_leisure = mean(screentime_leisure, na.rm = T),
+    procra = mean(procra,na.rm = T),
+    disco = mean(disco, na.rm = T), 
+    goal_conf = mean(goal_conf, na.rm = T)
   )
 
-  
+write.csv(dl_fe, 
+          file = "../disconnection_feedback/dl_fe.csv",
+          row.names = F)
 
-
-str_split("nl213", c("nl", "yl"))[[1]][2]
-
-
-
-logging = 1
-no_logging = 2
+x = dl_fe %>% filter(pin == 82)
 ```
 
 ## Cleaning up, making anonymization stonger by generating new IDs

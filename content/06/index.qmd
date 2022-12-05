@@ -1,0 +1,185 @@
+---
+title: "Projektseminar"
+subtitle: "Wiederholung: Grundlagen der Mehrebenenmodelle"
+title-slide-attributes:
+  data-background-image: ../../images/background_dark_red.svg
+  data-background-size: cover
+  data-background-opacity: ".5"
+  data-background-color: "#041E42"
+author: 
+  - name: Julius Klingelhoefer 
+    url: https://twitter.com/klingelhoefer_j/
+    affiliation: Juniorprofessur für Kommunikationswissenschaft
+    affiliation-url: https://www.kommunikationswissenschaft.rw.fau.de/julius-klingelhoefer/
+date: "`r Sys.Date()`" 
+#date-format: "DD.MM.YYYY"
+format:
+  revealjs:
+    include-in-header: ../eventlistener.html
+    width: 1920
+    height: 1080
+    menu: false
+    toc: true
+    toc-depth: 1
+    toc-title: "Inhalt"
+    auto-animate-duration: 0.5
+    auto-animate-easing: ease-in-out
+    transition: slide
+    background-transition: fade
+    transition-speed: fast
+    theme: ../slidetheme.scss
+    fontsize: 5em
+    #template-partials:
+    slide-number: c
+    chalkboard:
+      buttons: false
+      theme: whiteboard
+    preview-links: auto
+    logo: ../../images/logo.svg
+    #footer: "[Projektseminar 22/23](https://github.com/klingelhoefer/Projektseminar-Winter-2022-23)"
+comments:
+  hypothesis: 
+    theme: clean
+execute:
+  echo: true
+filters: 
+  - ../bg_style.lua
+bibliography: references.bib
+csl: ../apa.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+# Wiederholung: Mehrebenenalysen
+
+🔁 Letztes Semester
+
+## Wiederholung letzte Sitzung: Warum MLM?
+
+-   In der Realität (fast) überall komplexe **hierarchische Strukturen**:
+
+    -   (L1 geschachtelt in L2)
+
+-   Vernachlässigung von Mehrebenenstruktur kann falsche Aussagen produzieren
+
+-   Mehrebenenalyse
+
+    -   Kontrolliert und modelliert Abhängigkeit
+
+    -   Ermöglicht die Untersuchung des **Zusammenwirkens verschiedener Ebenen**
+
+-   Mehrebenenmodelle: konzeptionelle Erweiterung der (linearen) Regression:
+
+    -   statt OLS: (Restricted) Maximum Likehood-Schätzung
+
+    -   Großteil der Annahmen gleich wie OLS-Regression (s. letzte Sitzung, Sommersemester)
+
+## Varying slopes & intercepts
+
+Verschiedene Startpunkte und Steigungen:
+
+![](images/paste-3B876F60.png){fig-align="center"}
+
+Quelle: [@gelman2007, p. 238]
+
+# Random Effects Within-Between Modell (REWB)
+
+## REWB: Grundidee {auto-animate="T"}
+
+-   Mit Hilfe des REWB-Modells lassen sich für **jede L1-Variable zwei Effekte** schätzen:
+
+    -   L1-Variable am Personenmittelwert zentriert: **within-person Effekt**
+
+    -   L2-Personenmittelwert der L1-Variable: **between-person Effekt**
+
+-   Zusätzlich:
+
+    -   weitere L1- und L2-Prädiktoren und
+
+    -   varying slopes von L1-Prädiktoren möglich
+
+## REWB: Warum? {auto-animate="T"}
+
+-   i.d.R. interessieren uns between- ***und*** within-Effekte
+
+-   REWB-Modelle sind die allgemeinsten Modelle:
+
+    -   stärker generalisierbar als reine RE- oder FE-Modelle
+
+-   Klare Trennung von within- und between-Varianzanteilen in L1-Variablen führt zu besserem Model Fit
+
+-   Within-person Effekte:
+
+    -   Personenmittelwertzentrierung ➡️Konfundierung von L1-Prädiktoren durch L2-Einheiten wird ausgeschlossen
+
+    -   🟰 Statistische „Kontrolle" für die Person
+
+## Cross-Level Interaktionen: Ziel 
+
+-   Erklärung der Unterschiede der Steigungskoeffizienten zwischen Personen
+
+-   formal: Erklärung der zwischen L2-Einheiten variierenden Slopes auf L1-Prädiktoren
+
+## Cross-Level Interaktionen: Forschungsfrage
+
+-   Hängt der Effekt eines L1-Merkmals (X1) auf ein L1-Merkmal (Y) von einem L2-Merkmal (X2 bzw. Z) ab?
+
+::: {style="width:50%"}
+![](images/snijders_bosker_macro-micro%20relationships.PNG){width="100%"}
+:::
+
+Quelle: @snijders2012
+
+::: notes
+-   Gemeinsamkeiten/Unterschiede Moderation/Interaktion erklären
+:::
+
+## Modellspezifikation:
+
+**Modellspezifikation 🟰 Auswahl...**
+
+-   ...erklärender Variablen (und Interaktionen) im "**fixen**" Teil und
+
+-   ...variierender Steigungen (mit ihrem Kovarianzmuster) im "**varying**" Teil
+
+... unter (gleichzeitiger) Abwägungen zwischen inhaltlichen und statistischen Überlegungen
+
+**Grundsätzlich**:
+
+-   Von theoretischen Prinzipien geleitet [vgl. @snijders2012, 6.4 Model specification]
+
+-   Aber: Vereinbarung der theoretischen Empfehlungen mit der "Realität" der Daten ist oft eine Herausforderung.
+
+## Modellspezifikation: Beispiel nach @snijders2012
+
+1.  \*\*Deskriptive Analyse\*\* der Variablen (z.B. mit OLS)
+2.  Schätzung des **Nullmodells**
+3.  Fokus auf **Level-1**: Erklärung der Variabilität innerhalb des Clusters
+    1.  Auswahl wichtiger Level-1-Prädiktoren & Interaktionen
+
+    2.  Auswahl der Prädiktoren mit potenziell plausiblen varying Slopes
+
+    3.  Schätzung des Modells mit fixen (1.Schritt) und varying (2.Schritt) Effekten
+
+    4.  Überprüfung der Signifikanz der varing Slopes
+
+    5.  Überprüfung der Signifikanz der Regressionskoeffizienten
+
+    6.  *Überprüfung von im Schritt 3.2. ausgeschlossenen Prädiktoren auf varying Slopes*
+
+    7.  Überprüfung der Modelannahmen
+4.  Fokus auf **Level-2**: Erklärung der Variabilität zwischen den Clustern
+    1.  Ähnliche Schritte wie bei Level-1 unter zusätzlicher Berücksichtigung von Cross-Level-Effects
+
+# Arbeitsauftrag
+
+Überlegen Sie sich Fragen, die Ihnen vor Beginn der Auswertung noch unklar sind:
+
+1.  Bezogen auf Datenaufbereitung, Annahmen, etc. in R
+2.  Bezogen auf Methodik, Vorgehen, etc.?
+
+# Q&A-Session
+
+Welche Fragen haben Sie vor Beginn der Auswertung❓🤔
+
+# Literatur
