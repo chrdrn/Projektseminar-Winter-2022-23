@@ -10,12 +10,22 @@ editor_options:
 
 ## Setup
 
+### Recording environment for reproducibility
+
+```{r}
+# renv::init() # uncomment to initialize
+# renv::snapshot() # uncomment to create a snapshot
+# renv::restore() # uncomment to restore previous snapshot
+```
+
 ### Installing & Loading Packages
 
 ```{r}
 #| echo: FALSE
 #| output: FALSE
 
+
+# Installing and loading packages woth pacman
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   tidyverse, 
@@ -38,6 +48,8 @@ Active packages:
 
 ```{r}
 #| echo: FALSE
+
+# Getting a list of active packages
 (.packages())
 ```
 
@@ -45,7 +57,6 @@ Active packages:
 
 ```{r}
 #| echo: FALSE
-
 # getting name of  files in each directory ordered newest to oldest
 # recording which file it is in "file_origin"
 file_list = fileSnapshot("study/data/xlsx")[1] %>% data.frame(.) %>% 
@@ -69,6 +80,8 @@ file_list = fileSnapshot("study/data/xlsx")[1] %>% data.frame(.) %>%
   )
   
 # Copying newest files, overwriting old files
+## Getting the files output by the survey software for the pre-survey (soscisurvey.de) and the two versions of the esm-survey (movisens.com) and overwriting the older version of these files.
+## This was implemented to conveniently monitor the number of participants during data collection.
 paste("Copying file", file_list %>% filter(file_origin == "pre_survey") %>% .[1,1])
 file.copy(from = 
             paste0(
@@ -96,7 +109,7 @@ file.copy(from =
           to = "study/data/esm_yes_logging.xlsx", 
           overwrite = T)
 
-# Loading data
+# Loading data from the .xlsx files
 pre_survey_raw = clean_names(read_excel("study/data/pre_survey.xlsx"))
 print("loaded pre-survey")
 esm_no_logging_raw = clean_names(read_excel("study/data/esm_no_logging.xlsx"))
@@ -104,6 +117,7 @@ print("loaded study version without logging")
 esm_yes_logging_raw = clean_names(read_excel("study/data/esm_yes_logging.xlsx"))
 print("loaded study version with logging")
 
+# Removing no longer needed files
 rm(file_list)
 ```
 
@@ -288,26 +302,28 @@ esm_raw =
     -goal_conf_1
   ) %>% 
   mutate(
-    date_day = as.Date(trigger_date, "%d/%m,/%y", tz = attr(trigger_date, "tzone")),
-    time_day = format(trigger_date, format = "%H:%M:%S"),
+    date_day = 
+      as.Date(trigger_date, "%d/%m,/%y", tz = attr(trigger_date, "tzone")),
+    time_day = 
+      format(trigger_date, format = "%H:%M:%S", tz = attr(trigger_date, "tzone"),
     .before = "trigger_date"
-  )
+  ))
 rm(eod, sit) # removing no longer needed data sets
 
 # Calculating which probe number per day it was 
-esm_raw = esm_raw %>% 
-  mutate(
-    probe_time = 
-      ifelse(
-        trigger == "Button Pressed: Tagesabschluss-Fragebogen starten",
-        format(trigger_date, format = "%H:%M"),
-        ifelse(
-          str_sub(trigger, 1, 11) == "Random Time",
-          str_sub(trigger, -5),
-          NA
-        )
-      ),
-  .before = "participant")
+# esm_raw = esm_raw %>% 
+#   mutate(
+#     probe_time = 
+#       ifelse(
+#         trigger == "Button Pressed: Tagesabschluss-Fragebogen starten",
+#         format(trigger_date, format = "%H:%M"),
+#         ifelse(
+#           str_sub(trigger, 1, 11) == "Random Time",
+#           str_sub(trigger, -5),
+#           NA
+#         )
+#       ),
+#   .before = "participant")
 
 esm_raw = esm_raw %>%
   mutate(
@@ -315,8 +331,7 @@ esm_raw = esm_raw %>%
       paste0(
         hour(trigger_time), ":",
         formatC(minute(esm_raw$trigger_time), width = 2, flag = "0")
-        ),
-    .after = "probe_time")
+        ))
 
 days = esm_raw %>% 
   group_by(id) %>% 
@@ -611,6 +626,8 @@ rm(unidentifiable)
 
 ## Getting data for individual feedback
 
+These files will be used to give personalized feedback via a Shiny-App to participants who wanted to receive
+
 ```{r}
 #| echo: FALSE
 
@@ -693,11 +710,10 @@ dl_fe = dl_fe %>%
     goal_conf = mean(goal_conf, na.rm = T)
   )
 
+# Writing file to another repository that contains code for the web-app that is used to give Feedback to participants
 write.csv(dl_fe, 
           file = "../disconnection_feedback/dl_fe.csv",
           row.names = F)
-
-x = dl_fe %>% filter(pin == 82)
 ```
 
 ## Cleaning up, making anonymization stonger by generating new IDs

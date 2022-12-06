@@ -21,6 +21,69 @@ width: 0.8em;
 margin: 0 0.8em 0.2em -1.6em;
 vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 
 
@@ -2557,6 +2620,14 @@ vertical-align: -.125em;
 
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<section id="recording-environment-for-reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="recording-environment-for-reproducibility">Recording environment for reproducibility</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># renv::init() # uncomment to initialize</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># renv::snapshot() # uncomment to create a snapshot</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># renv::restore() # uncomment to restore previous snapshot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="installing-loading-packages" class="level3">
 <h3 class="anchored" data-anchor-id="installing-loading-packages">Installing &amp; Loading Packages</h3>
 <div class="cell">
@@ -2613,11 +2684,11 @@ vertical-align: -.125em;
 <pre><code>[1] &quot;first variables are:&quot;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] &quot;id&quot;               &quot;probe_time&quot;       &quot;date_day_hm&quot;      &quot;participant&quot;     
- [5] &quot;trigger&quot;          &quot;date_day&quot;         &quot;time_day&quot;         &quot;trigger_date&quot;    
- [9] &quot;trigger_time&quot;     &quot;trigger_counter&quot;  &quot;form&quot;             &quot;form_start_date&quot; 
-[13] &quot;form_start_time&quot;  &quot;form_finish_date&quot; &quot;form_finish_time&quot; &quot;form_upload_date&quot;
-[17] &quot;form_upload_time&quot; &quot;missing&quot;          &quot;wb_ge&quot;            &quot;wb_energy&quot;       </code></pre>
+<pre><code> [1] &quot;id&quot;               &quot;participant&quot;      &quot;trigger&quot;          &quot;trigger_date&quot;    
+ [5] &quot;trigger_time&quot;     &quot;trigger_counter&quot;  &quot;form&quot;             &quot;form_start_date&quot; 
+ [9] &quot;form_start_time&quot;  &quot;form_finish_date&quot; &quot;form_finish_time&quot; &quot;form_upload_date&quot;
+[13] &quot;form_upload_time&quot; &quot;missing&quot;          &quot;wb_ge&quot;            &quot;wb_energy&quot;       
+[17] &quot;wb_stress&quot;        &quot;wb_connect&quot;       &quot;procra&quot;           &quot;screentime_work&quot; </code></pre>
 </div>
 </div>
 </section>
@@ -2673,6 +2744,7 @@ FALSE  TRUE
 </section>
 <section id="getting-data-for-individual-feedback" class="level2">
 <h2 class="anchored" data-anchor-id="getting-data-for-individual-feedback">Getting data for individual feedback</h2>
+<p>These files will be used to give personalized feedback via a Shiny-App to participants who wanted to receive</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by &#39;pin&#39;, &#39;version&#39;. You can override using
@@ -2684,7 +2756,7 @@ the `.groups` argument.</code></pre>
 <h2 class="anchored" data-anchor-id="cleaning-up-making-anonymization-stonger-by-generating-new-ids">Cleaning up, making anonymization stonger by generating new IDs</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 183 137 534 161 612</code></pre>
+<pre><code>[1] 237 121 611 535 615</code></pre>
 </div>
 </div>
 </section>

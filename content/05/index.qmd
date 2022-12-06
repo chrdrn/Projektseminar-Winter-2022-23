@@ -109,8 +109,8 @@ Stand `r paste(Sys.time())`
 4.  Optionale Bonusaufgabe: Treffen Sie eine Vorhersage darüber, wie viele Personen a) die mindest-compliance für die Belohnung erreichen weden und b) eine compliance von \>= .75 erreichen -->
 ```
 ## Gemeinsame Besprechung der Compliance-Berechnung
-💻
 
+💻
 
 # Mehrebenenanalyse: Refresher
 
