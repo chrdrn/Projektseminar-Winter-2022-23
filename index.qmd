@@ -65,6 +65,10 @@ Folien für [Sitzung 04](content/04/index.html){target="_blank"}
 
 Folien für [Sitzung 05](content/05/index.html){target="_blank"}
 
+## 06 MLM-Grundlagen
+
+Folien für [Sitzung 06](content/06/index.html){target="_blank"}
+
 <br>
 
 <hr/>
