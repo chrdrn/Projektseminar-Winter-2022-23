@@ -50,7 +50,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Wiederholung: Mehrebenenalysen
+# Mehrebenenalysen
 
 🔁 Letztes Semester
 
@@ -148,7 +148,7 @@ Quelle: @snijders2012
 
 -   Von theoretischen Prinzipien geleitet [vgl. @snijders2012, 6.4 Model specification]
 
--   Aber: Vereinbarung der theoretischen Empfehlungen mit der "Realität" der Daten ist oft eine Herausforderung.
+-   Aber: Herausforderung theoretische Empfehlungen mit der "Realität" der Daten zu vereinen.
 
 ## Modellspezifikation: Beispiel nach @snijders2012
 
