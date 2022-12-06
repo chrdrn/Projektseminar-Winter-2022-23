@@ -152,7 +152,7 @@ Quelle: @snijders2012
 
 ## Modellspezifikation: Beispiel nach @snijders2012
 
-1.  \*\*Deskriptive Analyse\*\* der Variablen (z.B. mit OLS)
+1.  **Deskriptive Analyse** Variablen (z.B. mit OLS)
 2.  Schätzung des **Nullmodells**
 3.  Fokus auf **Level-1**: Erklärung der Variabilität innerhalb des Clusters
     1.  Auswahl wichtiger Level-1-Prädiktoren & Interaktionen
@@ -171,7 +171,7 @@ Quelle: @snijders2012
 4.  Fokus auf **Level-2**: Erklärung der Variabilität zwischen den Clustern
     1.  Ähnliche Schritte wie bei Level-1 unter zusätzlicher Berücksichtigung von Cross-Level-Effects
 
-# Arbeitsauftrag
+# Arbeitsauftrag I
 
 Überlegen Sie sich Fragen, die Ihnen vor Beginn der Auswertung noch unklar sind:
 
@@ -181,5 +181,22 @@ Quelle: @snijders2012
 # Q&A-Session
 
 Welche Fragen haben Sie vor Beginn der Auswertung❓🤔
+
+# Erhebungs-Updates
+
+🗞️
+
+# Arbeitsauftrag II
+
+**Überarbeiten Sie Ihren Auswertungsplan. Beantworten Sie die Fragen:**
+
+1.  Welche Schritte müssen Sie vor der Auswertung durchführen?
+2.  Wie genau werden Sie Ihre RQs und Hypothesen auswerten?
+
+Tips:
+
+-   Schauen Sie dafür gerne in die Prä-Registrierungen in Teams
+
+-   Stellen Sie in der Stunde noch Fragen und arbeiten Sie bis nächste Woche weiter an dem Plan
 
 # Literatur

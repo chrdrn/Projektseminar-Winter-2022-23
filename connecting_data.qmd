@@ -342,12 +342,14 @@ paste(colnames(esm_raw)[1:20])
 ## Adding probe fill-out duration
 
 ```{r}
+#| echo: FALSE
 esm_raw = esm_raw %>% 
   mutate(
     dur = as.numeric(form_finish_date - form_start_date)
   )
 
 # boxplot(esm_raw$dur, ylim = c(0, 600)) # uncomment to get boxplot
+median(esm_raw$dur)
 
 
 ```
@@ -468,6 +470,7 @@ rm(delete_requests)
 ### Creating filter variable for only valid, completed probes, calculating compliance
 
 ```{r}
+#| echo: FALSE
 # adding variable that indicates valid probes only
 ### Note that movisensXS sometimes records the wrong trigger action, thus, we have to base the validity of each probe on whether the first and last item were filled out.This is additionally beneficial because it includes probes in which participants filled out the last probe of the day with the situational measurements but quit before finishing the additional questions in the end of day probe
 
@@ -493,7 +496,7 @@ compliance = dl_raw %>%
     valid_probes_sum = sum(valid_probe, na.rm = T),
     compliance = sum(valid_probe, na.rm = T)/70
   )
-table(compliance$compliance > .4)
+table(compliance$compliance > .6)
 
 # adding compliance information
 dl_raw = full_join(dl_raw, compliance, by = "id")
@@ -515,6 +518,7 @@ dl_raw = dl_raw %>% relocate("probe_id")
 ### Identifying which \# of probe per day it was
 
 ```{r}
+#| echo: FALSE
 dl_raw = dl_raw %>% 
   mutate(
     probe_start = strftime(form_start_date, format="%H:%M:%S", tz = "UTC"),
@@ -608,6 +612,9 @@ rm(unidentifiable)
 ## Getting data for individual feedback
 
 ```{r}
+#| echo: FALSE
+
+
 pins = dl_raw %>% 
   filter(
     !is.na(feedback_pin)
@@ -696,6 +703,7 @@ x = dl_fe %>% filter(pin == 82)
 ## Cleaning up, making anonymization stonger by generating new IDs
 
 ```{r}
+#| echo: FALSE
 # Creating new id that does not include the matching information anymore
 dl_raw = dl_raw %>%
   select(!participant) %>% 
@@ -705,11 +713,14 @@ dl_raw = dl_raw %>%
 
 # removing old datasets
 rm(esm_raw, pre_survey_raw)
+
+sample(dl_raw$id, 5)
 ```
 
 # Exporting Dataset
 
 ```{r}
+#| echo: FALSE
 save(dl_raw, file = "study/data_long.Rda")
 print('saved file as "data_long.Rda"' )
 ```

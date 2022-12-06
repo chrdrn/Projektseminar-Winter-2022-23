@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.1.189">
 
   <meta name="author" content="Julius Klingelhoefer">
-  <meta name="dcterms.date" content="2022-12-05">
+  <meta name="dcterms.date" content="2022-12-06">
   <title>Projektseminar</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -370,7 +370,7 @@
   <h1 class="title">Projektseminar</h1>
   <p class="subtitle">Wiederholung: Grundlagen der Mehrebenenmodelle</p>
   <p class="author">Julius Klingelhoefer</p>
-  <p class="date">2022-12-05</p>
+  <p class="date">2022-12-06</p>
 </section>
 <section id="TOC">
 <nav role="doc-toc"> 
@@ -378,8 +378,10 @@
 <ul>
 <li><a href="#/wiederholung-mehrebenenalysen" id="/toc-wiederholung-mehrebenenalysen">Wiederholung: Mehrebenenalysen</a></li>
 <li><a href="#/random-effects-within-between-modell-rewb" id="/toc-random-effects-within-between-modell-rewb">Random Effects Within-Between Modell (REWB)</a></li>
-<li><a href="#/arbeitsauftrag" id="/toc-arbeitsauftrag">Arbeitsauftrag</a></li>
+<li><a href="#/arbeitsauftrag-i" id="/toc-arbeitsauftrag-i">Arbeitsauftrag I</a></li>
 <li><a href="#/qa-session" id="/toc-qa-session">Q&amp;A-Session</a></li>
+<li><a href="#/erhebungs-updates" id="/toc-erhebungs-updates">Erhebungs-Updates</a></li>
+<li><a href="#/arbeitsauftrag-ii" id="/toc-arbeitsauftrag-ii">Arbeitsauftrag II</a></li>
 <li><a href="#/literatur" id="/toc-literatur">Literatur</a></li>
 </ul>
 </nav>
@@ -497,9 +499,30 @@
 <li><p>Von theoretischen Prinzipien geleitet <span class="citation" data-cites="snijders2012">(vgl. <a href="#/literatur" role="doc-biblioref" onclick="">Snijders &amp; Bosker, 2012, p. 6.4</a> Model specification)</span></p></li>
 <li><p>Aber: Vereinbarung der theoretischen Empfehlungen mit der “Realität” der Daten ist oft eine Herausforderung.</p></li>
 </ul>
+</section>
+<section id="modellspezifikation-beispiel-nach-snijders2012" class="slide level2">
+<h2>Modellspezifikation: Beispiel nach <span class="citation" data-cites="snijders2012">Snijders &amp; Bosker (<a href="#/literatur" role="doc-biblioref" onclick="">2012</a>)</span></h2>
+<ol type="1">
+<li><strong>Deskriptive Analyse</strong> Variablen (z.B. mit OLS)</li>
+<li>Schätzung des <strong>Nullmodells</strong></li>
+<li>Fokus auf <strong>Level-1</strong>: Erklärung der Variabilität innerhalb des Clusters
+<ol type="1">
+<li><p>Auswahl wichtiger Level-1-Prädiktoren &amp; Interaktionen</p></li>
+<li><p>Auswahl der Prädiktoren mit potenziell plausiblen varying Slopes</p></li>
+<li><p>Schätzung des Modells mit fixen (1.Schritt) und varying (2.Schritt) Effekten</p></li>
+<li><p>Überprüfung der Signifikanz der varing Slopes</p></li>
+<li><p>Überprüfung der Signifikanz der Regressionskoeffizienten</p></li>
+<li><p><em>Überprüfung von im Schritt 3.2. ausgeschlossenen Prädiktoren auf varying Slopes</em></p></li>
+<li><p>Überprüfung der Modelannahmen</p></li>
+</ol></li>
+<li>Fokus auf <strong>Level-2</strong>: Erklärung der Variabilität zwischen den Clustern
+<ol type="1">
+<li>Ähnliche Schritte wie bei Level-1 unter zusätzlicher Berücksichtigung von Cross-Level-Effects</li>
+</ol></li>
+</ol>
 </section></section>
-<section id="arbeitsauftrag" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
-<h1>Arbeitsauftrag</h1>
+<section id="arbeitsauftrag-i" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Arbeitsauftrag I</h1>
 <p>Überlegen Sie sich Fragen, die Ihnen vor Beginn der Auswertung noch unklar sind:</p>
 <ol type="1">
 <li>Bezogen auf Datenaufbereitung, Annahmen, etc. in R</li>
@@ -510,6 +533,25 @@
 <section id="qa-session" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
 <h1>Q&amp;A-Session</h1>
 <p>Welche Fragen haben Sie vor Beginn der Auswertung❓🤔</p>
+</section>
+
+<section id="erhebungs-updates" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Erhebungs-Updates</h1>
+<p>🗞️</p>
+</section>
+
+<section id="arbeitsauftrag-ii" class="title-slide slide level1 inverse center" data-background-color="#971B2F">
+<h1>Arbeitsauftrag II</h1>
+<p><strong>Überarbeiten Sie Ihren Auswertungsplan. Beantworten Sie die Fragen:</strong></p>
+<ol type="1">
+<li>Welche Schritte müssen Sie vor der Auswertung durchführen?</li>
+<li>Wie genau werden Sie Ihre RQs und Hypothesen auswerten?</li>
+</ol>
+<p>Tips:</p>
+<ul>
+<li><p>Schauen Sie dafür gerne in die Prä-Registrierungen in Teams</p></li>
+<li><p>Stellen Sie in der Stunde noch Fragen und arbeiten Sie bis nächste Woche weiter an dem Plan</p></li>
+</ul>
 </section>
 
 <section id="literatur" class="title-slide slide level1 inverse smaller scrollable" data-background-color="#971B2F">
