@@ -21,6 +21,7 @@
 *.Rda
 *.Rds
 *.txt
+!runtime.txt
 *.json
 *.JSON
 
