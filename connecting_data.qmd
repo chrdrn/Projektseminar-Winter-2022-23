@@ -725,7 +725,8 @@ dl_raw = dl_raw %>%
   select(!participant) %>% 
   group_by(id) %>% 
   mutate(
-  id = cur_group_id())
+  id = cur_group_id()) %>% 
+  ungroup()
 
 # removing old datasets
 rm(esm_raw, pre_survey_raw)

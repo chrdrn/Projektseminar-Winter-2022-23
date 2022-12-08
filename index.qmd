@@ -14,9 +14,9 @@ format:
     favicon: "images/logo_fau.svg"
     # page-layout: full
     lang: de
-    # title-block-banner: true
-    # title-block-banner-color: "FFF"
+    title-block-banner: true
     css: content/index_style.css
+    #link-external-filter: '^(?:http|https):\/\/klingelhoefer.github.io'
 ---
 
 ## Anleitung
@@ -27,7 +27,14 @@ format:
 
 -   Mit `E`, dann `STRG + P` können Sie die Folien drucken (am besten Querformat, ohne Rand).
 
-## Aktuellster Foliensatz:
+## RStudio-Binder starten:
+
+::: {style="text-align:left"}
+
+[![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/klingelhoefer/Projektseminar-Winter-2022-23/HEAD?urlpath=rstudio){target="_blank"}
+:::
+
+## Foliensatz zur aktuellsten Sitzung:
 
 ```{r}
 #| echo: false
@@ -93,25 +100,25 @@ Folien für [Sitzung 06](content/06/index.html){target="_blank"}
 
 Vielen Dank an [Christoph Adrian](https://github.com/chrdrn/) für das Bereitstellen einer früheren Version der R-Inhalte dieses Kurses.
 
-<footer style = "">
-<div class = "flex-container">
+<footer style>
+
+::: flex-container
 <a href ="https://github.com/klingelhoefer" target="_blank">
 
 ::: {#logo-github}
 :::
 
-</a>
-<a href ="`r paste0('https://mastodon.social/@klingelhoefer')`" target="_blank">
+</a> <a href ="`r paste0('https://mastodon.social/@klingelhoefer')`" target="_blank">
 
 ::: {#logo-mastodon}
 :::
 
-</a>
-<a href = "https://twitter.com/klingelhoefer_j" target="_blank">
+</a> <a href = "https://twitter.com/klingelhoefer_j" target="_blank">
 
 ::: {#logo-twitter}
 :::
 
 </a>
-</div>
+:::
+
 </footer>
