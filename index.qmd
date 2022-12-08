@@ -30,6 +30,9 @@ format:
 ## RStudio-Binder starten:
 
 ::: {style="text-align:left"}
+**Achtung**: Bitte laden Sie Ihren Fortschritt im Binder regelmäßig herunter. **Alle** Daten (inkl. Skripte, Daten, Environment, etc.) gehen verloren, wenn Ihre Binder-Session inaktiv wird.
+
+[Hier](https://mybinder.org/v2/gh/klingelhoefer/Projektseminar-Winter-2022-23/HEAD?urlpath=rstudio){target="_blank"} können Sie den Binder starten:
 
 [![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/klingelhoefer/Projektseminar-Winter-2022-23/HEAD?urlpath=rstudio){target="_blank"}
 :::
