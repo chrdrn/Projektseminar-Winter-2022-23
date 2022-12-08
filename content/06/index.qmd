@@ -114,7 +114,7 @@ Quelle: [@gelman2007, p. 238]
 
     -   🟰 Statistische „Kontrolle" für die Person
 
-## Cross-Level Interaktionen: Ziel 
+## Cross-Level Interaktionen: Ziel
 
 -   Erklärung der Unterschiede der Steigungskoeffizienten zwischen Personen
 
