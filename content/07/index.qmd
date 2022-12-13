@@ -112,19 +112,21 @@ editor_options:
 
 -   Datensatz jetzt verfügbar
 
--   Sie können mit diesem Datensatz arbeiten (nach Besprechung Ihrer geplanten Analysen)
+-   Sie können mit diesem Datensatz arbeiten (**nach** Besprechung Ihrer geplanten Analysen)
 
--   Wahl des Datensatzes
+-   **Wahl des Datensatzes**
 
-    -   Sie können sich aussuchen, ob Sie mit diesem vorläufigen oder dem finalen (vsl. Ende Januar, Anfang Februar zur Verfügung stehend) rechnen wollen
+    -   Für Sie vorläufiger vs. finaler Datensatz (vsl. Januar/Februar zur Verfügung )
 
-    -   Für zweitere Option, sollten Sie Ihre Syntax bereits (größtenteils) vorbereitet haben
+    -   Für zweitere Option, sollte Syntax bereits (größtenteils) vorbereitet sein
 
 # Ihre geplanten Analysen
 
 -   Welche Pre-Processing-Schritte haben Sie vor?
 
 -   Welche Modelle wollen Sie bilden?
+
+-   ...
 
 -   Sind Fragen aufgekommen bei der Erstellung des Plans?
 
@@ -134,6 +136,8 @@ editor_options:
 
 ::: {#refs}
 :::
+
+# Fragen? {background-image="../../images/towfiqu-barbhuiya-unsplash.jpg"}
 
 # Bis nächstes Jahr! {.holidays background-image="img/artboard-studio-unsplash.jpg"}
 

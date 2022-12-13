@@ -361,115 +361,6 @@
   </script>
 
 
-
-
-  <script>
-  var particleCount = 300;
-  var particleMax   = 1000;
-  var sky           = document.querySelector('.sky');
-  var canvas        = document.createElement('canvas');
-  var ctx           = canvas.getContext('2d');
-  var width         = sky.clientWidth;
-  var height        = sky.clientHeight;
-  var i             = 0;
-  var active        = false;
-  var snowflakes    = [];
-  var snowflake;
-
-  canvas.style.position = 'absolute';
-  canvas.style.left = canvas.style.top = '0';
-
-  var Snowflake = function () {
-    this.x = 0;
-    this.y = 0;
-    this.vy = 0;
-    this.vx = 0;
-    this.r = 0;
-
-    this.reset();
-  };
-
-  Snowflake.prototype.reset = function() {
-    this.x = Math.random() * width;
-    this.y = Math.random() * -height;
-    this.vy = 1 + Math.random() * 3;
-    this.vx = 0.5 - Math.random();
-    this.r = 1 + Math.random() * 2;
-    this.o = 0.5 + Math.random() * 0.5;
-  };
-
-  function generateSnowFlakes() {
-    snowflakes = [];
-    for (i = 0; i < particleMax; i++) {
-      snowflake = new Snowflake();
-      snowflake.reset();
-      snowflakes.push(snowflake);
-    }
-  }
-
-  generateSnowFlakes();
-
-  function update() {
-    ctx.clearRect(0, 0, width, height);
-
-    if (!active) {      
-      return;
-    }
-
-    for (i = 0; i < particleCount; i++) {
-      snowflake = snowflakes[i];
-      snowflake.y += snowflake.vy;
-      snowflake.x += snowflake.vx;
-
-      ctx.globalAlpha = snowflake.o;
-      ctx.beginPath();
-      ctx.arc(snowflake.x, snowflake.y, snowflake.r, 0, Math.PI * 2, false);
-      ctx.closePath();
-      ctx.fill();
-
-      if (snowflake.y > height) {
-        snowflake.reset();
-      }
-    }
-
-    requestAnimFrame(update);
-  }
-
-  function onResize() {
-    width = sky.clientWidth;
-    height = sky.clientHeight;
-    canvas.width = width;
-    canvas.height = height;
-    ctx.fillStyle = '#FFF';
-
-    var wasActive = active;
-    active = width > 600;
-
-    if (!wasActive && active) {
-      requestAnimFrame(update);
-    }
-  }
-
-  // shim layer with setTimeout fallback
-  window.requestAnimFrame = (function() {
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-              window.setTimeout(callback, 1000 / 60);
-            };
-  })();
-
-  onResize();
-  window.addEventListener('resize', onResize, false);
-
-  sky.appendChild(canvas);
-
-  var gui = new dat.GUI();
-  gui.add(window, 'particleCount').min(1).max(particleMax).step(1).name('Particles count').onFinishChange(function() {
-    requestAnimFrame(update);
-  });
-  </script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -489,6 +380,7 @@
 <li><a href="#/der-datensatz" id="/toc-der-datensatz">Der Datensatz</a></li>
 <li><a href="#/ihre-geplanten-analysen" id="/toc-ihre-geplanten-analysen">Ihre geplanten Analysen</a></li>
 <li><a href="#/methodenr-sprechstunde" id="/toc-methodenr-sprechstunde">Methoden/R-Sprechstunde</a></li>
+<li><a href="#/fragen" id="/toc-fragen">Fragen?</a></li>
 <li><a href="#/bis-nächstes-jahr" id="/toc-bis-nächstes-jahr">Bis nächstes Jahr!</a></li>
 </ul>
 </nav>
@@ -556,11 +448,11 @@
 <h2>Datensatz</h2>
 <ul>
 <li><p>Datensatz jetzt verfügbar</p></li>
-<li><p>Sie können mit diesem Datensatz arbeiten (nach Besprechung Ihrer geplanten Analysen)</p></li>
-<li><p>Wahl des Datensatzes</p>
+<li><p>Sie können mit diesem Datensatz arbeiten (<strong>nach</strong> Besprechung Ihrer geplanten Analysen)</p></li>
+<li><p><strong>Wahl des Datensatzes</strong></p>
 <ul>
-<li><p>Sie können sich aussuchen, ob Sie mit diesem vorläufigen oder dem finalen (vsl. Ende Januar, Anfang Februar zur Verfügung stehend) rechnen wollen</p></li>
-<li><p>Für zweitere Option, sollten Sie Ihre Syntax bereits (größtenteils) vorbereitet haben</p></li>
+<li><p>Für Sie vorläufiger vs.&nbsp;finaler Datensatz (vsl. Januar/Februar zur Verfügung )</p></li>
+<li><p>Für zweitere Option, sollte Syntax bereits (größtenteils) vorbereitet sein</p></li>
 </ul></li>
 </ul>
 </section></section>
@@ -569,6 +461,7 @@
 <ul>
 <li><p>Welche Pre-Processing-Schritte haben Sie vor?</p></li>
 <li><p>Welche Modelle wollen Sie bilden?</p></li>
+<li><p>…</p></li>
 <li><p>Sind Fragen aufgekommen bei der Erstellung des Plans?</p></li>
 </ul>
 </section>
@@ -579,6 +472,11 @@
 <div id="refs" role="doc-bibliography">
 
 </div>
+</section>
+
+<section id="fragen" class="title-slide slide level1 inverse center" data-background-image="../../images/towfiqu-barbhuiya-unsplash.jpg" data-background-color="#971B2F">
+<h1>Fragen?</h1>
+
 </section>
 
 <section id="bis-nächstes-jahr" class="title-slide slide level1 holidays inverse center" data-background-image="img/artboard-studio-unsplash.jpg" data-background-color="#971B2F">
