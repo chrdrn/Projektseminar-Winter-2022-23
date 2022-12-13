@@ -78,7 +78,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#datenaufbereitung-ii" id="toc-datenaufbereitung-ii" class="nav-link" data-scroll-target="#datenaufbereitung-ii">03 Datenaufbereitung II</a></li>
   <li><a href="#datenaufbereitung-iii" id="toc-datenaufbereitung-iii" class="nav-link" data-scroll-target="#datenaufbereitung-iii">04 Datenaufbereitung III</a></li>
   <li><a href="#datenaufbereitung-iv-voraussetzungen" id="toc-datenaufbereitung-iv-voraussetzungen" class="nav-link" data-scroll-target="#datenaufbereitung-iv-voraussetzungen">05 Datenaufbereitung IV, Voraussetzungen</a></li>
-  <li><a href="#mlm-grundlagen" id="toc-mlm-grundlagen" class="nav-link" data-scroll-target="#mlm-grundlagen">06 MLM-Grundlagen</a></li>
+  <li><a href="#wiederholung-mlm-grundlagen" id="toc-wiederholung-mlm-grundlagen" class="nav-link" data-scroll-target="#wiederholung-mlm-grundlagen">06 Wiederholung MLM-Grundlagen</a></li>
+  <li><a href="#datensatz-und-geplante-analysen" id="toc-datensatz-und-geplante-analysen" class="nav-link" data-scroll-target="#datensatz-und-geplante-analysen">07 Datensatz und geplante Analysen</a></li>
   </ul>
 </nav>
 </div>
@@ -89,6 +90,9 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<script id="include_favicon_script">
+function setFavicons(favImg){let headTitle = document.querySelector('head'); let setFavicon = document.createElement('link'); setFavicon.setAttribute('rel','shortcut icon'); setFavicon.setAttribute('href',favImg); headTitle.appendChild(setFavicon);} setFavicons('images/logo_fau.svg');
+</script>
 <section id="anleitung" class="level2">
 <h2 class="anchored" data-anchor-id="anleitung">Anleitung</h2>
 <ul>
@@ -114,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell">
 
 </div>
-<p><a href="content/06/index.html"> Aktuellster Foliensatz </a></p>
+<p><a href="content/07/index.html" target="_blank"> Aktuellster Foliensatz </a></p>
 </section>
 <section id="einführungwillkommen-zurück" class="level2">
 <h2 class="anchored" data-anchor-id="einführungwillkommen-zurück">01 Einführung/Willkommen zurück</h2>
@@ -136,9 +140,13 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="datenaufbereitung-iv-voraussetzungen">05 Datenaufbereitung IV, Voraussetzungen</h2>
 <p>Folien für <a href="content/05/index.html" target="_blank">Sitzung 05</a></p>
 </section>
-<section id="mlm-grundlagen" class="level2">
-<h2 class="anchored" data-anchor-id="mlm-grundlagen">06 MLM-Grundlagen</h2>
+<section id="wiederholung-mlm-grundlagen" class="level2">
+<h2 class="anchored" data-anchor-id="wiederholung-mlm-grundlagen">06 Wiederholung MLM-Grundlagen</h2>
 <p>Folien für <a href="content/06/index.html" target="_blank">Sitzung 06</a></p>
+</section>
+<section id="datensatz-und-geplante-analysen" class="level2">
+<h2 class="anchored" data-anchor-id="datensatz-und-geplante-analysen">07 Datensatz und geplante Analysen</h2>
+<p>Folien für <a href="content/07/index.html" target="_blank">Sitzung 07</a></p>
 <p><br></p>
 <hr>
 <section id="impressum" class="level3">
@@ -408,6 +416,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http|https):\/\/klingelhoefer.github.io/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script>
 </div> <!-- /content -->

@@ -4,6 +4,9 @@ author: "Julius Klingelhoefer"
   
 format: 
   html:
+    link-external-filter: '^(?:http|https):\/\/klingelhoefer.github.io'
+    link-external-icon: true
+    link-external-newwindow: true
     toc: true
     toc-depth: 2
     toc-location: left
@@ -16,8 +19,11 @@ format:
     lang: de
     title-block-banner: true
     css: content/index_style.css
-    #link-external-filter: '^(?:http|https):\/\/klingelhoefer.github.io'
+
 ---
+<script id = "include_favicon_script">
+function setFavicons(favImg){let headTitle = document.querySelector('head'); let setFavicon = document.createElement('link'); setFavicon.setAttribute('rel','shortcut icon'); setFavicon.setAttribute('href',favImg); headTitle.appendChild(setFavicon);} setFavicons('images/logo_fau.svg');
+</script>
 
 ## Anleitung
 
@@ -53,7 +59,7 @@ for(i in 1:length(files))
 slide = max(slide)
 ```
 
-<a href="`r paste0('content/', slide, '/index.html')`"> Aktuellster Foliensatz </a>
+<a href="`r paste0('content/', slide, '/index.html')`" target ="_blank"> Aktuellster Foliensatz </a>
 
 ## 01 Einführung/Willkommen zurück
 
@@ -75,9 +81,13 @@ Folien für [Sitzung 04](content/04/index.html){target="_blank"}
 
 Folien für [Sitzung 05](content/05/index.html){target="_blank"}
 
-## 06 MLM-Grundlagen
+## 06 Wiederholung MLM-Grundlagen
 
 Folien für [Sitzung 06](content/06/index.html){target="_blank"}
+
+## 07 Datensatz und geplante Analysen
+
+Folien für [Sitzung 07](content/07/index.html){target="_blank"}
 
 <br>
 

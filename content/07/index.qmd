@@ -1,0 +1,742 @@
+---
+title: "Projektseminar"
+subtitle: "Der Datensatz und Analysepläne"
+title-slide-attributes:
+  data-background-image: ../../images/background_dark_red.svg
+  data-background-size: cover
+  data-background-opacity: ".5"
+  data-background-color: "#041E42"
+author: 
+  - name: Julius Klingelhoefer 
+    url: https://twitter.com/klingelhoefer_j/
+    affiliation: Juniorprofessur für Kommunikationswissenschaft
+    affiliation-url: https://www.kommunikationswissenschaft.rw.fau.de/julius-klingelhoefer/
+date: "`r Sys.Date()`" 
+#date-format: "DD.MM.YYYY"
+format:
+  revealjs:
+    include-in-header: ../eventlistener.html
+    width: 1920
+    height: 1080
+    menu: false
+    toc: true
+    toc-depth: 1
+    toc-title: "Inhalt"
+    auto-animate-duration: 0.5
+    auto-animate-easing: ease-in-out
+    transition: slide
+    background-transition: fade
+    transition-speed: fast
+    theme: [../slidetheme.scss, style/snow.css]
+    fontsize: 5em
+    #template-partials:
+    slide-number: c
+    chalkboard:
+      buttons: false
+      theme: whiteboard
+    preview-links: auto
+    logo: ../../images/logo.svg
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: '^(?:http|https):\/\/klingelhoefer.github.io'
+
+    #footer: "[Projektseminar 22/23](https://github.com/klingelhoefer/Projektseminar-Winter-2022-23)"
+comments:
+  hypothesis: 
+    theme: clean
+execute:
+  echo: true
+filters: 
+  - ../bg_style.lua
+bibliography: references.bib
+csl: ../apa.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+# Housekeeping🧹
+
+-   Prüfungsanmeldungen
+
+-   Binder
+
+-   Leitfaden wiss. Arbeiten
+
+## Prüfungsanmeldungen
+
+-   Sie wurden durch das Prüfungsamt angemeldet
+
+## Binder Demo
+
+<iframe src="https://klingelhoefer.github.io/Projektseminar-Winter-2022-23/">
+
+</iframe>
+
+## Leitfaden wissenschaftliches Arbeiten
+
+-   🆕Der Leitfaden wiss. Arbeiten hilft Ihnen mit allen Vorgaben zu:
+
+    -   Formatierung, Strukturierung, etc.
+
+    -   Inhaltliche Richtlinien/Kriterien
+
+    -   Uvm.
+
+-   Sie finden den Leitfaden unter: <https://faucommsci.github.io/wissenschaftliches_arbeiten>
+
+# Der Datensatz
+
+## Basisdaten
+
+-   198 Anmeldungen für Gutscheine 📈
+
+-   219 Personen mit Compliance \> .6 ✔️
+
+-   115 Personen mit Compliance \> .75 👾
+
+## Probes
+
+-   14,899 gültige Probes,
+
+-   14,916 andere Fragebögen, z. B. selbst initiierte Compliance-Checks, Eingangsfragebögen, etc.
+
+-   Davon ca.:
+
+    -   18% 1. Probe
+
+    -   je 20% 2. bis 4. Probe
+
+    -   22% 5. Probe
+
+## Datensatz
+
+-   Datensatz jetzt verfügbar
+
+-   Sie können mit diesem Datensatz arbeiten (nach Besprechung Ihrer geplanten Analysen)
+
+-   Wahl des Datensatzes
+
+    -   Sie können sich aussuchen, ob Sie mit diesem vorläufigen oder dem finalen (vsl. Ende Januar, Anfang Februar zur Verfügung stehend) rechnen wollen
+
+    -   Für zweitere Option, sollten Sie Ihre Syntax bereits (größtenteils) vorbereitet haben
+
+# Ihre geplanten Analysen
+
+-   Welche Pre-Processing-Schritte haben Sie vor?
+
+-   Welche Modelle wollen Sie bilden?
+
+-   Sind Fragen aufgekommen bei der Erstellung des Plans?
+
+# Methoden/R-Sprechstunde
+
+💻 (in Binder oder lokal)
+
+::: {#refs}
+:::
+
+# Bis nächstes Jahr! {.holidays background-image="img/artboard-studio-unsplash.jpg"}
+
+<div>
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+::: snow
+:::
+
+</div>

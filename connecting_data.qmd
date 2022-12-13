@@ -511,19 +511,22 @@ compliance = dl_raw %>%
     valid_probes_sum = sum(valid_probe, na.rm = T),
     compliance = sum(valid_probe, na.rm = T)/70
   )
+print("compliance > .6")
 table(compliance$compliance > .6)
+print("compliance > .75")
+table(compliance$compliance > .75)
 
 # adding compliance information
 dl_raw = full_join(dl_raw, compliance, by = "id")
 rm(compliance)
 
 # creating histogram
-# dl_raw %>% group_by(id) %>%
-#   summarise(compliance = mean(compliance)) %>%
-#   select(compliance) %>%
-#   # filter(compliance != 0) %>% # filtering out those with 0 compliance
-#   pull() %>%
-#   hist()
+dl_raw %>% group_by(id) %>%
+  summarise(compliance = mean(compliance)) %>%
+  select(compliance) %>%
+  filter(compliance != 0) %>% # filtering out those with 0 compliance for better visibility
+  pull() %>%
+  hist()
 
 # Giving each observation a unique id
 dl_raw$probe_id = 1:nrow(dl_raw) 
@@ -727,6 +730,12 @@ dl_raw = dl_raw %>%
   mutate(
   id = cur_group_id()) %>% 
   ungroup()
+
+# Removing one participant who entered their e-mail in the free text field
+dl_raw = dl_raw %>% 
+  filter(
+    !(str_detect(text_comment, ".com") & !is.na(text_comment))
+  )
 
 # removing old datasets
 rm(esm_raw, pre_survey_raw)
