@@ -747,6 +747,6 @@ sample(dl_raw$id, 5)
 
 ```{r}
 #| echo: FALSE
-save(dl_raw, file = "study/data_long.Rda")
+save(dl_raw, file = "study/data/data_long.Rda")
 print('saved file as "data_long.Rda"' )
 ```

@@ -13,6 +13,7 @@
 /data
 **/data
 /pretest/data
+/study/data
 
 *.csv
 *.tsv
