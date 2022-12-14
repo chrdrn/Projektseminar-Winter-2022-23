@@ -124,13 +124,15 @@ editor_options:
 
 # Ihre geplanten Analysen
 
--   Welche Pre-Processing-Schritte haben Sie vor?
+-   Besprechung der Aufgabe:
 
--   Welche Modelle wollen Sie bilden?
+    -   Welche Pre-Processing-Schritte haben Sie vor?
 
--   ...
+    -   Welche Modelle wollen Sie bilden?
 
--   Sind Fragen aufgekommen bei der Erstellung des Plans?
+    -   ...
+
+    -   Sind Fragen aufgekommen bei der Erstellung des Plans?
 
 # Methoden/R-Sprechstunde
 
