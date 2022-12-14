@@ -171,19 +171,15 @@ code::-webkit-scrollbar, .cell-output code::-webkit-scrollbar,  .cell-output-std
 
 
 
-
 // headings
 $presentation-heading-font: calibri, sans-serif !default;
 
-.citation {
-
-}
+.citation {}
 
 strong
 {
   color: $presentation-heading-color !important; 
 }
-
 
 
 /*-- scss:rules --*/
@@ -200,17 +196,8 @@ strong
 
 }
 
-
 .slide-logo {
-  display: block !important;
-  position: fixed !important;
-  top: 0 !important;
-  right: 10px !important;
-  height: 5% !important;
-  max-height: 50px !important;
-  width: auto !important;
-  color: $body-color !important;
-  //background-color: #fff !important;
+  top: 10px;
 }
 
 .slide-number, .reveal.has-logo .slide-number {
@@ -230,7 +217,7 @@ strong
 
 
 .reveal .footer a, .slide-number-a {
-  color: #971B2F !important;
+  color: $presentation-heading-color  !important;
   //text-shadow: -.25px -.25px 1px #fff, .25px -.25px 1px #fff, -.25px .25px 1px #fff, .25px .25px 1px #fff !important;
 }
 
@@ -298,3 +285,74 @@ a.external::after {
   width: .75em !important;
 }
 
+
+//changing slide number on dark background
+.has-dark-background .slide-number-a {color: white !important}
+//removing logo from slides with dark background
+.has-dark-background .slide-logo {display: none !important;}
+
+//body {background-color: #000 !important;}
+
+
+
+// Setting up automatic slide backgrounds by class
+.questions.future div::before, .questions.past div::before,
+.final.future div::before, .final.past div::before,
+{ content: ''; opacity: 0;}
+
+.questions.present div::before,
+.final.present div::before
+{content: ''; opacity: 1; transition: all 1s !important; transition-timing-function: ease-out;}
+
+.questions.future div::before, .questions.present div::before, .questions.past div::before,
+.final.future div::before, .final.present div::before, .final.past div::before,
+{
+  position:fixed;
+  width:105%;
+  height:105%;
+  top: -2.5%;
+  left: -2.5%;
+  //filter: blur(8px);
+  //-webkit-filter: blur(8px);
+}
+
+//image for question slides
+.questions.future div::before, .questions.present div::before, .questions.past div::before
+{
+  background: url('../../../../../../../images/kendal-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+//image for final slide
+.final.future div::before, .final.present div::before, .final.past div::before 
+{
+  background: url('../../../../../../../images/kevin-mccutcheon-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+//image for regular level 1 slides
+.slide-background > .slide.level1.inverse,
+.backgrounds > .slide.level1.inverse
+ {
+  background: url('../../../../../../../images/shawn-kenessey-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+  top: -2.5%;
+  left: -2.5%;
+  width:105%;
+  height:105%;
+}
+
+//setting up custom slide transitions
+section.slide.future > *, section.slide.past > *{
+  filter: opacity(0) blur(5px);
+}
+section.slide.present > * {
+  filter: opacity(1) blur(0px);
+  transition: all .5s !important;
+  transition-timing-function: ease-in-out;
+}
