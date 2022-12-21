@@ -70,12 +70,12 @@ footer a.external::after
 
 footer a:hover div {
   filter: invert(54%) sepia(84%) saturate(396%) hue-rotate(118deg) brightness(93%) contrast(96%) !important;
-  transform: scale(1.2) !important;
+  transform: scale(1.15) !important;
 }
 
 
 footer a div {
-  transition: transform .25s linear;
+  transition: transform .15s ease-in-out;
 }
 
 
