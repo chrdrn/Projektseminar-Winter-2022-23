@@ -1,0 +1,781 @@
+---
+title: "Projektseminar"
+subtitle: "Datenaufbereitung II"
+title-slide-attributes:
+  data-background-image: ../../images/background_dark_red.svg
+  data-background-size: cover
+  data-background-opacity: ".5"
+  data-background-color: "#041E42"
+author: 
+  - name: Julius Klingelhoefer 
+    url: https://twitter.com/klingelhoefer_j/
+    affiliation: Juniorprofessur für Kommunikationswissenschaft
+    affiliation-url: https://www.kommunikationswissenschaft.rw.fau.de/julius-klingelhoefer/
+date: "`r Sys.Date()`" 
+#date-format: "DD.MM.YYYY"
+format:
+  revealjs:
+    include-in-header: ../eventlistener.html
+    width: 1920
+    height: 1080
+    menu: false
+    toc: true
+    toc-depth: 1
+    toc-title: "Inhalt"
+    auto-animate-duration: 0.5
+    auto-animate-easing: ease-in-out
+    transition: slide
+    background-transition: fade
+    transition-speed: fast
+    theme: ../slidetheme.scss
+    fontsize: 5em
+    #template-partials:
+    slide-number: c
+    chalkboard:
+      buttons: false
+      theme: whiteboard
+    preview-links: auto
+    logo: ../../images/logo.svg
+    #footer: "[Projektseminar 22/23](https://github.com/klingelhoefer/Projektseminar-Winter-2022-23)"
+comments:
+  hypothesis: 
+    theme: clean
+execute:
+  echo: true
+filters: 
+  - ../bg_style.lua
+bibliography: references.bib
+csl: ../apa.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Aufgabe der letzten Woche
+
+Fragen zur R-Übung der letzten Sitzung?
+
+
+```{r setup}
+#| echo: false
+#| output: false
+
+
+# installing and activating required packages 
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, dplyr, janitor, renv, readxl, haven, visdat, naniar, dplyr, ggpubr, sjmisc)
+
+
+#_______________________
+# The following lines include code from another markdown document that are pasted here without explanations. See the pretest data cleaning and joining script for full context (not in this github repository) 
+#_______________________
+
+# Importing data from the version without logging
+d_log_f = read_excel("../../pretest/data/Momentary_Disco!+NO+LOGGING_20221020T113348+0200.xlsx")
+# creating unique IDs (to avoid conflicts with the other study version)
+d_log_f = d_log_f %>% 
+  mutate(id = paste0("nl_",Participant)) %>% 
+  mutate(version = "no_logging") %>% 
+  select(id, version, everything())
+
+
+# Importing data from the version with logging
+d_log_t = read_excel("../../pretest/data/momentary_disco_WITH_logging_20221020T113642+0200.xlsx")
+# creating unique IDs (to avoid conflicts with the other study version)
+d_log_t = d_log_t %>% 
+  mutate(id = paste0("yl_",Participant)) %>%
+  mutate(version = "with_logging") %>% 
+  select(id, version, everything())
+
+
+# Joining both datasets
+data = rbind(d_log_f, d_log_t)
+rm(d_log_f, d_log_t) # removing seperate dataframe, only keeping joined df
+
+
+# Merging variables present in the 4 daily and the one end of day questionnaire
+# moving variable names with _1 to the correct names
+x = data %>% 
+  filter(Form == "b End of Day") %>% 
+  mutate(
+    wb_ge = wb_ge_1,
+    wb_energy = wb_energy_1,
+    wb_stress = wb_stress_1,
+    wb_connect = wb_connect_1,
+    procra = procra_1,
+    screentime_work = screentime_work_1,
+    screentime_leisure = screentime_leisure_1,
+    disco_1 = disco_1_1, 
+    disco_2 = disco_1_2,
+    disco_3 = disco_1_3,
+    disco_4 = disco_1_4,
+    disco_5 = disco_1_5,
+    disco_6 = disco_1_6,
+    disco_sd = disco_sd_1,
+    motivation_distraction = motivation_distraction_1,
+    motivation_wellbeing = motivation_wellbeing_1,
+    motivation_social = motivation_social_1,
+    goal_conf_disconnection = goal_conf_disconnection_1,
+    ns_autonomy = ns_autonomy_1,
+    ns_competence = ns_competence_1,
+    ns_relatedness = ns_relatedness_1,
+    disco_desire = disco_desire_1,
+    media_category_1 = media_category_1_1,
+    media_category_2 = media_category_1_2,
+    media_category_3 = media_category_1_3,
+    media_category_4 = media_category_1_4,
+    media_category_5 = media_category_1_5,
+    media_category_6 = media_category_1_6,
+    media_category_6 = media_category_1_6,
+    media_category_7 = media_category_1_7,
+  )
+
+# filtering out all non-end of day questionnaires
+y = data %>% filter(Form != "b End of Day")
+
+# merging both filtered sets, selecting only forms with variables relevant for the analyses
+data = rbind(x, y)
+data = data %>%
+  arrange(Trigger_time) %>% 
+  arrange(id) %>% 
+  filter(Participant >= 10) %>%  
+  # IDs 1-10 were reserved for technical pretests in both versions
+  filter(Form == "a Situational Survey" | Form == "b End of Day" | Form == "c Final Survey")  
+
+# dropping variables that only contain text or non-recorded values
+na_vars = data %>%
+  summarise_all(funs(sum(is.na(.)))) 
+all_na_list = NULL
+for (i in 1:ncol(data))
+{
+  if(na_vars[1,i] == nrow(data))
+  {
+  all_na_list = append(all_na_list, colnames(na_vars[i]))
+  print(i)
+  }
+}
+all_na_list
+
+# creating a vector with all unwanted variables (e.g. movisensXS creates a variable each time more than one question question is shown per page and for every text displayed, including instructions; also removing the duplicate variables for the end of day survey that were moved to the correctly named variables earlier)
+unwanted_vars = c("wb_ge_1", "wb_energy_1", "wb_stress_1", "wb_connect_1", "procra_1", "screentime_work_1", "screentime_leisure_1", "disco_1_1", "disco_1_2", "disco_1_3", "disco_1_4", "disco_1_5", "disco_1_6", "disco_sd_1", "motivation_distraction_1", "motivation_wellbeing_1", "motivation_social_1", "goal_conf_disconnection_1", "ns_autonomy_1", "ns_competence_1", "ns_relatedness_1", "disco_desire_1", "media_category_1_1", "media_category_1_2", "media_category_1_3", "media_category_1_4", "media_category_1_5", "media_category_1_6", "media_category_1_6", "media_category_1_7", "text_0", "blank_1", "text_1", "text_2", "item_863", "item_607", "item_895", "text_3", "item_1403", "text_6", "item_902", "item_910", "item_969", "item_1057", "item_986", "item_1114", "item_1114_copy1233", "item_1114_copy1233_copy1413", "item_1478", "item_738", "item_1383", "item_753", "item_798", "item_938_copy1728", "item_1151", "item_841_copy852", "item_841", "item_1642", "item_551", "item_1519_copy1527", "item_1519","item_1366", "item_1381", "item_662", "item_670", "item_730", "item_476", "item_484", "item_646", "item_1019", "item_617", "item_633", "item_638", "item_708", "welcome_text", "welcome_text_copy527", "welcome_text_copy527_copy735", "item_1427", "item_1432", "welcome_text_copy521", "welcome_text_copy515", "item_673", "item_848_copy856", "item_848", "item_868", "item_879", "item_673_copy887", "feedback_copy896", "item_916", "item_916_copy931", "item_1443", "item_656", "item_792", "item_810", "item_820", "item_820_copy760", "item985", "item_768", "item39424")
+print(unwanted_vars)
+
+# filtering out the list of unwanted variables
+data_filtered = data %>% 
+  select(!one_of(unwanted_vars))
+
+#renaming inappropriately named variables
+data_filtered = data_filtered %>% 
+  rename(
+    motivation_distraction_day = motivation_distraction_day_copy1729,
+    motivation_wellbeing_day = motivation_wellbeing_day_copy1730,
+    motivation_social_day = motivation_social_day_copy1731,
+  )
+
+# renaming disco_6 to reflect that this item is selected if disco occurred
+data_filtered = data_filtered %>% 
+  rename(
+    no_disco = disco_6 
+  )
+
+# setting filtered data to data
+data = data_filtered
+print(colnames(data))
+
+# removing no longer needed variables/data frames
+rm(data_filtered, na_vars, x, y, all_na_list, i, unwanted_vars)
+
+
+sosci_pre_survey = read_excel("../../pretest/data/data_abschalten_2022-10-20_18-11.xlsx", col_types = "guess")
+
+#converting one double to string
+sosci_pre_survey = sosci_pre_survey %>% mutate(FI04_01 = toString(FI04_01))
+
+# note: 9 needs to be added because 1-9 were reserved for the technical pretest
+# adding 9 for both
+sosci_pre_survey = sosci_pre_survey %>% 
+  mutate(
+    movi_id_nl = UR01+9, #1 in the urn corresponds to id no. 10
+    movi_id_yl = UR02+9  #1 in the urn corresponds to id no. 10
+  ) %>% 
+  select(movi_id_nl, movi_id_yl, everything())
+
+#creating id variable for non-logging version
+sosci_pre_survey_nl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_nl)) %>% 
+  mutate(id = paste0("nl_", movi_id_nl)) %>%
+  select(id, everything())
+
+#creating id variable for logging version
+sosci_pre_survey_yl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_yl)) %>% 
+  mutate(id = paste0("yl_", movi_id_yl)) %>%
+  select(id, everything())
+
+sosci_pre_survey = rbind(sosci_pre_survey_nl, sosci_pre_survey_yl) #joining both versions
+rm(sosci_pre_survey_nl, sosci_pre_survey_yl) # removing temporary data frames
+
+data_long = merge(data, sosci_pre_survey, by = "id")
+
+
+data_long = data_long %>%
+  clean_names
+```
+
+
+# Erhebungs-Updates
+
+## Aktueller Stand der Erhebung
+
+::: columns
+::: {.column width="50%"}
+<br>
+
+<br>
+
+![Teilnehmer\*innenanzahl Experience Sampling, Stand 15.11.22, 11:40](images/paste-31EDB84F.png){fig-alt="Screenshot des movisensXS-Dashboards, das zeigt, dass in der Version ohne Logging 79, in der Version mit Logging 94 Personen teilgenommen haben"}
+:::
+
+::: {.column width="50%"}
+![Teilnehmer\*innenanzahl in der Vorbefragung, Stand 15.11.22, 11:44](images/paste-961B33A7.png){fig-alt="Graph, welcher zeigt, dass am 14. 11. knapp 200 vollständige Fragebägen und am 15.11. deutlich unter 50 Fragebögen volldtändig ausgefüllt wurden."}
+:::
+:::
+
+## Kursanforderungen
+
+-   Aktive Rekrutierung von Studienteilnehmer\*innen
+
+## Wozu laden Sie ein?
+
+-   Befragungs-Studie der FAU Erlangen-Nürnberg (FB WiSo)
+
+-   Sie haben die Studie im Rahmen Ihres Studiums in einem Kurs unter Betreuung von Julius Klingelhöfer entwickelt
+
+-   Die Befragung untersucht Wohlbefinden und (nicht-)Nutzung digitaler/sozialer Medien im Alltag
+
+-   Ziel der Studie ist, die Zusammenhänge zwischen selbstgesteuerter Mediennutzung und Wohlbefinden besser zu verstehen, um daraus Empfehlungen abzuleiten
+
+-   Die Studie besteht aus zwei Teilen:
+
+    -   Vorbefragung (ca. 15 Min.)
+
+    -   5 Kurzfragebögen pro Tag, je max. 1 Minute lang für 14 Tage (insg. max. 70 Minuten), zugestellt per Studien-App
+
+-   Alle Studienabschnitte sind vollständig anonym
+
+-   Alle Daten werden konform zur DSGVO, also nach höchsten deutschen/europäischen
+
+    Datenschutzstandards, anonym erhoben und dienen nur der Forschung (keine kommerzielle Verwendung)
+
+## Zielgruppe
+
+-   18-35 Jahre alt
+
+-   Idealerweise (halbwegs) geregelte Arbeitszeiten (Ausfüllen könnte schwierig für Schichtarbeiter\*innen, o.Ä. sein) - aber kein Ausschlusskriterium
+
+-   Besitzen ein Android-Smartphone
+
+-   Idealerweise Bereit zur Teilnahme an der gesamten Studie (Vor-, ESM- & Nachbefragung)
+
+    -   Gesamtaufwand max. 90 Minuten (realistischerweise wahrscheinlich eher 60 min.)
+
+## Wichtigste Teilnahmeanreize
+
+-   Interesse am Thema wecken ➡️ intrinsische Motivation
+
+-   Persönliche Beziehung zum/r Teilnehmer\*in; persönlicher Gefallen/Unterstützung des Studiums
+
+-   Beitrag zur Forschung: besseres Verständnis von Detox, Wohlbefinden, & Mediennutzung
+
+-   Implikationen für die Praxis
+
+-   **Monetäre Incentives**
+
+    -   Als Gutschein für beliebige Online-Shops (über Wunschgutschein.de)
+
+    -   15€ p.P. bei vollständiger Teilnahme
+
+    -   Verlosung von 100€ + 2\*50€ Gutscheinen
+
+-   **Nicht-monetäre Incentives (bei Interesse)**
+
+    -   Individuelles Feedback, grafisch aufbereitet (per Shiny-App)
+
+    -   Zusammenfassung der Studienergebnisse &/\| Tipps rund um selbstregulierte Mediennutzung
+
+## Dos and Dont's bei der Rekrutierung
+
+::: columns
+::: {.column width="50%"}
+### Dos
+
+-   Divers rekrutieren
+
+-   Gezielte, persönliche Ansprache
+
+-   Zentrale Teilnahmevoraussetzungen im Gespräch prüfen
+
+-   Teilnahmeanreize nennen ➡️ Persuasion, aber keine Nötigung
+
+-   Zusenden/Teilen des Fragebogens über Link (+Flyer)
+:::
+
+::: {.column width="50%"}
+### Don'ts
+
+-   Teilnahmevoraussetzungen ignorieren ➡️ macht allen Beteiligten Arbeit, bringt letztlich aber nichts
+
+-   konkrete Forschungsfragen oder Hypothesen nennen ➡️ gefährdet Validität der Daten
+
+-   Personen einladen, bei denen die Teilnahmechance sehr gering ist ➡️ Nachrekrutierungsaufwand
+:::
+:::
+
+## Wie Rekrutieren?
+
+::: columns
+::: {.column width="80%"}
+-   SoSci-Panel ✅
+
+-   WiSo-Verteiler 🔜
+
+-   Flyer drucken 🔜 (+ verteilen)
+
+-   Persönliches Umfeld (FtF, Messenger, E-Mail, ...)
+
+-   Soziale Netzwerke (Instagram, Facebook, ...)
+
+-   Gruppen in sozialen Netzwerken (z. B. lokale Kleinanzeigen Facebook-Gruppen, ...)
+
+-   Umfragenetzwerke, z. B. Surveycircle
+
+-   ...
+:::
+
+::: {.column width="20%"}
+![CC0, KazuN, pixabay.com](images/paste-2D1F9D83.png){fig-alt="red arrows pointing up"}
+:::
+:::
+
+## Sharepic
+
+![](images/Posting%20Studie.jpg)
+
+# Gruppenarbeit
+
+## Weitere Ideen?
+
+-   Gruppenarbeit: Brainstorming: Ideen für die Rekrutierung
+
+-   Welche Arten der Rekrutierung können Sie sich zusätzlich vorstellen?
+
+-   Ordnen Sie die Rekrutierungsmöglichkeiten nach der angenommenen Effektivität (Sie können dafür [Teams]{.teams} nutzen)
+
+-   Zeit: 15 min.
+
+# Input: Datenaufbereitung II
+
+## Ziel der Sitzungen
+
+::: columns
+::: {.column width="50%"}
+1.  Darstellung der grundlegenden Schritte der Datenaufbereitung (im Kontext eines Forschungsprojektes)
+2.  Hinweis auf spezifische Heraus- bzw. Anforderungen von ESM-Datensätzen
+3.  Vermittlung der notwendigen RFunktionen zur selbstständigen Bearbeitung der Daten
+:::
+
+::: {.column width="50%"}
+### Rückblick: Typisches Data-Science Projekt
+
+![](https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png){width="100%"}
+
+@wickham2016
+:::
+:::
+
+## Inhalte heute
+
+::: columns
+::: {.column width="50%"}
+-   Letzte Woche: Fokus auf den "ersten Schritt", d.h. auf
+
+    -   importieren
+
+    -   zusammenfügen
+
+    -   oberflächlich kontrollieren
+
+-   Heute: "zweiter Schritt":
+
+    -   Variablen über- & bearbeiten z. B.:
+
+        -   recodieren oder
+
+        -   neu erstellen (z. B. berechnen)
+:::
+
+::: {.column width="50%"}
+![@dejonge](../../images/02_pre_processing_chain.jpg){alt="@dejonge"}
+:::
+:::
+
+# Grundlagen der Variablenüberarbeitung in R
+
+Reise durch das `tidyverse` & angrenzende Galaxien (`sjmisc`)
+
+🦠 `mutate()` ⚔️ `across()` 🗃️ `group_by()` ✨ `rec()` 1️⃣ `dicho()`
+
+## Bearbeitung von Fällen {auto-animate="T"}
+
+**Fälle auswählen**
+
+![](images/paste-893B19C1.png)
+
+Quelle: @positsoftware2021
+
+## Bearbeitung von Fällen {auto-animate="T"}
+
+**Fälle sortieren**
+
+![](images/paste-F071E187.png)
+
+Quelle: @positsoftware2021
+
+## Bearbeitung von Variablen
+
+**Variablen auswählen und sortieren**
+
+![](images/paste-7F16F21B.png)
+
+Quelle: @positsoftware2021
+
+## Beispiel: Filterung nach Datentyp
+
+::: columns
+::: {.column width="50%"}
+### Basisdaten
+
+
+```{r}
+data_long %>% 
+
+  nrow()
+```
+
+:::
+
+::: {.column width="50%"}
+### Anwendung von `filter()`
+
+
+```{r}
+data_long %>% 
+  filter(form == "a Situational Survey") %>% 
+  nrow()
+```
+
+:::
+:::
+
+## Beispiel: Drop der Variable `version`
+
+::: columns
+::: {.column width="50%"}
+### Basisdaten
+
+
+```{r}
+data_long %>% 
+
+  colnames()
+```
+
+:::
+
+::: {.column width="50%"}
+### Anwendung von `select()`
+
+
+```{r}
+data_long %>% 
+  select(-version) %>% 
+  colnames()
+```
+
+:::
+:::
+
+## Bearbeitung und Erstellung von Variablen {auto-animate="T"}
+
+### Erstellung neuer Variablen
+
+![](images/paste-24095F47.png)
+
+Quelle: @positsoftware2021
+
+## Bearbeitung und Erstellung von Variablen {auto-animate="T"}
+
+### Fälle zusamenfassen
+
+![](images/paste-DC82DFB2.png)
+
+Quelle: @positsoftware2021
+
+## Bearbeitung und Erstellung von Variablen {auto-animate="T"}
+
+### Hilfreiche Selektoren
+
+![](images/paste-5DC8F4E7.png)
+
+Quelle: @positsoftware2021
+
+## Beispiel: Anpassen der ID-Variable
+
+::: columns
+::: {.column width="50%"}
+### Basisdaten
+
+
+```{r}
+data_long %>% 
+
+  
+  colnames() %>%
+  tail(., n = 1)
+mean(data_long$ur01, na.rm = T) 
+```
+
+:::
+
+::: {.column width="50%"}
+### Anwendung von `select()`
+
+
+```{r}
+data_long_plus = data_long %>% 
+  mutate(id_plus = ur01+9) 
+data_long_plus %>% 
+  colnames() %>%
+  tail(., n = 1)
+mean(data_long_plus$id_plus, na.rm = T)
+```
+
+:::
+:::
+
+## *`mutate()`*: Neu oder überarbeiten
+
+::: columns
+::: {.column width="50%"}
+### Zusätzliche Variable(n) **erstellen**
+
+
+```{r}
+data_long %>% 
+  mutate(id_plus = ur01+9) %>%   
+  colnames() %>% 
+  length
+```
+
+:::
+
+::: {.column width="50%"}
+### Bestehende Variablen **transformieren**
+
+
+```{r}
+data_long %>% 
+  mutate(ur01 = ur01+9) %>% 
+  colnames() %>% 
+  length(.)
+```
+
+:::
+:::
+
+## Beispiel: Variablenausprägungen "zählen"
+
+::: columns
+::: {.column width="50%"}
+### Einfaches Zählen mit `count()`
+
+
+```{r}
+data_long %>% 
+  count()
+```
+
+:::
+
+::: {.column width="50%"}
+### Komfortable Lösung: `frq()`
+
+
+```{r}
+data_long %>% 
+  frq(id)
+```
+
+:::
+:::
+
+## Beispiel: Neue Daten(sätze) "berechnen"
+
+::: columns
+::: {.column width="50%"}
+### Eigene Auswertung mit `summarise()`
+
+
+```{r}
+data_long %>% 
+  summarise(
+    m_round = round(mean(screentime_work, na.rm = T), digits = 2),
+    sd = sd(screentime_work, na.rm = T)
+    )
+```
+
+:::
+
+::: {.column width="50%"}
+### Komfortable Lösung: `descr()`
+
+
+```{r}
+data_long %>% 
+  select(screentime_work) %>% 
+  
+  
+  descr()
+```
+
+:::
+:::
+
+## Beispiel: Mehrere Variablen editieren (simultan)
+
+::: columns
+::: {.column width="50%"}
+### Überarbeitung **einer** Variable
+
+
+```{r}
+data_long %>% 
+  mutate(across(ur01, ~ .x+9)) %>% 
+  select(ur01)
+```
+
+:::
+
+::: {.column width="50%"}
+### Überarbeitung **mehrerer** Variablen
+
+
+```{r}
+data_long %>% 
+  mutate(across(media_category_1:media_category_7, as.factor)) %>% 
+  select(media_category_5) %>% 
+  descr()
+```
+
+:::
+:::
+
+## Gruppierung nach Variablen und Fällen
+
+::: columns
+::: {.column width="50%"}
+### Variablen
+
+![](images/paste-5EE97C30.png)
+
+**Achtung**: `ungroup()` nicht vergessen
+
+Quelle: @positsoftware2021
+:::
+
+::: {.column width="50%"}
+### Fälle
+
+![](images/paste-296C3599.png)
+
+Achtung: `ungroup()` nicht vergessen
+
+Quelle: @positsoftware2021
+:::
+:::
+
+## Beispiel: Gruppierung nach *Variable*
+
+::: columns
+::: {.column width="50%"}
+### **Ungruppierte** Auswrtung der NAs
+
+
+```{r}
+data_long %>%
+  filter(form == "a Situational Survey") %>%
+  
+  miss_case_summary()
+
+```
+
+:::
+
+::: {.column width="50%"}
+### **Gruppierte** Auswertung der NAs pro Fall
+
+
+```{r}
+data_long %>%
+  filter(form == "a Situational Survey") %>%
+  group_by(id) %>% 
+  miss_case_summary()
+```
+
+:::
+:::
+
+## Beispiel: Gruppierung nach *Fällen*
+
+-   Häufig sind fall- bzw. personenspezfische Mittel- oder Summewerte von Interesse
+
+-   `rowwise()` ist vergleichsweise "kompliziert", erlaubt aber im Gegensatz zu anderen Funktionen die direkte Umsetzung von mehreren Arbeitsschritten gleichzeitig (bezogen auf Fälle / Reihen)
+
+z\. B. Index für disconnection
+
+
+```{r}
+data_long %>%
+  rowwise() %>% 
+  mutate(disco_index = mean(c_across(starts_with("disco_")), na.rm = T)) %>% 
+  frq(disco_index)
+```
+
+
+## Weitere nützliche tidyverse-Befehle
+
+::: columns
+::: {.column width="50%"}
+![](images/paste-91D000AA.png)
+
+![](images/paste-AFB28D67.png)
+:::
+
+::: {.column width="50%"}
+![](images/paste-27E585B5.png)
+
+![](images/paste-5867612B.png)
+:::
+:::
+
+Quelle: @positsoftware2021
+
+# R-Aufgabe
+
+1.  Nutzen Sie die kennengelernten tidyverse-Funktionen, um
+    1.  ...interessierende Variablen zu erstellen
+
+    2.  ...die Messungen oder Personen in Gruppen zu unterteilen und zu vergleichen
+
+# Literatur
+

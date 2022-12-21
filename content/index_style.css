@@ -67,3 +67,7 @@ footer a.external::after
   {
     display: none;
   }
+
+footer a:hover div::before {
+  filter: invert(54%) sepia(84%) saturate(396%) hue-rotate(118deg) brightness(93%) contrast(96%) !important;
+}

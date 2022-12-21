@@ -26,6 +26,8 @@
 *.json
 *.JSON
 
+.Rhistory
+
 .vs
 
 *.Rhistory

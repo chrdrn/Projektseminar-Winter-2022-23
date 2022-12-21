@@ -1,0 +1,218 @@
+---
+title: "pretest_script"
+author: "Julius Klingelhoefer"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r}
+
+# installing and activating required packages 
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, dplyr, janitor, renv, readxl, haven, lme4)
+
+# setting up environment
+# renv::init() # only call to initialize
+# renv::snapshot() # only call if project runs successfully
+# renv::restore() # only call to restore working backup
+
+```
+
+# ESM Data Import & Filtering
+
+```{r}
+# Importing data from the version without logging
+d_log_f = read_excel("pretest/data/Momentary_Disco!+NO+LOGGING_20221020T113348+0200.xlsx")
+# creating unique IDs (to avoid conflicts with the other study version)
+d_log_f = d_log_f %>% 
+  mutate(id = paste0("nl_",Participant)) %>% 
+  mutate(version = "no_logging") %>% 
+  select(id, version, everything())
+
+
+# Importing data from the version with logging
+d_log_t = read_excel("pretest/data/momentary_disco_WITH_logging_20221020T113642+0200.xlsx")
+# creating unique IDs (to avoid conflicts with the other study version)
+d_log_t = d_log_t %>% 
+  mutate(id = paste0("yl_",Participant)) %>%
+  mutate(version = "with_logging") %>% 
+  select(id, version, everything())
+
+
+# Joining both datasets
+data = rbind(d_log_f, d_log_t)
+rm(d_log_f, d_log_t) # removing seperate dataframe, only keeping joined df
+
+
+# Merging variables present in the 4 daily and the one end of day questionnaire
+# moving variable names with _1 to the correct names
+x = data %>% 
+  filter(Form == "b End of Day") %>% 
+  mutate(
+    wb_ge = wb_ge_1,
+    wb_energy = wb_energy_1,
+    wb_stress = wb_stress_1,
+    wb_connect = wb_connect_1,
+    procra = procra_1,
+    screentime_work = screentime_work_1,
+    screentime_leisure = screentime_leisure_1,
+    disco_1 = disco_1_1, 
+    disco_2 = disco_1_2,
+    disco_3 = disco_1_3,
+    disco_4 = disco_1_4,
+    disco_5 = disco_1_5,
+    disco_6 = disco_1_6,
+    disco_sd = disco_sd_1,
+    motivation_distraction = motivation_distraction_1,
+    motivation_wellbeing = motivation_wellbeing_1,
+    motivation_social = motivation_social_1,
+    goal_conf_disconnection = goal_conf_disconnection_1,
+    ns_autonomy = ns_autonomy_1,
+    ns_competence = ns_competence_1,
+    ns_relatedness = ns_relatedness_1,
+    disco_desire = disco_desire_1,
+    media_category_1 = media_category_1_1,
+    media_category_2 = media_category_1_2,
+    media_category_3 = media_category_1_3,
+    media_category_4 = media_category_1_4,
+    media_category_5 = media_category_1_5,
+    media_category_6 = media_category_1_6,
+    media_category_6 = media_category_1_6,
+    media_category_7 = media_category_1_7,
+  )
+
+# filtering out all non-end of day questionnaires
+y = data %>% filter(Form != "b End of Day")
+
+# merging both filtered sets, selecting only forms with variables relevant for the analyses
+data = rbind(x, y)
+data = data %>%
+  arrange(Trigger_time) %>% 
+  arrange(id) %>% 
+  filter(Participant >= 10) %>%  
+  # IDs 1-10 were reserved for technical pretests in both versions
+  filter(Form == "a Situational Survey" | Form == "b End of Day" | Form == "c Final Survey")  
+
+# dropping variables that only contain text or non-recorded values
+na_vars = data %>%
+  summarise_all(funs(sum(is.na(.)))) 
+all_na_list = NULL
+for (i in 1:ncol(data))
+{
+  if(na_vars[1,i] == nrow(data))
+  {
+  all_na_list = append(all_na_list, colnames(na_vars[i]))
+  print(i)
+  }
+}
+all_na_list
+
+# creating a vector with all unwanted variables (e.g. movisensXS creates a variable each time more than one question question is shown per page and for every text displayed, including instructions; also removing the duplicate variables for the end of day survey that were moved to the correctly named variables earlier)
+unwanted_vars = c("wb_ge_1", "wb_energy_1", "wb_stress_1", "wb_connect_1", "procra_1", "screentime_work_1", "screentime_leisure_1", "disco_1_1", "disco_1_2", "disco_1_3", "disco_1_4", "disco_1_5", "disco_1_6", "disco_sd_1", "motivation_distraction_1", "motivation_wellbeing_1", "motivation_social_1", "goal_conf_disconnection_1", "ns_autonomy_1", "ns_competence_1", "ns_relatedness_1", "disco_desire_1", "media_category_1_1", "media_category_1_2", "media_category_1_3", "media_category_1_4", "media_category_1_5", "media_category_1_6", "media_category_1_6", "media_category_1_7", "text_0", "blank_1", "text_1", "text_2", "item_863", "item_607", "item_895", "text_3", "item_1403", "text_6", "item_902", "item_910", "item_969", "item_1057", "item_986", "item_1114", "item_1114_copy1233", "item_1114_copy1233_copy1413", "item_1478", "item_738", "item_1383", "item_753", "item_798", "item_938_copy1728", "item_1151", "item_841_copy852", "item_841", "item_1642", "item_551", "item_1519_copy1527", "item_1519","item_1366", "item_1381", "item_662", "item_670", "item_730", "item_476", "item_484", "item_646", "item_1019", "item_617", "item_633", "item_638", "item_708", "welcome_text", "welcome_text_copy527", "welcome_text_copy527_copy735", "item_1427", "item_1432", "welcome_text_copy521", "welcome_text_copy515", "item_673", "item_848_copy856", "item_848", "item_868", "item_879", "item_673_copy887", "feedback_copy896", "item_916", "item_916_copy931", "item_1443", "item_656", "item_792", "item_810", "item_820", "item_820_copy760", "item985", "item_768", "item39424")
+print(unwanted_vars)
+
+# filtering out the list of unwanted variables
+data_filtered = data %>% 
+  select(!one_of(unwanted_vars))
+
+#renaming inappropriately named variables
+data_filtered = data_filtered %>% 
+  rename(
+    motivation_distraction_day = motivation_distraction_day_copy1729,
+    motivation_wellbeing_day = motivation_wellbeing_day_copy1730,
+    motivation_social_day = motivation_social_day_copy1731,
+  )
+
+# renaming disco_6 to reflect that this item is selected if disco occurred
+data_filtered = data_filtered %>% 
+  rename(
+    no_disco = disco_6 
+  )
+
+# setting filtered data to data
+data = data_filtered
+print(colnames(data))
+
+# removing no longer needed variables/data frames
+rm(data_filtered, na_vars, x, y, all_na_list, i, unwanted_vars)
+```
+
+## Linking Pre-Survey
+
+```{r}
+sosci_pre_survey = read_excel("pretest/data/data_abschalten_2022-10-20_18-11.xlsx", col_types = "guess")
+
+# note: 9 needs to be added because 1-9 were reserved for the technical pretest
+# adding 9 for both
+sosci_pre_survey = sosci_pre_survey %>% 
+  mutate(
+    movi_id_nl = UR01+9, #1 in the urn corresponds to id no. 10
+    movi_id_yl = UR02+9  #1 in the urn corresponds to id no. 10
+  ) %>% 
+  select(movi_id_nl, movi_id_yl, everything())
+
+#creating id variable for non-loggign version
+sosci_pre_survey_nl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_nl)) %>% 
+  mutate(id = paste0("nl_", movi_id_nl)) %>%
+  select(id, everything())
+#creating id variable for logging version
+sosci_pre_survey_yl = sosci_pre_survey %>% 
+  filter(!is.na(movi_id_yl)) %>% 
+  mutate(id = paste0("yl_", movi_id_yl)) %>%
+  select(id, everything())
+
+sosci_pre_survey = rbind(sosci_pre_survey_nl, sosci_pre_survey_yl) #joining both versions
+rm(sosci_pre_survey_nl, sosci_pre_survey_yl) # removing temporary data frames
+
+data_long = merge(data, sosci_pre_survey, by = "id")
+
+```
+
+## Cleaning Names
+
+```{r}
+data_long = data_long %>%
+  clean_names
+```
+
+## Saving Data File
+
+```{r}
+base::save(data_long, file = "pretest/data/pretest_data_long.rda")
+
+# base::load(file = "pretest/data/pretest_data_long.Rda") # to import data
+
+# taking out one example XXXXXX DELETE LATER XXXXX
+data_long_n_1 = data_long %>%
+  filter(id == "yl_609")
+
+write.csv(data_long_n_1,"pretest/data/data_long_n_1.csv", row.names = T)
+
+```
+
+## Calculating variables
+
+```{r}
+# Creating vectors for all variables
+
+data_long = data_long %>% 
+  mutate(
+    motivation_all = rowMeans(
+      .[c("motivation_distraction", "motivation_wellbeing", "motivation_social")], 
+      na.rm = T)
+  )
+
+  
+  
+    disco_all = mean(disco_1, disco_2, disco_3, disco_4, disco_5),
+```
+
+```{r}
+#| echo: false
+2 * 2
+```
