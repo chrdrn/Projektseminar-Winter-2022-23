@@ -89,6 +89,10 @@ Folien für [Sitzung 06](content/06/index.html){target="_blank"}
 
 Folien für [Sitzung 07](content/07/index.html){target="_blank"}
 
+## 08 Beginn der Datenanalyse und Q&A
+
+Folien für [Sitzung 08](content/08/index.html){target="_blank"}
+
 <br>
 
 <hr/>

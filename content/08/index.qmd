@@ -1,0 +1,180 @@
+---
+title: "Projektseminar"
+subtitle: "Beginn der Datenanalyse und Q&A"
+title-slide-attributes:
+  data-background-image: ../../images/background_dark_red.svg
+  data-background-size: cover
+  data-background-opacity: ".5"
+  data-background-color: "#041E42"
+author: 
+  - name: Julius Klingelhoefer 
+    url: https://twitter.com/klingelhoefer_j/
+    affiliation: Juniorprofessur für Kommunikationswissenschaft
+    affiliation-url: https://www.kommunikationswissenschaft.rw.fau.de/julius-klingelhoefer/
+date: "`r Sys.Date()`" 
+date-format: "DD.MM.YYYY"
+format:
+  revealjs:
+    include-in-header: ../eventlistener.html
+    width: 1920
+    height: 1080
+    menu: false
+    toc: true
+    toc-depth: 1
+    toc-title: "Inhalt"
+    auto-animate-duration: 0.5
+    auto-animate-easing: ease-in-out
+    transition: slide
+    background-transition: fade
+    transition-speed: fast
+    theme: [../slidetheme.scss]
+    fontsize: 5em
+    #template-partials:
+    slide-number: c
+    chalkboard:
+      buttons: false
+      theme: whiteboard
+    preview-links: auto
+    logo: ../../images/logo.svg
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: '^(?:http|https):\/\/klingelhoefer.github.io'
+    resources: 
+      - "kendal-unsplash.jpg"
+    #footer: "[Projektseminar 22/23](https://github.com/klingelhoefer/Projektseminar-Winter-2022-23)"
+comments:
+  hypothesis: 
+    theme: clean
+execute:
+  echo: true
+filters: 
+  - ../bg_style.lua
+bibliography: references.bib
+csl: ../apa.csl
+editor_options: 
+  chunk_output_type: console
+---
+
+# Wilkommen zurück! {.celebrate}
+
+# Housekeeping🧹
+
+-   Wenn Sie `Binder` verwenden, jetzt starten.
+
+# Codebuch
+
+📖📈
+
+## `labelled`-Package
+
+-   Paket, um Beschreibungen und Werte für Variablen festzulegen
+
+-   Orientiert sich am SPSS- oder STATA-Format (vgl. `haven-package`)
+
+-   Wir können damit:
+
+    -   Ein Codebuch von Hand schreiben
+
+    -   Codebücher importieren
+
+    -   Codebücher exportieren
+
+    -   uvm!
+
+-   Es gibt ein [Cheat-Sheet](https://github.com/larmarange/labelled/raw/main/cheatsheet/labelled_cheatsheet.pdf)
+
+## Variablen & Werte benennen
+
+```{r}
+#| echo: false
+if (file.exists("study/data/data_long.Rda")) {
+    base::load("study/data/data_long.Rda")}
+if (file.exists("../../study/data/data_long.Rda")) {
+    base::load("../../study/data/data_long.Rda")}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  tidyverse,
+  dplyr, # loading dplyr again to avoid masking issues
+  janitor,
+  renv,
+  readxl,
+  lubridate,
+  svglite,
+  svgtools,
+  knitr,
+  kableExtra,
+  jtools,
+  sjmisc,
+  sjPlot,
+  labelled,
+  xlsx
+  )
+
+```
+
+Variable:
+
+```{r}
+dl_raw = dl_raw  %>% 
+    set_variable_labels(id = "ID: ID Variable")
+```
+
+Wert:
+
+```{r}
+dl_raw = dl_raw %>% 
+    set_value_labels(probe_num = c("Probe 1" = 1, 
+                                   "Probe 2" = 2, 
+                                   "Probe 3" = 3, 
+                                   "Probe 4" = 4, 
+                                   "Probe 5/EOD" = 5)
+    )
+```
+
+Alternativen:
+
+-   Codebuch einlesen, z. B. von SoSciSurvey zur Verfügung gestellt
+
+-   Schon belabelten Datensatz einlesen, z. B. im SPSS-Format mit `haven`
+
+## Labels ansehen
+
+```{r}
+var_label(dl_raw$id)
+
+val_labels(dl_raw$probe_num)
+```
+
+## Der belabelte Datensatz
+
+-   Steht Ihnen jetzt auf Teams zur Verfügung
+
+-   Ebenso ein Codebuch als .xlsx-Datei
+
+## Codebuch exportieren (Beispiel)
+
+```{r}
+variable = colnames(dl_raw)
+label = as.character(var_label(dl_raw))
+v = val_labels(dl_raw)
+
+values = NULL
+for (i in 1:length(v)){
+    values[i] = paste(paste(v[[i]], "=", names(v[[i]])), collapse = " / ")
+}
+
+codebook = data.frame(variable, label, values)
+codebook[3,][1]; codebook[3,][2]; codebook[3,][3]
+```
+
+## Warum ein Codebuch?
+
+-   Open Science
+
+-   Eigene Dokumentation
+
+# Live-Coding / Q&A {.coding}
+
+💻
+
+# Fragen? {.questions}

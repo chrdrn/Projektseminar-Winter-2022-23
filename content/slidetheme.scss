@@ -6,29 +6,29 @@ $font-family-sans-serif: calibri-light, sans-serif !default;
 
 //font sizes
 h1, title {
-  font-size: 3.75em !important;
+  font-size: 3em !important;
 }
 
 h2 {
-  font-size: 2.25em !important;
+  font-size: 1.5em !important;
 }
-h3 {
+h3 { 
   color:#041E42 !important;
   text-align: center !important;
-  font-size: 1.5em !important;
+  font-size: 0.75em !important;
 }
 
 .subtitle {
-  font-size: 2em !important;
+  font-size: 1.25em !important;
 }
 
 //standard paragraph
 body {
-  font-size: 1.5em !important;
+  font-size: .75em !important;
 }
 
 .cell-output, pre, .sourceCode, .date {
-  font-size: .85em !important;
+  font-size: .8em !important;
 }
 
 #TOC {
@@ -42,7 +42,7 @@ body {
 
 //font sizes for different levels of unordered lists
 ul > li, ol > li {
-  font-size: 1em !important;
+  font-size: .75em !important;
 }
 ul  li  ul > li, ol  li  ol > li, ul  li ol > li, ol li ul > li {
   font-size: smaller !important;
@@ -50,7 +50,7 @@ ul  li  ul > li, ol  li  ol > li, ul  li ol > li, ol li ul > li {
 
 //font size for regular text (not wrapped in divs etc)
 .slide > p {
-  font-size: 1.125em !important;
+  font-size: .75em !important;
 }
 
 aside {
@@ -296,16 +296,48 @@ a.external::after {
 
 
 // Setting up automatic slide backgrounds by class
+//image for regular level 1 slides
+.slide-background > .slide.level1.inverse,
+.backgrounds > .slide.level1.inverse
+ {
+  background: url('../../../../../../../images/shawn-kenessey-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
+  top: -2.5%;
+  left: -2.5%;
+  width:105%;
+  height:105%;
+}
+
+//setting up custom slide transitions
+section.slide.future > *, section.slide.past > *{
+  filter: opacity(0) blur(5px);
+}
+section.slide.present > * {
+  filter: opacity(1) blur(0px);
+  transition: all .5s !important;
+  transition-timing-function: ease-in-out;
+}
+
+
 .questions.future div::before, .questions.past div::before,
 .final.future div::before, .final.past div::before,
+.celebrate.future div::before, .celebrate.past div::before,
+.coding.future div::before, .coding.past div::before,
 { content: ''; opacity: 0;}
 
 .questions.present div::before,
-.final.present div::before
+.final.present div::before,
+.celebrate.present div::before,
+.coding.present div::before,
 {content: ''; opacity: 1; transition: all 1s !important; transition-timing-function: ease-out;}
 
 .questions.future div::before, .questions.present div::before, .questions.past div::before,
 .final.future div::before, .final.present div::before, .final.past div::before,
+.celebrate.future div::before, .celebrate.present div::before, .celebrate.past div::before,
+.coding.future div::before, .coding.present div::before, .coding.past div::before,
 {
   position:fixed;
   width:105%;
@@ -332,27 +364,18 @@ a.external::after {
   background-position: center;
 }
 
-//image for regular level 1 slides
-.slide-background > .slide.level1.inverse,
-.backgrounds > .slide.level1.inverse
- {
-  background: url('../../../../../../../images/shawn-kenessey-unsplash.jpg');
+//image for celebrate slide
+.celebrate.future div::before, .celebrate.present div::before, .celebrate.past div::before 
+{
+  background: url('../../../../../../../images/yair-mejia-unsplash.jpg');
   background-size: cover;
   background-position: center;
-  filter: blur(10px);
-  -webkit-filter: blur(10px);
-  top: -2.5%;
-  left: -2.5%;
-  width:105%;
-  height:105%;
 }
 
-//setting up custom slide transitions
-section.slide.future > *, section.slide.past > *{
-  filter: opacity(0) blur(5px);
-}
-section.slide.present > * {
-  filter: opacity(1) blur(0px);
-  transition: all .5s !important;
-  transition-timing-function: ease-in-out;
+//image for coding slide
+.coding.future div::before, .coding.present div::before, .coding.past div::before 
+{
+  background: url('../../../../../../../images/ellen-melin-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
 }
