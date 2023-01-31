@@ -93,6 +93,15 @@ Folien für [Sitzung 07](content/07/index.html){target="_blank"}
 
 Folien für [Sitzung 08](content/08/index.html){target="_blank"}
 
+## 09-10 Keine Slides, Live Coding
+
+Keine Quarto Slides
+
+## 11 Grafiken
+
+Folien für [Sitzung 11](content/11/index.html){target="_blank"}
+
+
 <br>
 
 <hr/>

@@ -387,3 +387,5 @@ FodyWeavers.xsd
 content/02-Datenaufbereitung I/slides/.Rhistory
 
 /.quarto/
+
+/.luarc.json
