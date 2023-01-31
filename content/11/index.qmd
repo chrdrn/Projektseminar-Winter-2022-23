@@ -251,16 +251,10 @@ p
 ::: columns
 ::: {.column width="50%"}
 ```{r}
-# getting slope and intercept for regression line
 p = ggplot(data = dl_raw) +
   aes(x = wb_energy, y = wb_connect) +
-  geom_jitter() +
-  geom_abline(
-    slope = lm$coefficients[2],
-    intercept = lm$coefficients[1],
-    size = 2,
-    color = "maroon"
-      ) +
+  geom_jitter() + 
+  geom_abline(slope = lm$coefficients[2], intercept = lm$coefficients[1], size = 2, color = "maroon") +
   ggtitle("Scatterplot des Zusammenhangs von Verbundenheit und Energie") +
   ylab("Verbundenheit") +
   xlab("Energie")
@@ -285,15 +279,7 @@ library(jtools)
 p = ggplot(data = dl_raw) +
   aes(x = wb_energy, y = wb_connect) +
   geom_jitter() +
-  geom_abline(
-    slope = lm$coefficients[2],
-    intercept = lm$coefficients[1],
-    size = 2,
-    color = "maroon"
-      ) +
-  ggtitle("Scatterplot des Zusammenhangs von Verbundenheit und Energie") +
-  ylab("Verbundenheit") +
-  xlab("Energie") +
+  geom_abline(slope = lm$coefficients[2], intercept = lm$coefficients[1], size = 2, color = "maroon")+ ggtitle("Scatterplot des Zusammenhangs von Verbundenheit und Energie") +  ylab("Verbundenheit") + xlab("Energie") +
   theme_apa()
 ```
 :::
@@ -306,11 +292,64 @@ p
 :::
 :::
 
-## Bonus: Interactive Graphs
+## Themes {auto-animate="T"}
+
+::: columns
+::: {.column width="50%"}
+```{r}
+library(jtools)
+
+p = ggplot(data = dl_raw) +
+  aes(x = wb_energy, y = wb_connect) +
+  geom_jitter() +
+  geom_abline(slope = lm$coefficients[2], intercept = lm$coefficients[1], size = 2, color = "maroon")+ ggtitle("Scatterplot des Zusammenhangs von Verbundenheit und Energie") +  ylab("Verbundenheit") + xlab("Energie") +
+  theme_apa() +
+  theme(text = element_text(size = 25)) 
+
+  
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+p
+```
+:::
+:::
+
+## Bonus: Interactive Graphs I
 
 ```{r}
 # interactive figure with plotly package
 ggplotly(p, width = 900, height = 500)
+```
+
+## Bonus: Interactive Graphs II
+
+```{r}
+#| echo: false
+
+x = NULL; y = NULL
+x[1] = dl_raw %>% filter(valid_probe) %>% rowwise %>% mutate(disco_all = sum(disco_1:disco_5)) %>% select(disco_all) %>% table(.) %>% .[[2]]; y[1] = "Any disconnection"
+x[2] = dl_raw %>% filter(valid_probe) %>% select(disco_1) %>% table(.) %>% .[[2]]; y[2] = "Devices"
+x[3] = dl_raw %>% filter(valid_probe) %>% select(disco_2) %>% table(.) %>% .[[2]]; y[3] = "Applications"
+x[4] = dl_raw %>% filter(valid_probe) %>% select(disco_3) %>% table(.) %>% .[[2]]; y[4] = "Features"
+x[5] = dl_raw %>% filter(valid_probe) %>% select(disco_4) %>% table(.) %>% .[[2]]; y[5] = "Interactions"
+x[6] = dl_raw %>% filter(valid_probe) %>% select(disco_5) %>% table(.) %>% .[[2]]; y[6] = "Content"
+x[7] = dl_raw %>% filter(valid_probe) %>% select(disco_5) %>% table(.) %>% .[[2]]; y[7] = "No disconnection"
+d = data.frame(x,y)
+
+d$y <- factor(d$y, levels = d$y)
+
+p = ggplot(data = d, aes(x = y, y = x)) +
+  geom_col(fill=c("black", "#000952", "#09407f", "#0e5d97", "#168ec0", "#1cb3de", "gray")) +
+  theme_bw() +
+  labs(x = "Disconnection type", y = "Frequency") +
+  theme(text = element_text(size = 30)) 
+
+ggplotly(p, width = 1920, height=800)
+
 ```
 
 # Grafische Analyse von Voraussetzungen
@@ -355,12 +394,12 @@ p
 :::
 :::
 
-## Beispiel: Varianzhomogenität
+## Beispiel: Outlier
 
 ::: columns
 ::: {.column width="50%"}
 ```{r}
-p = performance::check_model(m0, check = "homogeneity")
+p = performance::check_model(m0, check = "outliers")
 
 ```
 :::
