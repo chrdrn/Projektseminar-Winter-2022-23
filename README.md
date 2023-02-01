@@ -2,7 +2,7 @@
 
 ## Zur Kursseite
 
-[hier](https://github.com/klingelhoefer/Projektseminar-Winter-2022-23/deployments/activity_log?environment=github-pages) geht es zur Kursseite
+[hier](https://klingelhoefer.github.io/Projektseminar-Winter-2022-23/) geht es zur Kursseite
 
 ## Informationen
 
