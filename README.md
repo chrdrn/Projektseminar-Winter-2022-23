@@ -1,4 +1,4 @@
-# Projektseminar_Winter_2022_23
+# Projektseminar Wintersemester 2022/23
 
 ## Informationen
 
